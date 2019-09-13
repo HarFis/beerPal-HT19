@@ -7,7 +7,7 @@ var postSchema = new Schema({
     location: { type: mongoose.Schema.Types.ObjectId, ref: 'location'},
     dateAndTime: {type: Date},
     postOwner: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-    taggedUsers: {type: mongoose.Schema.Types.ObjectId, ref 'user'},
+    taggedUsers: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
     //image: {}  TO_DO
     
 });
