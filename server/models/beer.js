@@ -6,7 +6,7 @@ var beerSchema = new Schema({
     brewery: { type: mongoose.Schema.Types.ObjectId, ref : 'brewery'},
     type: { type: String },
     alcohol: { type: float},
-    avarageRating: { mongoose.Schema.Types.ObjectId, ref : 'review'},
+    avarageRating: [{ mongoose.Schema.Types.ObjectId, ref : 'review'}],
     //TODO IMAGE
     
 });
