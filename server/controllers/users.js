@@ -36,7 +36,15 @@ router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findByIdAndUpdate(id, req.body, 
         {overwrite : true, new : true}, function(err) {
+        if (err){return next(err)}
+        res.status(200).json({'message' : 'Updated Successfully'})
+    });
+});
 
+//Updates the user with the given ID
+router.patch('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findByIdAndUpdate(id, req.body, function(err) {
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });
