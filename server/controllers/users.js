@@ -31,10 +31,20 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+// Replaces the user with the given ID
+router.put('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findByIdAndUpdate(id, req.body, 
+        {overwrite : true, new : true}, function(err) {
+
+        if (err){return next(err)}
+        res.status(200).json({'message' : 'Updated Successfully'})
+    });
+});
+
 // Delete the user with the given ID
 router.delete('/:id', function(req, res, next) {
-    var id = req.params.id;
-    User.findOneAndDelete({_id: id}, function(err, camel) {
+    User.findOneAndDelete({_id: id}, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
