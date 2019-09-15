@@ -9,6 +9,10 @@ var history = require('connect-history-api-fallback');
 var beersController = require('./controllers/beers');
 var breweriesController = require('./controllers/breweries');
 var usersController = require('./controllers/users');
+var locationsController = require('./controllers/locations');
+var reviewsController = require('./controllers/reviews');
+
+
 
 
 // Variables
@@ -42,7 +46,15 @@ app.get('/api', function(req, res) {
 
 app.use('/api/beers', beersController);
 app.use('/api/breweries', breweriesController);
+// Route for users
 app.use('/api/users', usersController);
+
+// Route for locations
+app.use('/api/locations', locationsController);
+
+// Route for reviews
+app.use('/api/reviews', reviewsController);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
