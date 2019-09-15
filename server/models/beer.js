@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 var beerSchema = new Schema({
     name: { type: String} ,
-    brewery: { type: mongoose.Schema.Types.ObjectId, ref : 'brewery'},
+    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery'},
     type: { type: String },
-    alcohol: { type: float},
-    avarageRating: [{ mongoose.Schema.Types.ObjectId, ref : 'review'}],
+    alcohol: { type: Number},
+    averageRating: { type : Number}
     //TODO IMAGE
     
 });
