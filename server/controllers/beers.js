@@ -5,7 +5,31 @@ var Beer = require('../models/beer');
 
 //Return a list of all Beers
 router.get('/', function(req, res, next) {
+    var type = req.query.type;
+    var sort = req.query.sort;
+    if(type||sort){next(); return;};
     Beer.find(function(err, beers) {
+        if (err) { return next(err); }
+        res.json({'beers': beers});
+    });
+});
+
+//Return a list of all Beers with a given type
+router.get('/', function(req, res, next) {
+    var type = req.query.type;
+    var sort = req.query.sort;
+    if(sort){next(); return;}
+    Beer.find({'type' : type}).exec(function(err, beers) {
+        if (err) { return next(err); }
+        res.json({'beers': beers});
+    });
+});
+
+//Return a list of all Beers sorted by alcohol
+router.get('/', function(req, res, next) {
+    var sort = req.query.sort;
+    console.log(sort);
+    Beer.find().sort({'alcohol' : 1}).exec(function(err, beers) {
         if (err) { return next(err); }
         res.json({'beers': beers});
     });
