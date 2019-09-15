@@ -1,21 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var Location = require('../models/location');
+var mongoose = require('mongoose')
+
+
+// Create a new location
+router.post('/', function(req, res, next) {
+    var location = new Location({
+        name: req.body.name,
+        typeOfLocation: req.body.typeoflocation
+    });
+    location.save(function(err) {
+        if (err) { return next(err); }
+        res.status(201).json(location);
+    });
+});
 
 // Return a list of all locations
 router.get('/', function(req, res, next) {
     Location.find(function(err, locations) {
         if (err) { return next(err); }
-        res.json({'location': locations});
-    });
-});
-
-// Create a new location
-router.post('/', function(req, res, next) {
-    var location = new Location(req.body);
-    location.save(function(err) {
-        if (err) { return next(err); }
-        res.status(201).json(location);
+        res.status(200).json({'location': locations});
     });
 });
 
@@ -27,9 +32,24 @@ router.get('/:id', function(req, res, next) {
         if (location === null) {
             return res.status(404).json({'message': 'Location not found'});
         }
-        res.json(location);
+        res.status(200).json(location);
     });
 });
+
+// Update (partially) a location with the given ID
+router.patch('/:id', function (req,res,next){
+    var id = req.params.id;
+    Location.update({_id: id}, { $set: req.body}, function(err,location) {
+        if (err) { return next(err); }
+        if (location === null) {
+            return res.status(404).json({'message': 'Location not found'});
+        }
+        res.json(location); 
+    });
+});
+
+// Update (completely) a location with the given ID 
+// TODO: change to real PUT
 
 // Delete the location with the given ID
 router.delete('/:id', function(req, res, next) {
