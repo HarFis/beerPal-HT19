@@ -11,7 +11,7 @@ var breweriesController = require('./controllers/breweries');
 var usersController = require('./controllers/users');
 var locationsController = require('./controllers/locations');
 var reviewsController = require('./controllers/reviews');
-
+var camelsController = require('./controllers/camels')
 
 
 
@@ -54,6 +54,9 @@ app.use('/api/locations', locationsController);
 
 // Route for reviews
 app.use('/api/reviews', reviewsController);
+
+// Route for camels
+app.use('/api/camels', camelsController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
