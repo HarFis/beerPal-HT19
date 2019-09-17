@@ -44,8 +44,10 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
 });
 
+//Route for beers and breweries
 app.use('/api/beers', beersController);
 app.use('/api/breweries', breweriesController);
+
 // Route for users
 app.use('/api/users', usersController);
 

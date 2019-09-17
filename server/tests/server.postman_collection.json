@@ -1,210 +1,609 @@
 {
 	"info": {
-		"_postman_id": "f1f0dc69-72ef-44ee-9bda-dfac8a907469",
+		"_postman_id": "1827b645-0933-4836-86b1-e5962e757913",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET /api",
-			"event": [
+			"name": "/beers",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "c67a5d47-3a70-45b0-8001-b37eb933382f",
-						"exec": [
-							""
+					"name": "GET /api/beers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /api/camels",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							"// Save and read environment variables",
-							"",
-							"// 1) Create an environment in Postman:",
-							"// https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments",
-							"",
-							"// 2) Save reponse data in environment variable",
-							"var jsonData = pm.response.json();",
-							"var camelId = jsonData._id",
-							"pm.environment.set(\"camel_id\", camelId);",
-							"",
-							"// 3) Use variable in later requests via {{variable}}",
-							"// GET {{host}}/api/camels/{{camel_id}}",
-							"var getCamelId = pm.variables.get(\"camel_id\");",
-							"",
-							"// Test assertion examples",
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"Body has correct color and position\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.color).to.eql(\"orange\");",
-							"    pm.expect(jsonData.position).to.eql(7);",
-							"});",
-							"",
-							"pm.test(\"Body has _id\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData._id).to.be.a('String');",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
 					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"color\": \"orange\",\n\t\"position\": 7\n}\n"
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}/api/camels",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"camels"
-					],
-					"query": [
+				{
+					"name": "GET api/beers/:id",
+					"event": [
 						{
-							"key": "",
-							"value": ""
+							"listen": "test",
+							"script": {
+								"id": "2656e32f-d0f1-4f8a-8aab-0638e75fae14",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5535664-0f5f-434b-a1a5-ea32a3c146b2",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"beer_id\", jsonData._id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Pripps Blå\",\n\t\"type\" : \"Ljus Lager\",\n\t\"brewery\" : \"5d7cc6986d15c52684656eac\",\n\t\"alcohol\" : 5.0\n\t\n} "
+						},
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/beers/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT api/beers/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"Smålands\", \"type\" : \"Pilsner\", \"alcohol\" : 5.2 , \"averageRating\" : 3 }"
+						},
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						},
+						"description": "Update beer with given key to Smålands"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/beers/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\" : \"IPA\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						},
+						"description": "Set brewery to key 5d7cc6986d15c52684656eac"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/beers/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"alcohol\" : 7}"
+						},
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						},
+						"description": "Update beer with given ID to have type IPA"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/beers/?type=IPA",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers?type=Pilsner",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Pilsner"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/beers?sort=+alcohol",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers?sort=+alcohol",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "+alcohol"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GET /api/camels",
-			"event": [
+			"name": "/breweries",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							""
+					"name": "GET /api/breweries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api/camels",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"camels"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
+						"url": {
+							"raw": "{{host}}/api/breweries",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries"
+							]
+						},
+						"description": "Gets all breweries"
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/breweries/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET /api/camels/:id",
-			"event": [
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api/camels/{{camel_id}}",
-					"host": [
-						"{{host}}"
+					"name": "POST /api/breweries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a8c47c2-cf7f-49b1-af73-5b8f71620316",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"api",
-						"camels",
-						"{{camel_id}}"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Åbro Bryggeri\",\n\t\"adress\" : \"Åbrovägen 13, 598 40 Vimmerby\",\n\t\"link\" : \"www.abro.se\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/breweries",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries"
+							]
+						},
+						"description": "Creates brewery \"Åbro Bryggeri\""
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/breweries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a8c47c2-cf7f-49b1-af73-5b8f71620316",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Spendrups Bryggeri\",\n\t\"link\" : \"www.spendrups.se\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/breweries",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries"
+							]
+						},
+						"description": "Creates brewery \"Åbro Bryggeri\""
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/breweries/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT api/breweries/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Carlsberg Sverige AB\",\n\t\"adress\" : \"Årstadvägen 6, 311 44 Falkenberg\",\n\t\"link\" : \"https://carlsbersverige.se\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/breweries/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"avgRating\" : 5}"
+						},
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
+						},
+						"description": "Update beer with given ID to have type IPA"
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/breweries/:id/beers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}",
+								"beers"
+							]
+						},
+						"description": "Gets all beers for one brewery"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "7e800163-8a55-4e5e-9612-c424073c185b",
+				"id": "d975f47a-0c30-4b14-9a18-444a05e3c883",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -214,7 +613,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ee0c97da-ae53-475a-9016-45bcfd424105",
+				"id": "a96e3f77-bcc3-4610-96af-b342f4a31698",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -224,7 +623,7 @@
 	],
 	"variable": [
 		{
-			"id": "cd185905-a834-4211-8030-583d17702534",
+			"id": "ec1d12a6-f747-46ab-9be1-345ebcc210b1",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
