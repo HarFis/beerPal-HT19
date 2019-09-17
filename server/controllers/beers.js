@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Beer = require('../models/beer');
+var mongoose = require('mongoose');
 
 /*------------
 -----GET------
@@ -50,6 +51,9 @@ router.get('/', function(req, res, next) {
 // Return the beer with the given ID
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+    }
     Beer.findById(id, function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {
@@ -87,6 +91,9 @@ router.delete('/', function(req, res, next) {
 // Delete the beer with the given ID
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+    }
     Beer.findOneAndDelete({_id: id}, function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {
@@ -122,6 +129,9 @@ router.put('/', function(req, res, next) {
 // Update the beer with the given idea
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+    }
     Beer.findById({_id: id}, function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {
@@ -163,6 +173,9 @@ router.patch('/', function(req, res, next) {
 // Partially update the beer with the given ID
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+    }
     Beer.findById({_id: id}, function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {

@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Brewery = require('../models/brewery');
 var Beer = require('../models/beer');
+var mongoose = require('mongoose');
+
+/*------------
+-----GET------
+------------*/
 
 //Return a list of all Breweries
 router.get('/', function(req, res, next) {
@@ -10,6 +15,40 @@ router.get('/', function(req, res, next) {
         res.json({'breweries': breweries});
     });
 });
+
+// Return the Brewery with the given ID
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
+    Brewery.findById(id, function(err, brewery) {
+        if (err) { return next(err); }
+        if (brewery === null) {
+            return res.status(404).json({'message': 'Brewery not found'});
+        }
+        res.json(brewery);
+    });
+});
+
+//Return all beers for a brewery
+router.get('/:id/beers', function(req, res, next) {
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
+    Beer.find({brewery : id}).exec(function(err, beers) {
+        if (err) { return next(err); }
+        if (beers === null) {
+            return res.status(404).json({'message': 'Beers not found'});
+        }
+        res.json(beers);
+    });
+});
+
+/*------------
+-----POST-----
+------------*/
 
 // Create a new Brewery
 router.post('/', function(req, res, next) {
@@ -20,36 +59,16 @@ router.post('/', function(req, res, next) {
     });
 });
 
-// Return the Brewery with the given ID
-router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    Brewery.findById(id, function(err, brewery) {
-        if (err) { return next(err); }
-        if (brewery === null) {
-            return res.status(404).json({'message': 'Brewery not found'});
-        }
-        res.json(brewery);
-    });
-});
-
-
-
-//Return all beers for a brewery
-router.get('/:id/beers', function(req, res, next) {
-    var id = req.params.id;
-    Beer.find({brewery : id}).exec(function(err, beers) {
-        if (err) { return next(err); }
-        if (beers === null) {
-            return res.status(404).json({'message': 'Beers not found'});
-        }
-        res.json(beers);
-    });
-});
-
+/*------------
+---DELETE-----
+------------*/
 
 // Delete the Brewery with the given ID
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
     Brewery.findOneAndDelete({_id: id}, function(err, brewery) {
         if (err) { return next(err); }
         if (brewery === null) {
@@ -59,9 +78,16 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+/*------------
+-----PUT------
+------------*/
+
 // Update the Brewery with the given idea
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
     Brewery.findById({_id: id}, function(err, brewery) {
         if (err) { return next(err); }
         if (brewery === null) {
@@ -76,9 +102,16 @@ router.put('/:id', function(req, res, next) {
     });
 });
 
+/*------------
+----PATCH-----
+------------*/
+
 // Partially update the brewery with the given ID
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
     Brewery.findById({_id: id}, function(err, brewery) {
         if (err) { return next(err); }
         if (brewery === null) {
