@@ -5,12 +5,12 @@ var postOwner = require('../models/user');
 var postSchema = new Schema({
     title: { type: String} ,
     review: { type: mongoose.Schema.Types.ObjectId, 
-        ref : 'review'},
+        ref : 'reviews'},
     location: { type: mongoose.Schema.Types.ObjectId, 
-        ref: 'location'},
+        ref: 'locations'},
     dateAndTime: {type: Date, default : Date.now()},
     postOwner: {type: mongoose.Schema.Types.ObjectId, 
-        ref: 'user'},
+        ref: 'users', required: true},
     taggedUsers: [String],
     //image: {}  TO_DO
     

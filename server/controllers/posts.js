@@ -7,14 +7,31 @@ var Review = require ('../models/review');
 
 // Return a list of all posts
 router.get('/', function(req, res, next, ) {
-    var populateUsers = ({path: 'users', select: 'username'});
+    var populateOwner = ({path: 'users', select: 'username'});
     Post.find({})
         .populate('reviews')
         .populate('locations')
-        .populate(populateUsers).exec
-        (function(err, post)
+        .populate('postOwner', 'username')
+        .exec(function(err, post)
          {
         if (err) { return next(err); }
+        res.json(post);
+    });
+});
+
+// Return the post with the given ID
+router.get('/:id', function(req, res, next) {
+    console.log("HERE")
+    var id = req.params.id;
+    Post.findById(id)
+        .populate('reviews')
+        .populate('locations')
+        .populate('postOwner', 'username')
+        .exec(function(err, post) {
+        if (err) { return next(err); }
+        if (post === null) {
+            return res.status(404).json({'message': 'Post not found'});
+        }
         res.json(post);
     });
 });
@@ -22,15 +39,16 @@ router.get('/', function(req, res, next, ) {
 
 // Create a new post
 router.post('/', function(req, res, next) {
-    var post = new Post(req.body);
-    console.log(post);
-    var userId = post.param.postOwner;
-    console.log(userId);
+    if (!req.body.postOwner){
+        return res.status(400)
+        .json({'message': 'requires postowner'})
+        }
+    var post = new Post(req.body);    
+    var userId = req.body.postOwner;
     post.save(function(err) {
         if (err) { return next(err);
          };
-         User.findByIdAndUpdate(
-             userId,
+         User.findByIdAndUpdate( userId,
              {$push : {"posts": post._id}}
          ).populate('posts')
         res.status(201).json(post);
@@ -38,21 +56,7 @@ router.post('/', function(req, res, next) {
 });
 
 
-// Return the post with the given ID
-router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    var populateOwner = ({path: 'users', select: 'username'});
-    Post.findById
-    .populate('reviews')
-    .populate('locations')
-    .populate(populateOwner)(id, function(err, post) {
-        if (err) { return next(err); }
-        if (post === null) {
-            return res.status(404).json({'message': 'Post not found'});
-        }
-        res.json(user);
-    });
-});
+
 
 // Replaces the post with the given ID
 router.put('/:id', function(req, res, next) {
@@ -76,12 +80,12 @@ router.patch('/:id', function(req, res, next) {
 // Delete the post with the given ID
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
-    Post.findOneAndDelete({_id: id}, function(err, user) {
+    Post.findOneAndDelete({_id : id}, function(err, user) {
         if (err) { return next(err); }
-        if (post === null) {
+        if (Post === null) {
             return res.status(404).json({'message': 'Post not found'});
         }
-        res.json(post);
+        res.status(200).json({'message': 'Deleted'});
     });
 });
 
