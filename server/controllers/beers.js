@@ -28,11 +28,17 @@ router.get('/', function(req, res, next) {
 //Return a list of all Beers sorted by alcohol
 router.get('/', function(req, res, next) {
     var sort = req.query.sort;
-    console.log(sort);
-    Beer.find().sort({'alcohol' : 1}).exec(function(err, beers) {
-        if (err) { return next(err); }
-        res.json({'beers': beers});
-    });
+    if(sort.charAt(0) == '-'){
+        Beer.find().sort({'alcohol' : -1}).exec(function(err, beers) {
+            if (err) { return next(err); }
+            res.json({'beers': beers});
+        });
+    }else{
+        Beer.find().sort({'alcohol' : 1}).exec(function(err, beers) {
+            if (err) { return next(err); }
+            res.json({'beers': beers});
+        });
+    }
 });
 
 // Create a new beer

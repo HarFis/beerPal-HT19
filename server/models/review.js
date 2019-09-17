@@ -8,7 +8,7 @@ var reviewSchema = new Schema({
             required: true, 
             min: 1,
             max: 5 },
-    review: { type: String, maxlength: 60},
+    textReview: { type: String, maxlength: 60},
     created: { type: Date, default: Date.now() }
 });
 

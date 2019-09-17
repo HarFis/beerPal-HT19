@@ -8,7 +8,7 @@ var mongoose = require('mongoose')
 router.post('/', function(req, res, next) {
     var location = new Location({
         name: req.body.name,
-        typeOfLocation: req.body.typeoflocation
+        typeOfLocation: req.body.typeOfLocation
     });
     location.save(function(err) {
         if (err) { return next(err); }
@@ -39,17 +39,35 @@ router.get('/:id', function(req, res, next) {
 // Update (partially) a location with the given ID
 router.patch('/:id', function (req,res,next){
     var id = req.params.id;
-    Location.update({_id: id}, { $set: req.body}, function(err,location) {
+    Location.findById({_id: id}, function(err,location) {
         if (err) { return next(err); }
         if (location === null) {
             return res.status(404).json({'message': 'Location not found'});
         }
+        location.name = (req.body.name || location.name);
+        location.typeOfLocation = (req.body.typeOfLocation || location.typeOfLocation);
+        location.save();
         res.json(location); 
     });
 });
 
 // Update (completely) a location with the given ID 
-// TODO: change to real PUT
+router.put('/:id', function (req,res,next){
+    var id = req.params.id;
+    Location.findById({_id: id}, function(err,location) {
+        if (err) { return next(err); }
+        if (location === null) {
+            return res.status(404).json({'message': 'Location not found'});
+        }
+        location.name = req.body.name;
+        location.typeOfLocation = req.body.typeOfLocation;
+    
+        location.save(function(err) {
+        if (err) { return next(err); }
+        res.status(200).json(location);
+    });
+    });
+});
 
 // Delete the location with the given ID
 router.delete('/:id', function(req, res, next) {

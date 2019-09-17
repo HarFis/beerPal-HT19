@@ -7,8 +7,9 @@ var mongoose = require('mongoose')
 // Create a new review
 router.post('/', function(req, res, next) {
     var review = new Review({
+        beer: req.body.beer,
         score: req.body.score,
-        review: req.body.review,
+        textReview: req.body.textReview,
     });
     review.save(function(err) {
         if (err) { return next(err); }
@@ -39,25 +40,37 @@ router.get('/:id', function(req, res, next) {
 // Update (partially) a review with the given ID
 router.patch('/:id', function (req,res,next){
     var id = req.params.id;
-    Review.findByIdAndUpdate({_id: id}, { $set: req.body}, function(err,review) {
+    console.log("Inne in patch");
+    Review.findById({_id: id}, function(err,review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({'message': 'Review not found'});
         }
-        res.status.json(review); 
+        review.score = (req.body.score || review.score);
+        review.textReview = (req.body.textReview || review.textReview);
+        review.beer = (req.body.beer || review.beer);
+        review.created = (req.body.created || review.created);
+        review.save();
+        res.json(review); 
     });
 });
 
 // Update (completely) a review with the given ID 
-// TODO: change to real PUT
 router.put('/:id', function (req,res,next){
     var id = req.params.id;
-    Review.findById({_id: id}, { $set: req.body}, function(err,review) {
+    Review.findById({_id: id}, function(err,review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({'message': 'Review not found'});
         }
-        res.json(review); 
+        review.score = req.body.score;
+        review.textReview = req.body.textReview;
+        review.beer = req.body.beer;
+        review.created = req.body.created;
+        review.save(function(err) {
+            if (err) { return next(err); }
+            res.status(200).json(review);
+        }); 
     });
 });
 
