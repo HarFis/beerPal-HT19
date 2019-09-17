@@ -1,13 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var postOwner = require('../models/user');
 
 var postSchema = new Schema({
-    name: { type: String} ,
-    review: { type: mongoose.Schema.Types.ObjectId, ref : 'review'},
-    location: { type: mongoose.Schema.Types.ObjectId, ref: 'location'},
-    dateAndTime: {type: Date},
-    postOwner: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-    taggedUsers: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+    title: { type: String} ,
+    review: { type: mongoose.Schema.Types.ObjectId, 
+        ref : 'reviews'},
+    location: { type: mongoose.Schema.Types.ObjectId, 
+        ref: 'locations'},
+    dateAndTime: {type: Date, default : Date.now()},
+    postOwner: {type: mongoose.Schema.Types.ObjectId, 
+        ref: 'users', required: true},
+    taggedUsers: [String],
     //image: {}  TO_DO
     
 });

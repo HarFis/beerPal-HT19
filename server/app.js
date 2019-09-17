@@ -11,7 +11,8 @@ var breweriesController = require('./controllers/breweries');
 var usersController = require('./controllers/users');
 var locationsController = require('./controllers/locations');
 var reviewsController = require('./controllers/reviews');
-var camelsController = require('./controllers/camels')
+var camelsController = require('./controllers/camels');
+var postsController = require('./controllers/posts');
 
 
 
@@ -45,10 +46,15 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
 });
 
+//Route for beers and breweries
 app.use('/api/beers', beersController);
 app.use('/api/breweries', breweriesController);
+
 // Route for users
 app.use('/api/users', usersController);
+
+// Route for posts
+app.use('/api/posts', postsController);
 
 // Route for locations
 app.use('/api/locations', locationsController);
