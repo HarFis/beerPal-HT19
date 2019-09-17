@@ -29,6 +29,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
 });
 
+
 // Create Express app
 var app = express();
 // Parse requests of content-type 'application/json'

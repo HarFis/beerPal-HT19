@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var reviewSchema = new Schema({
-    beer: { type: Schema.Types.ObjectId, ref : 'beer'}, //REQUIRED
+    beer: { type: Schema.Types.ObjectId, ref : 'beers'}, //REQUIRED
     score: { type: Number, 
             required: true, 
             min: 1,
@@ -12,4 +12,4 @@ var reviewSchema = new Schema({
     created: { type: Date, default: Date.now() }
 });
 
-module.exports = mongoose.model('reviews', reviewSchema);
+module.exports = mongoose.model('review', reviewSchema);
