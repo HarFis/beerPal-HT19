@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
     if(pageNo){next(); return;}
     User.find(function(err, users) {
         if (err) { return next(err); }
-        console.log("First");
         res.json({'users': users});
     });
 });
@@ -20,8 +19,6 @@ router.get('/', function(req, res, next) {
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
     var query = {};
-    console.log("skip ="+(size * (pageNo -1)));
-    console.log("Hej");
     if (pageNo < 0 || pageNo === 0){
         return res.json('Page number can\'t be less than 1');
     }
