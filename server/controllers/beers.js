@@ -23,6 +23,10 @@ router.get('/', function(req, res, next) {
     if(sort){next(); return;}
     Beer.find({'type' : type}).exec(function(err, beers) {
         if (err) { return next(err); }
+        if(!beers.length){ //Check if array beers is empty
+            var message = "No beer found of type " + type;
+            return res.status(404).json({'message': message});
+        }
         res.json({'beers': beers});
     });
 });
@@ -76,9 +80,6 @@ router.post('/', function(req, res, next) {
 router.delete('/', function(req, res, next) {
     Beer.find().remove().exec(function(err, beers) {
         if (err) { return next(err); }
-        if (beers === null) {
-            return res.status(404).json({'message': 'Beers not found'});
-        }
         res.json(beers);
     });
 });

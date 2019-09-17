@@ -9,67 +9,6 @@
 			"name": "/beers",
 			"item": [
 				{
-					"name": "GET /api/beers",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/beers",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"beers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET api/beers/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "2656e32f-d0f1-4f8a-8aab-0638e75fae14",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/beers/{{beer_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"beers",
-								"{{beer_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "POST /api/beers",
 					"event": [
 						{
@@ -79,7 +18,11 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"beer_id\", jsonData._id);",
-									""
+									"",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -101,7 +44,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Pripps Blå\",\n\t\"type\" : \"Ljus Lager\",\n\t\"brewery\" : \"5d7cc6986d15c52684656eac\",\n\t\"alcohol\" : 5.0\n\t\n} "
+							"raw": "{\n\t\"name\": \"Pripps Blå\",\n\t\"type\" : \"Pilsner\",\n\t\"brewery\" : \"5d7cc6986d15c52684656eac\",\n\t\"alcohol\" : 5.0\n\t\n} "
 						},
 						"url": {
 							"raw": "{{host}}/api/beers",
@@ -117,15 +60,107 @@
 					"response": []
 				},
 				{
-					"name": "DEL /api/beers/:id",
+					"name": "GET /api/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1a906c-3740-43c6-9c30-6734965d61b6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [
 							{
-								"key": "Content-Type",
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/beers/?type=Pilsner",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5963856-50d3-4c6b-8f7d-08794b9cad7c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
 								"value": "application/json",
 								"type": "text"
-							},
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers?type=Pilsner",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Pilsner"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/beers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2656e32f-d0f1-4f8a-8aab-0638e75fae14",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
 							{
 								"key": "Accept",
 								"value": "application/json",
@@ -148,6 +183,20 @@
 				},
 				{
 					"name": "PUT api/beers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fd4a3e4-c05b-45be-bd72-d3a177ea0e16",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -183,6 +232,20 @@
 				},
 				{
 					"name": "PATCH /api/beers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50bb90e7-af8c-49e9-93bd-2f983a6854ae",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -218,6 +281,20 @@
 				},
 				{
 					"name": "PATCH /api/beers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7617220a-3f18-4f59-966a-a80251fd3642",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -252,37 +329,21 @@
 					"response": []
 				},
 				{
-					"name": "GET /api/beers/?type=IPA",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/beers?type=Pilsner",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"beers"
-							],
-							"query": [
-								{
-									"key": "type",
-									"value": "Pilsner"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "GET /api/beers?sort=+alcohol",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c614799e-3e5a-485f-9c01-652a11f597a5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -315,62 +376,205 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "PUT /api/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d316a35-cfe4-4e20-8355-c0f4a28f473f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"Falcon\", \"type\" : \"Pilsner\", \"alcohol\" : 7.2}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf1f6b21-10ea-4799-bdd6-8830df05fe4b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\" : \"JULÖL\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/beers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4addbd99-938d-4bef-8c16-071dd2377500",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c3cc67a-e4d8-4722-a72d-2b1eeed2262c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "/breweries",
 			"item": [
-				{
-					"name": "GET /api/breweries",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/breweries",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"breweries"
-							]
-						},
-						"description": "Gets all breweries"
-					},
-					"response": []
-				},
-				{
-					"name": "GET api/breweries/:id",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/breweries/{{brewery_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"breweries",
-								"{{brewery_id}}"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "POST /api/breweries",
 					"event": [
@@ -380,7 +584,11 @@
 								"id": "8a8c47c2-cf7f-49b1-af73-5b8f71620316",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);"
+									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -419,6 +627,84 @@
 					"response": []
 				},
 				{
+					"name": "GET /api/breweries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02bb6166-e6fd-4c7a-8550-460ff74a70c5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries"
+							]
+						},
+						"description": "Gets all breweries"
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/breweries/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93005f0c-53ca-484f-b66f-e369d59eff34",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "POST /api/breweries",
 					"event": [
 						{
@@ -427,7 +713,11 @@
 								"id": "8a8c47c2-cf7f-49b1-af73-5b8f71620316",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);"
+									"postman.setEnvironmentVariable(\"brewery_id\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -466,37 +756,21 @@
 					"response": []
 				},
 				{
-					"name": "DEL /api/breweries/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/breweries/{{brewery_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"breweries",
-								"{{brewery_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "PUT api/breweries/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "baa98241-cfea-43a5-ac4b-11e936915fb0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -531,6 +805,20 @@
 				},
 				{
 					"name": "PATCH /api/breweries/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75b8177c-2072-42f8-8de2-616e5d5fa635",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -566,6 +854,20 @@
 				},
 				{
 					"name": "GET /api/breweries/:id/beers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c252d38-7053-443e-a34c-609a7b982c10",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -593,6 +895,50 @@
 							]
 						},
 						"description": "Gets all beers for one brewery"
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/breweries/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b5ce784-4d0c-4176-ac7a-687dcf390aea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -623,7 +969,7 @@
 	],
 	"variable": [
 		{
-			"id": "ec1d12a6-f747-46ab-9be1-345ebcc210b1",
+			"id": "3bbca152-ea15-42ff-b77f-986d063ed624",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
