@@ -15,7 +15,7 @@ router.get('/', function(req, res, next, ) {
         .exec(function(err, post)
          {
         if (err) { return next(err); }
-        res.json(post);
+        res.status(200).json(post);
     });
 });
 
@@ -32,27 +32,33 @@ router.get('/:id', function(req, res, next) {
         if (post === null) {
             return res.status(404).json({'message': 'Post not found'});
         }
-        res.json(post);
+        res.status(200).json(post);
     });
 });
 
 
 // Create a new post
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
     if (!req.body.postOwner){
-        return res.status(400)
+        return res.status(403)
         .json({'message': 'requires postowner'})
         }
     var post = new Post(req.body);    
     var userId = req.body.postOwner;
+    User.findById(userId).then(user => {
+        if (!user) {
+            return res.status(404)
+            .json({message: "postowner not found in DB"});
+        }
     post.save(function(err) {
         if (err) { return next(err);
          };
          User.findByIdAndUpdate( userId,
-             {$push : {"posts": post._id}}
-         ).populate('posts')
+             {$push : {"posts": post._id}})
+             .populate('posts')
         res.status(201).json(post);
     });
+});
 });
 
 
@@ -61,8 +67,15 @@ router.post('/', function(req, res, next) {
 // Replaces the post with the given ID
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
+    if (!req.body.postOwner){
+        return res.status(403)
+        .json({'message': 'requires postowner'})
+        }
     Post.findByIdAndUpdate(id, req.body, 
         {overwrite : true, new : true}, function(err) {
+        if (req.body.postOwner == null){
+            return res.status(400).json({'message': 'post need a postowner'})
+        }    
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });

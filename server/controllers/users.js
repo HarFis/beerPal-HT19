@@ -9,13 +9,12 @@ router.get('/', function(req, res, next) {
     if(pageNo){next(); return;}
     User.find(function(err, users) {
         if (err) { return next(err); }
-        res.json({'users': users});
+        res.status(200).json({'users': users});
     });
 });
 
 // Return a list of all users with pagination
 router.get('/', function(req, res, next) {
-    console.log("Hej");
     var pageNo = parseInt(req.query.pageNo);
     var size = parseInt(req.query.size);
     var query = {};
@@ -26,7 +25,7 @@ router.get('/', function(req, res, next) {
     query.limit = size;
     User.find({}, {}, query, function(err, users) {
         if (err) { return next(err); }
-        res.json({'users': users});
+        res.status(200).json({'users': users});
     });
 });
 
@@ -35,7 +34,7 @@ router.get('/:id/posts', function(req, res, next) {
     var id = req.params.id;
     Post.find({postOwner : id}).exec(function(err, posts) {
         if (err) { return next(err); }
-        res.json({'posts': posts});
+        res.status(200).json({'posts': posts});
     });
 });
 
@@ -44,7 +43,7 @@ router.get('/:id/users', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, user) {
         if (err) { return next(err); }
-        res.json(user.following);
+        res.status(200).json(user.following);
     });
 });
 
@@ -53,7 +52,7 @@ router.get('/followers/:id', function(req, res, next) {
     var id = req.params.id;
     User.find({following : id}, function(err, user) {
         if (err) { return next(err); }
-        res.json({'Followers' : user});
+        res.status(200).json({'Followers' : user});
     });
 });
 
@@ -61,6 +60,10 @@ router.get('/followers/:id', function(req, res, next) {
 // Create a new user
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
+    /*if(User.findOne({user: user})!=true){
+        return res.status(403)
+        .json({'message' : 'A user with this username already exists'});
+    }*/
     user.save(function(err) {
         if (err) { return next(err); }
         res.status(201).json(user);
@@ -75,7 +78,7 @@ router.get('/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(user);
+        res.status(200).json(user);
     });
 });
 
@@ -106,7 +109,7 @@ router.delete('/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(user);
+        res.status(200).json(user);
     });
 });
 

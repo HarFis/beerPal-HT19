@@ -3,7 +3,9 @@ var Schema = mongoose.Schema;
 var posts = require('../models/post');
 
 var userSchema = new Schema({
-    username : { type : String, unique : true, required : true, dropDups : true},
+    username : { type : String, 
+        unique : true, 
+        required : true, dropDups : true},
     mail : { type : String, match: /.+@.+\..+/},
     password : { type : String},
     // TODO PROFILE PICTURE
