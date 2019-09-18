@@ -38,6 +38,19 @@ router.get('/:id/posts', function(req, res, next) {
     });
 });
 
+// Return a list of a post belonging a specific user
+router.get('/:userId/posts/:postId', function(req, res, next) {
+    var userId = req.params.userId;
+    var postId = req.params.postId;
+    Post.find({postOwner : userId}).exec(function(err, posts) {
+        if (err) { return next(err); }
+        Post.findById(postId).exec(function(err, post){
+            if (err) { return next(err); }
+        res.status(200).json(post);
+        });
+    });
+});
+
 // Return a list of all followed users
 router.get('/:id/users', function(req, res, next) {
     var id = req.params.id;

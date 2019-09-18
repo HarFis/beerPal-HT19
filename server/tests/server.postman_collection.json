@@ -616,7 +616,53 @@
 					"response": []
 				},
 				{
-					"name": "PUT /api/reviews/ID",
+					"name": "GET/api/user/:userId/posts/:postId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Get's a post beloning to a specific user"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts",
 					"event": [
 						{
 							"listen": "test",
@@ -2543,7 +2589,7 @@
 	],
 	"variable": [
 		{
-			"id": "4d7ab66e-afd7-4a0f-a73b-aaa108945e01",
+			"id": "e46cdc42-204f-40e1-833f-0c5bad3a302f",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
