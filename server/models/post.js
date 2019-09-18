@@ -11,7 +11,7 @@ var postSchema = new Schema({
     dateAndTime: {type: Date, default : Date.now()},
     postOwner: {type: mongoose.Schema.Types.ObjectId, 
         ref: 'users', required: true},
-    taggedUsers: [String],
+    // TODO taggedUsers: [String],
     //image: {}  TO_DO
     
 });

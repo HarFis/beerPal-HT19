@@ -599,6 +599,52 @@
 					"response": []
 				},
 				{
+					"name": "GET/api/user/:userId/posts/:postId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Get's a post beloning to a specific user"
+					},
+					"response": []
+				},
+				{
 					"name": "GET/api/posts",
 					"event": [
 						{
@@ -813,7 +859,7 @@
 	],
 	"variable": [
 		{
-			"id": "e5140d96-6a8d-4b17-b0b2-e669e785a727",
+			"id": "e46cdc42-204f-40e1-833f-0c5bad3a302f",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
