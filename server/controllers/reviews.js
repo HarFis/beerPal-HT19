@@ -4,12 +4,28 @@ var Review = require('../models/review');
 var mongoose = require('mongoose');
 var Beer = require('../models/beer');
 
+function getAverageScore(id){
+    console.log("in the function average");
+    Review.find({beer : id}).exec(function (err, reviews){
+        if (err) { return next(err); }
+        if (reviews === null) {
+            return res.status(404).json({'message': 'Beer reviews not found'});
+        }
+        var totalScores = 0;
+        for(var i = 0; i < reviews.length; i++){
+            totalScores += review[i].score;
+        }
+        var avgScore = totalScores/reviews.length;
+        console.log("average score" + avgScore);
+        return avgScore;
+    });
+ }
 
 // Create a new review
 router.post('/', (req, res, next) => {
     var beer_id = req.body.beerID;
     if( !mongoose.Types.ObjectId.isValid(beer_id) ){
-        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
       }
     Beer.findById(beer_id).then(beer => {
         if (!beer) {
@@ -22,7 +38,12 @@ router.post('/', (req, res, next) => {
             score: req.body.score,
             textReview: req.body.textReview,
         });
-        return review.save();
+
+        review.save();
+        average = getAverageScore(beer_id);
+        console.log(average);
+        Beer.findByIdAndUpdate( beer_id,
+            {$push : {'averageRating': average}})
     }).then(result => {
         res.status(201).json(result);
     }).catch(err => {
@@ -170,6 +191,7 @@ router.delete('/', function (req, res, next) {
         res.json(review);
     });
 });
+
 
 
 module.exports = router;
