@@ -42,7 +42,7 @@ router.get('/:id/beers', function(req, res, next) {
         if (beers === null) {
             return res.status(404).json({'message': 'Beers not found'});
         }
-        res.json(beers);
+        res.json({'beers' : beers});
     });
 });
 
