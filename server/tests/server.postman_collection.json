@@ -323,6 +323,65 @@
 			"name": "Reviews",
 			"item": [
 				{
+					"name": "POST /api/beers 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e40da28-1a21-4904-9daf-a415714327c2",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    ",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"beer_id\", jsonData._id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Norrlands Gul\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.2\"\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/beers/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "POST /api/beers",
 					"event": [
 						{
@@ -360,7 +419,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"Norrlands Gul\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.2\",\n    \"averageRating\": 4}",
+							"raw": "{\"name\": \"Norrlands Gul\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.2\"\n\t\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -393,9 +452,7 @@
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"review2_id\", jsonData._id);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -480,6 +537,20 @@
 				},
 				{
 					"name": "DELETE /api/reviews/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd359210-f91f-409c-9089-b7ac57dfd96c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -2272,6 +2343,20 @@
 						},
 						{
 							"name": "GET/api/user/:userId/posts/:postId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c4fc02c1-5ff2-47bf-81f6-cf6ce8c0fd7a",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2573,7 +2658,7 @@
 	],
 	"variable": [
 		{
-			"id": "e9a21034-fea7-4658-b721-1618a9971ce4",
+			"id": "801e099b-319d-4289-beb6-fc3ecb0026af",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"

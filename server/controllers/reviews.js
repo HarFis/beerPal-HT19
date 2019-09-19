@@ -28,39 +28,7 @@ function setAverageScore(review, id, req, res){
     });
  }
 
-// Create a new review
-/*router.post('/', (req, res, next) => {
-    var beer_id = req.body.beerID;
-    if( !mongoose.Types.ObjectId.isValid(beer_id) ){
-        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
-      }
-    Beer.findById(beer_id).then(beer => {
-        if (!beer) {
-            return res.status(404).json({
-                message: "Beer not found in DB"
-            });
-        }
-        var review = new Review({
-            beer: req.body.beerID,
-            score: req.body.score,
-            textReview: req.body.textReview,
-        });
-        review.save();
-        setAverageScore(beer_id, req, res);
-        return review;
-    })
-    .then(setAverageScore(beer_id, req, res))
-    .then(result => {
-        console.log(result);
-        res.status(201).json(result);
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
-    });
-});
-*/
+
 // Create a new review v.2
 router.post('/', function (req, res, next){
     var beer_id = req.body.beerID;
