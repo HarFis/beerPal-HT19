@@ -4,11 +4,11 @@ var Review = require('../models/review');
 var mongoose = require('mongoose');
 var Beer = require('../models/beer');
 
-function getAverageScore(id, req, res){
-    console.log("in the function average");
+function setAverageScore(id, req, res){
+    //console.log("in the function average");
     Review.find({beer : id}).exec(function (err, reviews){
         if (err) { return next(err); }
-        console.log(reviews);
+        //console.log(reviews); Prints all reviews of chosen beer
         if (!reviews.length) {
             return res.status(404).json({'message': 'Beer reviews not found'});
         }
@@ -23,18 +23,9 @@ function getAverageScore(id, req, res){
             if (err) { return next(err); }
             beer.averageRating = avgScore;
             beer.save();
-            //res.json(beer);
         });
     });
  }
-
- // Test for averageScore function
-router.get('/test/:id', function (req, res, next) {
-    var id = req.params.id;
-    getAverageScore(id, req, res);
-    console.log("End");
-    //res.json({'message' : 'Done'});
-});
 
 // Create a new review
 router.post('/', (req, res, next) => {
@@ -53,14 +44,15 @@ router.post('/', (req, res, next) => {
             score: req.body.score,
             textReview: req.body.textReview,
         });
-
-        review.save();
+        return review.save();
         //getAverageScore(beer_id, req, res);
         /*average = getAverageScore(beer_id, req, res);
         console.log("In post " +average);
         Beer.findByIdAndUpdate( beer_id,
             {$push : {'averageRating': average}})*/
-    }).then(result => {
+    })
+    .then(setAverageScore(beer_id, req, res))
+    .then(result => {
         res.status(201).json(result);
     }).catch(err => {
         console.log(err);
