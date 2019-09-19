@@ -6,10 +6,17 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var camelsController = require('./controllers/camels');
+var beersController = require('./controllers/beers');
+var breweriesController = require('./controllers/breweries');
+var usersController = require('./controllers/users');
+var locationsController = require('./controllers/locations');
+var reviewsController = require('./controllers/reviews');
+var postsController = require('./controllers/posts');
+
+
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/BeerPal';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
@@ -21,6 +28,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     }
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
 });
+
 
 // Create Express app
 var app = express();
@@ -36,7 +44,23 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
 });
-app.use('/api/camels', camelsController);
+
+//Route for beers and breweries
+app.use('/api/beers', beersController);
+app.use('/api/breweries', breweriesController);
+
+// Route for users
+app.use('/api/users', usersController);
+
+// Route for posts
+app.use('/api/posts', postsController);
+
+// Route for locations
+app.use('/api/locations', locationsController);
+
+// Route for reviews
+app.use('/api/reviews', reviewsController);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
