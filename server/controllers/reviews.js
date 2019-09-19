@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Beer = require('../models/beer');
 
 //Function for setting the average score to a beer when creating a new review
-function setAverageScore(id, req, res){
+function setAverageScore(review, id, req, res){
     Review.find({beer : id}).exec(function (err, reviews){
         if (err) { return next(err); }
         if (!reviews.length) {
@@ -16,18 +16,20 @@ function setAverageScore(id, req, res){
             totalScores += reviews[i].score;
         }
         var avgScore = (totalScores/reviews.length);
-        console.log("average score " + avgScore);
         
         Beer.findById({ _id: id }, function (err, beer) {
             if (err) { return next(err); }
             beer.averageRating = avgScore;
             beer.save();
+            
         });
+        res.status(201).json(review);
+        
     });
  }
 
 // Create a new review
-router.post('/', (req, res, next) => {
+/*router.post('/', (req, res, next) => {
     var beer_id = req.body.beerID;
     if( !mongoose.Types.ObjectId.isValid(beer_id) ){
         return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
@@ -43,15 +45,45 @@ router.post('/', (req, res, next) => {
             score: req.body.score,
             textReview: req.body.textReview,
         });
-        return review.save();
+        review.save();
+        setAverageScore(beer_id, req, res);
+        return review;
     })
     .then(setAverageScore(beer_id, req, res))
     .then(result => {
+        console.log(result);
         res.status(201).json(result);
     }).catch(err => {
         console.log(err);
         res.status(500).json({
             error: err
+        });
+    });
+});
+*/
+// Create a new review v.2
+router.post('/', function (req, res, next){
+    var beer_id = req.body.beerID;
+    if( !mongoose.Types.ObjectId.isValid(beer_id) ){
+        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
+      }
+    Beer.findById(beer_id, function (err, beer){
+        console.log("2");
+        if (err) { return next(err); }
+        
+        if (!beer) {
+            return res.status(404).json({
+                message: "Beer not found in DB"
+            });
+        }
+        var review = new Review({
+            beer: req.body.beerID,
+            score: req.body.score,
+            textReview: req.body.textReview,
+        });
+        review.save(function(err){
+            if (err) { return next(err); }
+            setAverageScore(review, beer_id, req, res);
         });
     });
 });
