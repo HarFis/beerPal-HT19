@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "12ba635f-f8bb-4f1a-8e58-e2e0938f4685",
+		"_postman_id": "339dc87d-b853-4f28-964d-5288b366410c",
 		"name": "BeerPal-Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -128,7 +128,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}",
+							"raw": "{{host}}/api/locations/{{location_id}}?",
 							"host": [
 								"{{host}}"
 							],
@@ -189,7 +189,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}",
+							"raw": "{{host}}/api/locations/{{location_id}}?",
 							"host": [
 								"{{host}}"
 							],
@@ -250,7 +250,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}",
+							"raw": "{{host}}/api/locations/{{location_id}}?",
 							"host": [
 								"{{host}}"
 							],
@@ -296,7 +296,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}",
+							"raw": "{{host}}/api/locations/{{location_id}}?",
 							"host": [
 								"{{host}}"
 							],
@@ -1607,6 +1607,109 @@
 							]
 						},
 						"description": "Update beer with given ID to have type IPA"
+					},
+					"response": []
+				},
+				{
+					"name": "DEL /api/breweries/:brewery_id/beers/:beer_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6cff39b-0a2b-429e-89f4-9e3f1dbe1f40",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/breweries/{{brewery_id}}/beers/{{beer_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"breweries",
+								"{{brewery_id}}",
+								"beers",
+								"{{beer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/beers 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5535664-0f5f-434b-a1a5-ea32a3c146b2",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"beer_id\", jsonData._id);",
+									"",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Pripps Blå\",\n\t\"type\" : \"Pilsner\",\n\t\"brewery\" : \"{{brewery_id}}\",\n\t\"alcohol\" : 5.0\n\t\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/beers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers"
+							]
+						}
 					},
 					"response": []
 				},
