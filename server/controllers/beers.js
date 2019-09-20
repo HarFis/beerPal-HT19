@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Beer = require('../models/beer');
 var mongoose = require('mongoose');
+var Review = require('../models/review')
 
 /*------------
 -----GET------
@@ -75,6 +76,28 @@ router.post('/', function(req, res, next) {
         res.status(201).json(beer);
     });
 });
+
+/*// Create a review with a given BEER ID
+router.post('/:id/reviews', function (req, res, next){
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
+      }
+    Beer.findById(id, function (err, beer){
+        if (err) { return next(err); }
+
+        var review = new Review({
+            beer: id,
+            score: req.body.score,
+            textReview: req.body.textReview,
+        });
+        review.save(function(err){
+            if (err) { return next(err); }
+        });
+    });
+});*/
+
+
 
 /*------------
 ---DELETE-----
@@ -191,7 +214,33 @@ router.patch('/:id', function(req, res, next) {
     });
 });
 
-
+//Create a new review through beer
+// DO NOT USE, just for Milestone 1, does not update average score!!
+router.post('/:id/reviews', function (req, res, next){
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
+      }
+    Beer.findById(id, function (err, beer){
+        if (err) { return next(err); }
+        console.log("after error");
+        if (!beer) {
+            return res.status(404).json({
+                message: "Beer not found in DB"
+            });
+        }
+        var review = new Review({
+            beer: req.params.id,
+            score: req.body.score,
+            textReview: req.body.textReview
+        });
+        console.log(review);
+        review.save(function(err) {
+            if (err) { return next(err); }
+            res.status(201).json(review);
+        });
+    });
+});
 
 // Export router
 module.exports = router;
