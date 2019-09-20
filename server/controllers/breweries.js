@@ -78,6 +78,33 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+//Delete given beer for given brewery, and check if beer exsist in brewery
+router.delete('/:brewery_id/beers/:beer_id', function(req, res, next){
+    var beerId = req.params.beer_id;
+    var breweryId = req.params.brewery_id;
+
+    if( !mongoose.Types.ObjectId.isValid(breweryId) ){
+        return res.status(404).json({message: "Brewery not found"}); // They didn't send an object ID
+    }
+    if( !mongoose.Types.ObjectId.isValid(beerId) ){
+        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+    }
+    
+    Brewery.findById(breweryId, function(err, brewery){
+        if (err) { return next(err); }
+        if (brewery === null) {
+            return res.status(404).json({'message': 'Brewery not found'});
+        }
+        Beer.findOneAndDelete({_id : beerId}, function(err, beer){
+            if (err) { return next(err); }
+            if (beer === null) {
+                return res.status(404).json({'message': 'Beer not found'});
+            }
+            res.json(beer);
+        });
+    });
+});
+
 /*------------
 -----PUT------
 ------------*/

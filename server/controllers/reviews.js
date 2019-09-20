@@ -36,7 +36,6 @@ router.post('/', function (req, res, next){
         return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
       }
     Beer.findById(beer_id, function (err, beer){
-        console.log("2");
         if (err) { return next(err); }
         
         if (!beer) {
