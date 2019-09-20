@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "339dc87d-b853-4f28-964d-5288b366410c",
+		"_postman_id": "c7d3aa4b-0482-40ca-b166-ac1ae110b776",
 		"name": "BeerPal-Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -491,6 +491,63 @@
 								"api",
 								"reviews",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/beers/:id/reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e2a799b4-ec7c-4e2a-8118-800040b0f85b",
+								"exec": [
+									"//var beerID = pm.environment.get(\"beer_id\");",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"score\":\"5\",\n\t\"textReview\":\"what a great beer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}",
+								"reviews"
 							]
 						}
 					},
