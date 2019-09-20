@@ -78,7 +78,7 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
-//Delete 
+//Delete given beer for given brewery, and check if beer exsist in brewery
 router.delete('/:brewery_id/beers/:beer_id', function(req, res, next){
     var beerId = req.params.beer_id;
     var breweryId = req.params.brewery_id;
