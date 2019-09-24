@@ -100,7 +100,8 @@ router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findByIdAndUpdate(id, req.body, 
         {overwrite : true, new : true},
-        {runValidators:true, context: query}, function(err) { //Checks the "unique and required", might not work
+        //{runValidators:true, context: query}, 
+        function(err) { //Checks the "unique and required", might not work
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });
@@ -110,7 +111,8 @@ router.put('/:id', function(req, res, next) {
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findByIdAndUpdate(id, req.body, 
-        {runValidators:true, context: query}, function(err) { //Checks the "unique and required", might not work    
+        //{runValidators:true, context: query}, 
+        function(err) { //Checks the "unique and required", might not work    
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });
