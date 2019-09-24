@@ -7,7 +7,7 @@ import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
-import RegisterUser from './views/RegisterUser'
+import RegisterUser from './views/RegisterUser.vue'
 import CreateBeer from './views/CreateBeer.vue'
 
 Vue.use(Router)

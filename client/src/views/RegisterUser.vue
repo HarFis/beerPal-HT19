@@ -6,7 +6,7 @@
       <form class="register-form" @submit.prevent="onSubmit">
           <p>
           <label for ="username">Username</label>
-          <input id="username" v-model="username" placeholder="name">
+          <input id="username" v-model="username" placeholder="Username">
           </p>
 
           <p>
@@ -46,7 +46,7 @@ export default {
   methods: {
     onSubmit() {
       var user = {
-        usernamename: this.username,
+        username: this.username,
         mail: this.mail,
         password: this.password
       }
@@ -54,9 +54,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      this.name = null
-      this.type = null
-      this.alcohol = null
+      this.username = null
+      this.mail = null
+      this.password = null
     }
   }
 }

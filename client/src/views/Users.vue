@@ -6,7 +6,7 @@
       <router-link to="/RegisterUser" tag="button">Create User</router-link>
     </h2>
     <b-list-group>
-      <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteuser"></user-item>
+      <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteUser"></user-item>
     </b-list-group>
   </div>
 </template>
@@ -49,34 +49,12 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    },
-    createUser() {
-      var randomCamel = {
-        color: this.getRandomColor(),
-        position: this.getRandomInt(10)
-      }
-      Api.post('/camels', randomCamel)
-        .then(response => {
-          this.camels.push(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    getRandomInt(max) {
-      return Math.floor(Math.random() * max)
-    },
-    getRandomColor() {
-      var colors = ['orange', 'green', 'red', 'blue']
-      var index = this.getRandomInt(colors.length)
-      return colors[index]
     }
   },
   components: {
     UserItem
   }
 }
-
 </script>
 
 <style scoped>
