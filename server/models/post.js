@@ -17,3 +17,6 @@ var postSchema = new Schema({
 });
 
 module.exports = mongoose.model('posts', postSchema);
+
+
+

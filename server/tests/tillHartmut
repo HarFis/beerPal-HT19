@@ -1,0 +1,869 @@
+{
+	"info": {
+		"_postman_id": "768b5ebb-e97d-40df-ac61-78f0fefd75df",
+		"name": "MobileWebDev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST/api/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"userId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"asdasdbasld\",\n\t\"mail\" : \"duptest@hogwartz.uk\",\n\t\"password\" : \"eee\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create User JonatanVaara"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "525d83cc-3fcc-4a6f-9ced-7e8d972abae4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Gets all users"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c79412f-0a7b-4f1f-bf14-3dfa393c7e92",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d1af2f7-baa7-4c4e-b685-4e3fae7f08c6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9337005-f660-48aa-a46d-0d17ff1da15e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"users"
+							]
+						},
+						"description": "Get all the users the user is following"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/followers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24139bf2-bdcd-4e61-aa99-9722f539d7b1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/followers/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"followers",
+								"{{userId}}"
+							]
+						},
+						"description": "Gets all the users following the user :id"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users?pageNo=1&size=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7aad4ddd-49c7-4bb7-b164-2a13e7054eea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users?pageNo=1&size=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						},
+						"description": "For Pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "994a904e-5390-4ec3-b942-6e263e3e206a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"Megala Dong\",\n\t\"mail\" : \"anotheremail@mail.com\",\n\t\"following\" : \"{{userId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /api/users/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c6dace74-e008-47b4-a4d7-b9c95e20b311",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "71f00e62-426e-47f1-a79e-6b30d2f9467c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"Megala Dong\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Replaces user"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad8c915f-258d-46bc-97f4-25b1efd9d3d0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/api/users Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"userId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"asdasdbasld\",\n\t\"mail\" : \"duptest@hogwartz.uk\",\n\t\"password\" : \"eee\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create User so that test can run"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "POST/api/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bc3bf2b-f400-47ca-8013-5099205abec3",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"postId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\" : \"Noice \",\n\t\"postOwner\" : \"{{userId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/user/:userId/posts/:postId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Get's a post beloning to a specific user"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12a6d62f-81e2-4328-802d-45b8fd8fb338",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a160d62-8d2c-490b-acfe-466bc8f70530",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dc25601-9d7a-43b5-a47b-679f75cb5a65",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\" : \"HARTMUT HIHI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Updates post with given ID"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a6dd5ca-fdda-4f03-a568-9f009dba9442",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Deletes post of specific ID"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1c3c4dae-47d9-4603-8d65-e108ff725c9e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "19617d0a-cd8a-47ae-a1bc-2d032b6a2d26",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cc847f42-39b7-47b6-b8f2-286cf7dd4e84",
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
