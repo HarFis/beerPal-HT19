@@ -5,6 +5,8 @@
       <router-link to="/camels">Camels</router-link>
       <router-link to="/users">Users</router-link>
       <router-link to ="/login">Login</router-link>
+      <router-link to="/beers"> Beers</router-link>
+      <router-link to="/reviews"> Reviews</router-link>
     </div>
     <router-view/>
   </div>
