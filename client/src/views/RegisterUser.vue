@@ -30,55 +30,34 @@
 
 <script>
 import { Api } from '@/Api'
-import UserItem from '@/components/UserItem'
 
 export default {
-  name: 'Users',
+  name: 'RegisterUser',
   data() {
     return {
-      users: []
+      username: null,
+      mail: null,
+      password: null
     }
   },
   mounted() {
     this.getUsers()
   },
   methods: {
-    getUsers() {
-      Api.get('users')
-        .then(response => {
-          this.users = response.data.users
-        })
-        .catch(error => {
-          this.users = []
-          console.log(error)
-        })
-        .then(() => {
-          // This code is always executed (after success or error).
-        })
-    },
-    deleteUser(id) {
-      Api.delete(`/users/${id}`)
-        .then(response => {
-          console.log(response.data.message)
-          var index = this.users.findIndex(user => user._id === id)
-          this.users.splice(index, 1)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    createUser(user) {
+    onSubmit() {
+      var user = {
+        usernamename: this.username,
+        mail: this.mail,
+        password: this.password
+      }
       Api.post('/users', user)
-        .then(response => {
-          this.users.push(response.data)
-        })
         .catch(error => {
           console.log(error)
         })
+      this.name = null
+      this.type = null
+      this.alcohol = null
     }
-  },
-  components: {
-    UserItem
   }
 }
 

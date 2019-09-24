@@ -8,6 +8,7 @@ import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
 import RegisterUser from './views/RegisterUser'
+import CreateBeer from './views/CreateBeer.vue'
 
 Vue.use(Router)
 
@@ -49,6 +50,11 @@ export default new Router({
       path: '/registerUser',
       name: 'registerUser',
       component: RegisterUser
+    },
+    {
+      path: '/create-beer',
+      name: 'create-beer',
+      component: CreateBeer
     }
   ]
 })

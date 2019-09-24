@@ -7,6 +7,7 @@
       <router-link to ="/login">Login</router-link>
       <router-link to="/beers"> Beers</router-link>
       <router-link to="/reviews"> Reviews</router-link>
+      <router-link to="/create-beer"> CreateBeer</router-link>
     </div>
     <router-view/>
   </div>
