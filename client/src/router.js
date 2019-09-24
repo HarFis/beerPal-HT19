@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from './views/Home.vue'
 import Camels from './views/Camels.vue'
+import Users from './views/Users.vue'
+import LoginPage from './views/Login.vue'
+import RegisterPage from '.views/Register.vue'
 
 Vue.use(Router)
 
@@ -18,6 +22,21 @@ export default new Router({
       path: '/camels',
       name: 'camels',
       component: Camels
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: Users
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage
     }
   ]
 })
