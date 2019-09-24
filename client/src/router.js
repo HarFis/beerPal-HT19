@@ -5,7 +5,6 @@ import Home from './views/Home.vue'
 import Camels from './views/Camels.vue'
 import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
-import RegisterPage from '.views/Register.vue'
 import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
 
@@ -34,11 +33,6 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: LoginPage
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterPage
     },
     {
       path: '/reviews',
