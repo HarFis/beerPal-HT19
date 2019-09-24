@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Camels from './views/Camels.vue'
+import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
 
 Vue.use(Router)
@@ -19,6 +20,11 @@ export default new Router({
       path: '/camels',
       name: 'camels',
       component: Camels
+    },
+    {
+      path: '/reviews',
+      name: 'reviews',
+      component: Reviews
     },
     {
       path: '/beers',
