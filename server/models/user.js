@@ -6,7 +6,7 @@ var userSchema = new Schema({
     username : { type : String, 
         unique : true, 
         required : true, dropDups : true},
-    mail : { type : String, match: /.+@.+\..+/},
+    mail : { type : String, match: /.+@.+\..+/, unique: true, required: true, dropDups : true},
     password : { type : String},
     // TODO PROFILE PICTURE
     following : [{ type: mongoose.Schema.Types.ObjectId, 
