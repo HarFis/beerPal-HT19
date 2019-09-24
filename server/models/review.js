@@ -12,4 +12,4 @@ var reviewSchema = new Schema({
     created: { type: Date, default: Date.now() }
 });
 
-module.exports = mongoose.model('review', reviewSchema);
+module.exports = mongoose.model('reviews', reviewSchema);
