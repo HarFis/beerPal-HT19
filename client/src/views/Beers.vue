@@ -2,7 +2,7 @@
   <div class="beers">
       <h1>List of {{ beers.length}} beers</h1>
       <b-list-group>
-        <beer-item v-for="beer in beers" :key="beer._id" :beer="beer"></beer-item>
+        <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
   </div>
 </template>
@@ -33,6 +33,16 @@ export default {
             .then(() => {
           // This code is always executed (after success or error).
             })
+        },
+        deleteBeer(id) {
+          Api.delete(`/beers/${id}`)
+          .then(response => {
+          var index = this.beers.findIndex(beer => beer._id === id)
+          this.beers.splice(index, 1)
+        })
+        .catch(error => {
+          console.log(error)
+        })
         }
     }, 
     components: {

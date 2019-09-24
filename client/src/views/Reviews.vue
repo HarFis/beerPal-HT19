@@ -37,7 +37,7 @@ export default {
         })
     },
     deleteReview(id) {
-      /* Api.delete(`/reviews/${id}`)
+      Api.delete(`/reviews/${id}`)
         .then(response => {
           console.log(response.data.message)
           var index = this.reviews.findIndex(review => review._id === id)
@@ -47,7 +47,7 @@ export default {
           console.log(error)
         }
         )
-        */ }},
+        }},
   
   components: {
     ReviewItem
