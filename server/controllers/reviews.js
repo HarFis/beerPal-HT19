@@ -58,7 +58,7 @@ router.post('/', function (req, res, next){
 // Return a list of all reviews
 router.get('/', function (req, res, next) {
     Review.find()
-        //.populate('beer')
+        .populate('beer')
         .exec()
         .then(reviews => {
             res.status(200).json({ 'reviews': reviews });
