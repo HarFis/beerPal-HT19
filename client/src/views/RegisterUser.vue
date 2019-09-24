@@ -1,14 +1,31 @@
 <template>
 
   <div class="users">
-    <h1>List of {{ users.length }} users</h1>
-    <h2>
-      <router-link to="/RegisterUser" tag="button">Create User</router-link>
-    </h2>
-    <b-list-group>
-      <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteuser"></user-item>
-    </b-list-group>
-  </div>
+      <h1>Register a User</h1>
+  <div>
+      <form class="register-form" @submit.prevent="onSubmit">
+          <p>
+          <label for ="username">Username</label>
+          <input id="username" v-model="username" placeholder="name">
+          </p>
+
+          <p>
+          <label for ="mail">Mail</label>
+          <input id="mail" v-model="mail" placeholder="E-mail Adress">
+          </p>
+
+          <p>
+             <label for ="password">password</label>
+             <input type="password" id="password" v-model="password" placeholder="Password">
+          </p>
+          <p>
+        <input type="submit" value ="Submit">
+            </p>
+
+          </form>
+</div>
+</div>
+
 </template>
 
 <script>
@@ -50,26 +67,14 @@ export default {
           console.log(error)
         })
     },
-    createUser() {
-      var randomCamel = {
-        color: this.getRandomColor(),
-        position: this.getRandomInt(10)
-      }
-      Api.post('/camels', randomCamel)
+    createUser(user) {
+      Api.post('/users', user)
         .then(response => {
-          this.camels.push(response.data)
+          this.users.push(response.data)
         })
         .catch(error => {
           console.log(error)
         })
-    },
-    getRandomInt(max) {
-      return Math.floor(Math.random() * max)
-    },
-    getRandomColor() {
-      var colors = ['orange', 'green', 'red', 'blue']
-      var index = this.getRandomInt(colors.length)
-      return colors[index]
     }
   },
   components: {
