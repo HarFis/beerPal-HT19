@@ -7,6 +7,7 @@ import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
+import RegisterUser from './views/RegisterUser.vue'
 import CreateBeer from './views/CreateBeer.vue'
 import CreateReview from './views/CreateReview.vue'
 
@@ -45,6 +46,11 @@ export default new Router({
       path: '/beers',
       name: 'beers',
       component: Beers
+    },
+    {
+      path: '/registerUser',
+      name: 'registerUser',
+      component: RegisterUser
     },
     {
       path: '/create-beer',
