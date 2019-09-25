@@ -6,6 +6,7 @@
       <router-link to="/users">Users</router-link>
       <router-link to ="/login">Login</router-link>
       <router-link to="/beers"> Beers</router-link>
+      <router-link to="/breweries"> Breweries</router-link>
       <router-link to="/reviews"> Reviews</router-link>
       <router-link to="/create-beer"> CreateBeer</router-link>
       <router-link to="/create-review"> Create a Review</router-link>
