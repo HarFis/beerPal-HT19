@@ -11,6 +11,7 @@ import RegisterUser from './views/RegisterUser.vue'
 import CreateBeer from './views/CreateBeer.vue'
 import CreateReview from './views/CreateReview.vue'
 import Breweries from './views/Breweries.vue'
+import BreweryInfo from './views/BreweryInfo.vue'
 
 Vue.use(Router)
 
@@ -67,6 +68,11 @@ export default new Router({
       path: '/breweries',
       name: 'breweries',
       component: Breweries
+    },
+    {
+      path: '/breweries/:breweryId',
+      component: BreweryInfo,
+      props: true
     }
   ]
 })
