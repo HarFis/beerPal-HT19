@@ -2,7 +2,7 @@
 
     <form class="review-form" @submit.prevent="onSubmit">
       <p>
-        <label for="beerID">Beer:</label>
+        <label for="beerID">Beer: </label>
         <input id="beerID" v-model="beerID" placeholder="5d8a0484aec6759dad2c0016">
       </p>
       
