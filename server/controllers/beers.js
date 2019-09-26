@@ -3,6 +3,7 @@ var router = express.Router();
 var Beer = require('../models/beer');
 var mongoose = require('mongoose');
 var Review = require('../models/review')
+var Brewery = require('../models/brewery')
 
 /*------------
 -----GET------
@@ -12,7 +13,9 @@ router.get('/', function(req, res, next) {
     var type = req.query.type;
     var sort = req.query.sort;
     if(type||sort){next(); return;};
-    Beer.find(function(err, beers) {
+    Beer.find({})
+    .populate('brewery', 'name')
+    .exec(function(err, beers) {
         if (err) { return next(err); }
         res.json({'beers': beers});
     });
@@ -23,7 +26,9 @@ router.get('/', function(req, res, next) {
     var type = req.query.type;
     var sort = req.query.sort;
     if(sort){next(); return;}
-    Beer.find({'type' : type}).exec(function(err, beers) {
+    Beer.find({'type' : type})
+    .populate('brewery', 'name')
+    .exec(function(err, beers) {
         if (err) { return next(err); }
         if(!beers.length){ //Check if array beers is empty
             var message = "No beer found of type " + type;
@@ -37,12 +42,16 @@ router.get('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
     var sort = req.query.sort;
     if(sort.charAt(0) == '-'){
-        Beer.find().sort({'alcohol' : -1}).exec(function(err, beers) {
+        Beer.find().sort({'alcohol' : -1})
+        .populate('brewery', 'name')
+        .exec(function(err, beers) {
             if (err) { return next(err); }
             res.json({'beers': beers});
         });
     }else{
-        Beer.find().sort({'alcohol' : 1}).exec(function(err, beers) {
+        Beer.find().sort({'alcohol' : 1})
+        .populate('brewery', 'name')
+        .exec(function(err, beers) {
             if (err) { return next(err); }
             res.json({'beers': beers});
         });
@@ -55,7 +64,9 @@ router.get('/:id', function(req, res, next) {
     if( !mongoose.Types.ObjectId.isValid(id) ){
         return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
     }
-    Beer.findById(id, function(err, beer) {
+    Beer.findById(id)
+        .populate('brewery', 'name')
+        .exec(function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {
             return res.status(404).json({'message': 'Beer not found'});

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var beerSchema = new Schema({
     name: { type: String} ,
-    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery'},
+    brewery: { type: mongoose.Schema.Types.ObjectId, ref: 'breweries'},
     type: { type: String },
     alcohol: { type: Number},
     averageRating: { type : Number}
