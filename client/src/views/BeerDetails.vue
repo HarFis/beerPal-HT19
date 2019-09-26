@@ -1,12 +1,19 @@
 <template>
   <div class="beer">
     <h1 id="headline">{{ beer.name }}</h1>
-
+    <ul> 
+      <li>Type: {{ beer.type }}</li>
+      <li>Alcohol/Vol: {{ beer.alcohol }}</li>
+      <li>Average rating: <span v-if="beer.averageRating"> {{ beer.averageRating }} points </span>
+      <span id="warning" v-else> No ratings yet! Be the first to rate! </span></li>  
+    </ul>
+    <b-container v-if="!reviews"> <p>No reviews yet. Be the first to review this beer!!</p></b-container>
     <b-container>
       <b-list-group>
        <review-item v-for="review in reviews" :key="review._id" :review="review"></review-item>
       </b-list-group>
     </b-container>
+    
   </div>
 </template>
 
@@ -80,6 +87,11 @@ a {
 #headline {
   color:rgb(28, 52, 71);
   font-weight: 900;
+}
+
+#warning {
+  color: crimson ;
+  font-weight: bold;
 }
 
 </style>
