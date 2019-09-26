@@ -62,11 +62,11 @@ export default new Router({
       component: CreateBeer
     },
     {
-<<<<<<< HEAD
       path: '/CreatePost',
       name: 'CreatePost',
       component: CreatePost
-=======
+    },
+    {
       path: '/create-review',
       name: 'create-review',
       component: CreateReview
@@ -85,7 +85,6 @@ export default new Router({
       path: '/breweries/:breweryId',
       component: BreweryInfo,
       props: true
->>>>>>> e34ed23c2736d17848f4279237b6e24f45407774
     }
   ]
 })
