@@ -14,9 +14,10 @@ router.get('/', function(req, res, next) {
     var sort = req.query.sort;
     if(type||sort){next(); return;};
     Beer.find({})
-    .populate('brewery', 'name')
+    .populate('brewery')
     .exec(function(err, beers) {
         if (err) { return next(err); }
+        console.log("beer")
         res.json({'beers': beers});
     });
 });
@@ -65,13 +66,29 @@ router.get('/:id', function(req, res, next) {
         return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
     }
     Beer.findById(id)
-        .populate('brewery', 'name')
-        .exec(function(err, beer) {
+    .populate('brewery')
+    .exec(function(err, beer) {
         if (err) { return next(err); }
         if (beer === null) {
             return res.status(404).json({'message': 'Beer not found'});
         }
         res.json(beer);
+    });
+});
+
+router.get('/:id/reviews', function(req, res, next) {
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Not found"}); // They didn't send an object ID
+    }
+    Review.find({beer: id})
+        .populate('beer')
+        .exec(function(err, reviews) {
+        if (err) { return next(err); }
+        if (reviews === null) {
+            return res.status(404).json({'message': 'Not found'});
+        }
+        res.json({'reviews' : reviews});
     });
 });
 
@@ -160,7 +177,7 @@ router.put('/', function(req, res, next) {
     });
 });
 
-// Update the beer with the given idea
+// Update the beer with the given id
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
