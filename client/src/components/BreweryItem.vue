@@ -1,10 +1,10 @@
 <template>
-    <b-list-group-item>
-    <img style="width: 5%" alt="Brewery" src="../assets/brewery.png">{{ brewery.name }}, Adress: {{ brewery.adress }}
-    , Link: {{ brewery.link}}
-    <router-link :to="'/breweries/' + brewery._id ">Brewery</router-link>
-    <b-button type="button" class="close" @click="$emit('delete-brewery', brewery._id)">&times;</b-button>
-    </b-list-group-item>
+      <b-list-group-item>
+      <img alt="Brewery" src="../assets/brewery.png">{{ brewery.name }}, Adress: {{ brewery.adress }}
+      , Link: {{ brewery.link}}
+      <b-button pill variant="outline-info" size="sm" router-link :to="'/breweries/'  + brewery._id ">more details</b-button>
+      <b-button type="button" class="close" @click="$emit('delete-brewery', brewery._id)">&times;</b-button>
+      </b-list-group-item>
 </template>
 
 <script>

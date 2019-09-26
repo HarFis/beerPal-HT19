@@ -1,10 +1,10 @@
 <template>
-  <div class="breweries">
+    <div class="breweryList">
       <h1>List of {{ breweries.length}} breweries</h1>
       <b-list-group>
         <brewery-item v-for="brewery in breweries" :key="brewery._id" :brewery="brewery" @delete-brewery="deleteBrewery"></brewery-item>
       </b-list-group>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -59,7 +59,7 @@ a {
 .createButton {
   margin-bottom: 1em;
 }
-.beers {
+.breweryList {
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;
