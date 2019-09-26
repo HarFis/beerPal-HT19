@@ -1,6 +1,6 @@
 <template>
   <div class="beers">
-      <h1>List of {{ beers.length}} beers</h1>
+      <h1>List of {{ beers.length }} beers</h1>
       <b-list-group>
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
