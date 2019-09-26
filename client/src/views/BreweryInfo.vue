@@ -3,12 +3,11 @@
     <div class="breweryInfo">
         <img style="width: 25%" alt="Brewery" src="../assets/brewery.png">
         <br>
-        <br><h2>{{ brewery.name }}</h2>
+        <h2>{{ brewery.name }}</h2>
         <p v-if=" !brewery.adress">Adress: Not found </p>
         <p v-else>Adress: {{ brewery.adress}} </p>
-        <b-list-group>
-            <li>{{ brewery.link }}</li>
-        </b-list-group>
+        <p v-if=" !brewery.link">Web page: Not found </p>
+        <p v-else>Web page: {{ brewery.link }} </p>
     </div>
     <div class="beerList">
         <h1>All {{ brewery.name }} beers: </h1>

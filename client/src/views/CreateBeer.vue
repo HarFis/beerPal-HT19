@@ -20,6 +20,10 @@
         <input type="submit" value="Submit">  
       </p>    
     
+      <b-form-select v-model="selected" class="mb-3">
+
+      </b-form-select>
+
     </form>
 
 </template>
@@ -33,7 +37,8 @@ export default {
         return {
             name: null,
             type: null,
-            alcohol: null
+            alcohol: null,
+            breweries: []
         }
     },
     methods: {
@@ -50,6 +55,15 @@ export default {
         this.name = null
         this.type = null
         this.alcohol = null
+        },
+        getBreweries(){
+          Api.get('breweries')
+            .then( response => {
+                this.breweries = response.data.breweries
+            }).catch(error =>{
+                this.breweries = []
+                console.log(error)
+            })
         }
     }
 }
