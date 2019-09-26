@@ -12,42 +12,42 @@ import { Api } from '@/Api'
 import BeerItem from '@/components/BeerItem'
 
 export default {
-    name: 'Beers',
-    data() {
-        return{
-            beers: []
-        }
-    }, 
-    mounted() {
-        this.getBeers()
-    },
-    methods: {
-        getBeers(){
-            Api.get('beers')
-            .then( response => {
-                this.beers = response.data.beers
-            }).catch(error =>{
-                this.beers = []
-                console.log(error)
-            })
-            .then(() => {
+  name: 'Beers',
+  data() {
+    return {
+      beers: []
+    }
+  },
+  mounted() {
+    this.getBeers()
+  },
+  methods: {
+    getBeers() {
+      Api.get('beers')
+        .then(response => {
+          this.beers = response.data.beers
+        }).catch(error => {
+          this.beers = []
+          console.log(error)
+        })
+        .then(() => {
           // This code is always executed (after success or error).
-            })
-        },
-        deleteBeer(id) {
-          Api.delete(`/beers/${id}`)
-          .then(response => {
+        })
+    },
+    deleteBeer(id) {
+      Api.delete(`/beers/${id}`)
+        .then(response => {
           var index = this.beers.findIndex(beer => beer._id === id)
           this.beers.splice(index, 1)
         })
         .catch(error => {
           console.log(error)
         })
-        }
-    }, 
-    components: {
-        BeerItem
     }
+  },
+  components: {
+    BeerItem
+  }
 }
 </script>
 

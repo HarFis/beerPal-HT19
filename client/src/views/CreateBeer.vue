@@ -5,24 +5,20 @@
         <label for="name">Name:</label>
         <input id="name" v-model="name" placeholder="name">
       </p>
-      
+
       <p>
-        <label for="type">Type</label>      
+        <label for="type">Type</label>
         <textarea id="type" v-model="type"></textarea>
       </p>
 
       <p>
-        <label for="alcohol">Alcohol</label>      
+        <label for="alcohol">Alcohol</label>
         <textarea id="alcohol" v-model.number="alcohol"></textarea>
       </p>
-          
-      <p>
-        <input type="submit" value="Submit">  
-      </p>    
-    
-      <b-form-select v-model="selected" class="mb-3">
 
-      </b-form-select>
+      <p>
+        <input type="submit" value="Submit">
+      </p>
 
     </form>
 
@@ -66,5 +62,6 @@ export default {
             })
         }
     }
+  }
 }
 </script>

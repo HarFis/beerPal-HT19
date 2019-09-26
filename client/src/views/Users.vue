@@ -40,15 +40,17 @@ export default {
         })
     },
     deleteUser(id) {
-      Api.delete(`/users/${id}`)
-        .then(response => {
-          console.log(response.data.message)
-          var index = this.users.findIndex(user => user._id === id)
-          this.users.splice(index, 1)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      if (confirm('Are you sure?')) {
+        Api.delete(`/users/${id}`)
+          .then(response => {
+            console.log(response.data.message)
+            var index = this.users.findIndex(user => user._id === id)
+            this.users.splice(index, 1)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
   },
   components: {

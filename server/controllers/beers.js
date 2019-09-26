@@ -3,6 +3,7 @@ var router = express.Router();
 var Beer = require('../models/beer');
 var mongoose = require('mongoose');
 var Review = require('../models/review')
+var Brewery = require('../models/brewery')
 
 /*------------
 -----GET------
@@ -26,7 +27,9 @@ router.get('/', function(req, res, next) {
     var type = req.query.type;
     var sort = req.query.sort;
     if(sort){next(); return;}
-    Beer.find({'type' : type}).exec(function(err, beers) {
+    Beer.find({'type' : type})
+    .populate('brewery', 'name')
+    .exec(function(err, beers) {
         if (err) { return next(err); }
         if(!beers.length){ //Check if array beers is empty
             var message = "No beer found of type " + type;
@@ -40,12 +43,16 @@ router.get('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
     var sort = req.query.sort;
     if(sort.charAt(0) == '-'){
-        Beer.find().sort({'alcohol' : -1}).exec(function(err, beers) {
+        Beer.find().sort({'alcohol' : -1})
+        .populate('brewery', 'name')
+        .exec(function(err, beers) {
             if (err) { return next(err); }
             res.json({'beers': beers});
         });
     }else{
-        Beer.find().sort({'alcohol' : 1}).exec(function(err, beers) {
+        Beer.find().sort({'alcohol' : 1})
+        .populate('brewery', 'name')
+        .exec(function(err, beers) {
             if (err) { return next(err); }
             res.json({'beers': beers});
         });

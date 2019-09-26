@@ -9,6 +9,7 @@ import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
 import RegisterUser from './views/RegisterUser.vue'
 import CreateBeer from './views/CreateBeer.vue'
+import CreatePost from './views/CreatePost.vue'
 import CreateReview from './views/CreateReview.vue'
 import BeerDetails from './views/BeerDetails.vue'
 import Breweries from './views/Breweries.vue'
@@ -61,6 +62,11 @@ export default new Router({
       component: CreateBeer
     },
     {
+<<<<<<< HEAD
+      path: '/CreatePost',
+      name: 'CreatePost',
+      component: CreatePost
+=======
       path: '/create-review',
       name: 'create-review',
       component: CreateReview
@@ -79,6 +85,7 @@ export default new Router({
       path: '/breweries/:breweryId',
       component: BreweryInfo,
       props: true
+>>>>>>> e34ed23c2736d17848f4279237b6e24f45407774
     }
   ]
 })
