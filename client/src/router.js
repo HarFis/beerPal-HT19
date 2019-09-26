@@ -66,9 +66,10 @@ export default new Router({
       component: CreateReview
     },
     {
-      path: '/beerDetails/:beerID',
-      name: 'BeerDetails',
-      component: BeerDetails},
+      path: '/beers/:beerID',
+      component: BeerDetails,
+      props: true
+    },
     {
       path: '/breweries',
       name: 'breweries',

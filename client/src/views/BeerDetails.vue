@@ -1,9 +1,12 @@
 <template>
   <div class="beer">
-      <h1>List of {{ beers.length}} beers</h1>
+    <h1>This is {{ beer.name }}</h1>
+
+    <b-container>
       <b-list-group>
-       <!-- <review-item v-for="review in reviews" :key="review._id" :review="review"> </beer-item> -->
+       <review-item v-for="review in reviews" :key="review._id" :review="review"></review-item>
       </b-list-group>
+    </b-container>
   </div>
 </template>
 
@@ -12,24 +15,36 @@ import { Api } from '@/Api'
 import ReviewItem from '@/components/ReviewItem'
 
 export default {
-    name: 'Beer',
+    name: 'BeerDetails',
+    props: ['beerID'],
+
     data() {
-        return beer
+      return {
+        beer: "",
+        reviews: []
+      }
     }, 
     mounted() {
-        this.getBeers() //<-- ID here!!
+        this.getReviews()
+        this.getBeer() 
     },
     methods: {
-        getBeers(id){
-            Api.get('beers/:'+id)
+        getBeer(){
+            Api.get('beers/'+this.beerID)
             .then( response => {
-                this.beer = response.data.beer
+                this.beer = response.data
             }).catch(error =>{
-                this.beer = []
+                this.beer = null
                 console.log(error)
             })
-            .then(() => {
-          // This code is always executed (after success or error).
+        },
+        getReviews(){
+            Api.get('beers/' + this.beerID + '/reviews/')
+            .then( response => {
+                this.reviews = response.data.reviews
+            }).catch(error =>{
+                this.reviews = []
+                console.log(error)
             })
         }
         /*,
