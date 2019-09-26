@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
     Location.find(function(err, locations) {
         if (err) { return next(err); }
-        res.status(200).json({'location': locations});
+        res.status(200).json({'locations': locations});
     });
 });
 

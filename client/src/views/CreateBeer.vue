@@ -3,7 +3,7 @@
     <form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="name">Name:</label>
-        <input id="name" v-model="name" placeholder="name">
+        <input id="name" v-model="name" placeholder="name" required>
       </p>
 
       <p>

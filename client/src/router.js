@@ -7,12 +7,14 @@ import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
 import Beers from './views/Beers.vue'
+import Breweries from './views/Breweries.vue'
+import Locations from './views/Locations.vue'
 import RegisterUser from './views/RegisterUser.vue'
 import CreateBeer from './views/CreateBeer.vue'
 import CreatePost from './views/CreatePost.vue'
 import CreateReview from './views/CreateReview.vue'
+import CreateLocation from './views/CreateLocation.vue'
 import BeerDetails from './views/BeerDetails.vue'
-import Breweries from './views/Breweries.vue'
 import BreweryInfo from './views/BreweryInfo.vue'
 
 Vue.use(Router)
@@ -52,6 +54,11 @@ export default new Router({
       component: Beers
     },
     {
+      path: '/locations',
+      name: 'locations',
+      component: Locations
+    },
+    {
       path: '/registerUser',
       name: 'registerUser',
       component: RegisterUser
@@ -70,6 +77,11 @@ export default new Router({
       path: '/create-review',
       name: 'create-review',
       component: CreateReview
+    },
+    {
+      path: '/create-location',
+      name: 'create-location',
+      component: CreateLocation
     },
     {
       path: '/beers/:beerID',

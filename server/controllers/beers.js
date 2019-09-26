@@ -17,7 +17,6 @@ router.get('/', function(req, res, next) {
     .populate('brewery')
     .exec(function(err, beers) {
         if (err) { return next(err); }
-        console.log("beer")
         res.json({'beers': beers});
     });
 });

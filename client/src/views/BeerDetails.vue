@@ -1,6 +1,6 @@
 <template>
   <div class="beer">
-    <h1>This is {{ beer.name }}</h1>
+    <h1 id="headline">{{ beer.name }}</h1>
 
     <b-container>
       <b-list-group>
@@ -74,7 +74,12 @@ a {
   margin-bottom: 1em;
 }
 .beer{
-  color: red;
+  color: darkslategray;
+}
+
+#headline {
+  color:rgb(28, 52, 71);
+  font-weight: 900;
 }
 
 </style>
