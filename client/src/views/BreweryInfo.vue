@@ -4,8 +4,9 @@
         <img style="width: 25%" alt="Brewery" src="../assets/brewery.png">
         <br>
         <br><h2>{{ brewery.name }}</h2>
+        <p v-if=" !brewery.adress">Adress: Not found </p>
+        <p v-else>Adress: {{ brewery.adress}} </p>
         <b-list-group>
-            <li>{{ brewery.adress }}</li>
             <li>{{ brewery.link }}</li>
         </b-list-group>
     </div>
