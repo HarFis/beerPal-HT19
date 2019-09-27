@@ -1,6 +1,6 @@
 <template>
     <b-list-group-item>
-    <p><img alt="Beer" src="../assets/beer.png">{{ beer.name }} <!--TO FIX <span v-show="beer.brewery._id">by {{ beer.brewery.name }} </span> -->
+    <p><img alt="Beer" src="../assets/beer.png">{{ beer.name }} <span v-show="showBrewery"> <span v-if="beer.brewery">by {{ beer.brewery.name }} </span></span>
     <b-button pill variant="outline-info" size="sm" router-link :to="'/beers/' + beer._id ">more details</b-button> 
     <b-button type="button" class="close" @click="$emit('delete-beer', beer._id)">&times;</b-button></p>
     <span v-if=beer.averageRating>
@@ -13,8 +13,9 @@
 
 export default {
   name: 'beer-item',
-  props: ['beer']
-  }
+  props: ['beer', 'showBrewery']
+}
+
 </script>
 
 <style scoped>
