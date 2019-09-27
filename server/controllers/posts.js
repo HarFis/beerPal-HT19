@@ -9,8 +9,8 @@ var Review = require ('../models/review');
 router.get('/', function(req, res, next, ) {
     var populateOwner = ({path: 'users', select: 'username'});
     Post.find({})
-        .populate('reviews')
-        .populate('locations')
+        .populate('review')
+        .populate('location')
         .populate('postOwner', 'username')
         .exec(function(err, post)
          {
@@ -24,8 +24,8 @@ router.get('/:id', function(req, res, next) {
     console.log("HERE")
     var id = req.params.id;
     Post.findById(id)
-        .populate('reviews')
-        .populate('locations')
+        .populate('review')
+        .populate('location')
         .populate('postOwner', 'username')
         .exec(function(err, post) {
         if (err) { return next(err); }
