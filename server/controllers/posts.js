@@ -39,10 +39,7 @@ router.get('/:id', function(req, res, next) {
 
 // Create a new post
 router.post('/', (req, res, next) => {
-    /*if (!req.body.postOwner){
-        return res.status(403)
-        .json({'message': 'requires postowner'})
-        }*/
+    console.log(req.body.review)
     var post = new Post(req.body);    
     var userId = req.body.postOwner;
     User.findById(userId).then(user => {
