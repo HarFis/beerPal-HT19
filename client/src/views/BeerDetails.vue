@@ -7,8 +7,8 @@
       <li>Average rating: <span v-if="beer.averageRating"> {{ beer.averageRating }} points </span>
       <span id="warning" v-else> No ratings yet! Be the first to rate! </span></li>  
     </ul>
-    <b-container v-if="!reviews"> <p>No reviews yet. Be the first to review this beer!!</p></b-container>
-    <b-container>
+    <b-container v-if="reviews==0"> <b-row><p id="warning">No reviews yet. Be the first to review this beer!!</p></b-row></b-container>
+    <b-container v-else>
       <b-list-group>
        <review-item v-for="review in reviews" :key="review._id" :review="review"></review-item>
       </b-list-group>
