@@ -100,8 +100,9 @@ export default new Router({
       props: true
     },
     {
-      path: '/users/:userId',
-      component: UserDetails
+      path: '/users/:userID',
+      component: UserDetails,
+      props: true
     }
   ]
 })
