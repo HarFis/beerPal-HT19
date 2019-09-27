@@ -32,9 +32,16 @@ router.get('/', function(req, res, next) {
 // Return a list of all user's posts
 router.get('/:id/posts', function(req, res, next) {
     var id = req.params.id;
-    Post.find({postOwner : id}).exec(function(err, posts) {
+    Post.find({postOwner: id})
+        .populate({
+            path : 'review', 
+        populate : {path : 'beer'}})
+        .populate('location')
+        .populate('postOwner', 'username')
+        .exec(function(err, post)
+         {
         if (err) { return next(err); }
-        res.status(200).json({'posts': posts});
+        res.status(200).json(post);
     });
 });
 
@@ -86,7 +93,9 @@ router.post('/', function(req, res, next) {
 // Return the user with the given ID
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, user) {
+    User.findById(id)
+    .populate('post')
+    .exec(function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});

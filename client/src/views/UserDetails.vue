@@ -23,19 +23,20 @@ export default {
     data() {
       return {
         user: "",
-        users: [],
         posts: []
       }
     }, 
     mounted() {
-        this.getPosts()
+        this.getPosts(),
         this.getUser() 
     },
     methods: {
         getUser(){
+            console.log(this.userID)
             Api.get('users/'+this.userID)
             .then( response => {
                 this.user = response.data
+                console.log(this.user)
             }).catch(error =>{
                 this.user = null
                 console.log(error)
@@ -44,7 +45,7 @@ export default {
         getPosts(){
             Api.get('users/' + this.userID + '/posts/')
             .then( response => {
-                this.posts = response.data.posts
+                this.posts = response.data
             }).catch(error =>{
                 this.posts = []
                 console.log(error)

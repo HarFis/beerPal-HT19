@@ -9,7 +9,9 @@ var Review = require ('../models/review');
 router.get('/', function(req, res, next, ) {
     var populateOwner = ({path: 'users', select: 'username'});
     Post.find({})
-        .populate('review')
+        .populate({
+            path : 'review', 
+        populate : {path : 'beer'}})
         .populate('location')
         .populate('postOwner', 'username')
         .exec(function(err, post)
@@ -47,15 +49,10 @@ router.post('/', (req, res, next) => {
             return res.status(404)
             .json({message: "postowner not found in DB"});
         }
-    post.save(function(err) {
-        if (err) { return next(err);
-         };
-         User.findByIdAndUpdate( userId,
-             {$push : {"posts": post._id}})
-             .populate('posts')
-        res.status(201).json(post);
+    post.save(function(err) {  
+        res.status(200).json(post)
+        });
     });
-});
 });
 
 
