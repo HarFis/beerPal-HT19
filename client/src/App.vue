@@ -12,7 +12,7 @@
       <router-link to="/create-beer"> CreateBeer</router-link>
       <router-link to="/create-review"> Create a Review</router-link>
       <router-link to="/create-location"> Create a Location</router-link>
-
+      <router-link to="/create-brewery"> Create a Brewery</router-link>
     </div>
     <router-view/>
   </div>

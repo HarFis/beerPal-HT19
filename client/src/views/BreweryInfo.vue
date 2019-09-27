@@ -28,15 +28,14 @@ export default {
 
     data() {
         return {
-            brewery: null,
+            brewery: "",
             beers: []
         }
     },
 
     mounted() {
-        this.getBeers()
         this.getBrewery()
-        
+        this.getBeers()
     },
 
     methods: {
@@ -57,6 +56,16 @@ export default {
                     this.beers = []
                     console.log(error)
                 })
+        },
+        deleteBeer(id) {
+            Api.delete(`/beers/${id}`)
+            .then(response => {
+                var index = this.beers.findIndex(beer => beer._id === id)
+                this.beers.splice(index, 1)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
     },
     components: {
