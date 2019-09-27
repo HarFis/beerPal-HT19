@@ -23,15 +23,16 @@ export default {
     data() {
       return {
         user: "",
-        users: []
+        users: [],
+        posts: []
       }
     }, 
     mounted() {
-        this.getReviews()
-        this.getBeer() 
+        this.getPosts()
+        this.getUser() 
     },
     methods: {
-        getUsers(){
+        getUser(){
             Api.get('users/'+this.userID)
             .then( response => {
                 this.user = response.data
@@ -51,8 +52,7 @@ export default {
         }
     }, 
     components: {
-        PostItem,
-        UserItem
+        PostItem
     }
 }
 </script>
