@@ -4,6 +4,8 @@
       <b-list-group>
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
+      <br>
+      <b-button variant="danger" @click="deleteAllBeers">Delete all beers</b-button>
   </div>
 </template>
 
@@ -43,6 +45,17 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    deleteAllBeers() {
+        if(confirm('Are you sure you want to delete all beers?')){
+        Api.delete('beers')
+        .then(response =>{
+          this.beers = []
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+      }
     }
   },
   components: {
