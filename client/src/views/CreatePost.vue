@@ -1,7 +1,18 @@
 <template>
 <div class="createPost">
   <h1>
-    <b-form>
+    <b-form @submit.prevent="onSubmit">
+
+      <div>
+        <p>User: {{userName}}</p>
+        <b-form-select v-model="selectedUser" :users="users" @change="setUser(selectedUser)">
+          <option name="Header4" :value="null">Please choose user</option>
+          <option name="users" :value="user._id" v-for="user in users" :key="user._id">
+            {{user.username}}
+            </option>
+        </b-form-select>
+      </div>
+
       <div>
         <p>Beer: {{beerName}}</p>
         <b-form-select v-model="selectedBeer" :beers="beers" @change="setBrewery(selectedBeer)">
@@ -37,8 +48,18 @@
         > 
         </b-form-input>
       </b-form-group>
+      <p>Location: {{location}}</p>
+      <b-form-group>
+        <b-form-select v-model="selectedLocation" :locations="locations" @change="setLocation(selectedLocation)">
+          <option name="Header3" :value="null">Please choose location</option>
+          <option name="locations" :value="location._id" v-for="location in locations" :key="location._id">
+            {{location.name}}
+            </option>
+        </b-form-select>
+      </b-form-group>
     
-      
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
 
     </b-form>
     
@@ -55,15 +76,24 @@ export default {
   data() {
     return {
       selectedBeer: null,
+      selectedLocation: null,
+      selectedUser: null,
       score: null,
       brewery: null,
+      location: null,
+      userName: null,
       beerName: null,
       reviewText: null,
-      beers: []
+      createdReview: null,
+      beers: [],
+      locations: [],
+      users: []
     }
   },
   mounted() {
-    this.getBeers()
+    this.getBeers(),
+    this.getLocations(),
+    this.getUsers()
   },
   methods: {
     getBeers() {
@@ -89,7 +119,82 @@ export default {
           console.log(error)
         })
       )
-    }
+    },
+    getLocations() {
+      Api.get('locations')
+        .then(response => {
+          this.locations = response.data.locations
+        }).catch(error => {
+          this.locations = []
+          console.log(error)
+        })
+        .then(() => {
+          // This code is always executed (after success or error).
+        })
+    },
+    setLocation(id){
+      console.log(
+        Api.get(`/locations/${id}`)
+        .then(response => {
+          this.location = response.data.name
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      )
+    },
+    setUser(id){
+      console.log(
+        Api.get(`/users/${id}`)
+        .then(response => {
+          this.userName = response.data.username
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      )
+    },
+    getUsers() {
+      Api.get('users')
+        .then(response => {
+          this.users = response.data.users
+        }).catch(error => {
+          this.users = []
+          console.log(error)
+        })
+        .then(() => {
+          // This code is always executed (after success or error).
+        })
+    },
+    onSubmit(){
+        var review = {
+          beerID: this.selectedBeer,
+          score: this.score,
+          textReview: this.reviewText
+        };
+        Api.post("/reviews", review)
+        .then(response =>{
+          this.createdReview = response.data._id
+        var post = {
+            review: this.createdReview,
+            location: this.selectedLocation,
+            postOwner: this.selectedUser
+        };
+        console.log(post.review)
+        Api.post('posts', post)
+        .then(alert('Post Created'))
+        .catch(error => {
+          console.log(error)
+        })
+        })
+        .catch(error => {
+        console.log(error);
+      });
+        this.name = null
+        this.type = null
+        this.alcohol = null
+        this.brewery = null
+      },
   },
   components: {
     

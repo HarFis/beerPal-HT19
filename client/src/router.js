@@ -16,6 +16,7 @@ import CreateReview from './views/CreateReview.vue'
 import CreateLocation from './views/CreateLocation.vue'
 import BeerDetails from './views/BeerDetails.vue'
 import BreweryInfo from './views/BreweryInfo.vue'
+import UserDetails from './views/UserDetails.vue'
 
 Vue.use(Router)
 
@@ -97,6 +98,10 @@ export default new Router({
       path: '/breweries/:breweryId',
       component: BreweryInfo,
       props: true
+    },
+    {
+      path: '/users/:userId',
+      component: UserDetails
     }
   ]
 })
