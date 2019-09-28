@@ -1,8 +1,8 @@
 <template>
   <form class="location-form" @submit.prevent="onSubmit">
     <p>
-      <label for="name">Location's name: </label>
-      <input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required/>
+      <label for="name">Location's name:</label>
+      <input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
     </p>
 
     <p>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Api } from "@/Api"
+import { Api } from "@/Api";
 
 export default {
   name: "CreateLocation",
@@ -30,7 +30,7 @@ export default {
     return {
       name: null,
       typeOfLocation: null
-    }
+    };
   },
   methods: {
     onSubmit() {
@@ -38,18 +38,19 @@ export default {
         let Location = {
           name: this.name,
           typeOfLocation: this.typeOfLocation
-        }
+        };
         Api.post("/locations", Location).catch(error => {
-          console.log(error)
-        })
-        alert("form submitted")
-        this.name = null
-        this.typeOfLocation = null
+          console.log(error);
+        });
+        alert("New Location successfully created!");
+        this.name = null;
+        this.typeOfLocation = null;
       } else {
-        if (!this.name) this.errors.push("Name required.")
-        if (!this.typeOfLocation) this.errors.push("Type of Location is required.")
+        if (!this.name) this.errors.push("Name required.");
+        if (!this.typeOfLocation)
+          this.errors.push("Type of Location is required.");
       }
     }
   }
-}
+};
 </script>
