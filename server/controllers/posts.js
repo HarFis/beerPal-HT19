@@ -50,7 +50,7 @@ router.post('/', (req, res, next) => {
             .json({message: "postowner not found in DB"});
         }
     post.save(function(err) {  
-        res.status(200).json(post)
+        res.status(201).json(post)
         });
     });
 });
