@@ -10,6 +10,7 @@
           <b-col>
             Score:
             <span class="badge badge-primary badge-pill">{{ review.score }}</span> points
+            <img :alt="pic" :src="'/assets/'+review.score+'av5.png'" >
           </b-col>
           <b-col>consumed on: {{ review.created }}</b-col>
           <b-col>
