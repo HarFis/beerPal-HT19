@@ -19,7 +19,6 @@ import CreateBeer from './views/beers/CreateBeer.vue'
 import BeerDetails from './views/beers/BeerDetails.vue'
 
 import Home from './views/Home.vue'
-import Camels from './views/Camels.vue'
 import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
@@ -40,11 +39,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/camels',
-      name: 'camels',
-      component: Camels
     },
     {
       path: '/users',
