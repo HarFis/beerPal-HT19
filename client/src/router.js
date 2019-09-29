@@ -1,24 +1,34 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+/* -------------
+---Breweries----
+------------- */
+
+import Breweries from './views/breweries/Breweries.vue'
+import BreweryInfo from './views/breweries/BreweryInfo.vue'
+import CreateBrewery from './views/breweries/CreateBrewery.vue'
+import EditBrewery from './views/breweries/EditBrewery.vue'
+
+/* -------------
+------Beers-----
+------------- */
+
+import Beers from './views/beers/Beers.vue'
+import CreateBeer from './views/beers/CreateBeer.vue'
+import BeerDetails from './views/beers/BeerDetails.vue'
+
 import Home from './views/Home.vue'
 import Camels from './views/Camels.vue'
 import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
 import Reviews from './views/Reviews.vue'
-import Beers from './views/Beers.vue'
-import Breweries from './views/Breweries.vue'
 import Locations from './views/Locations.vue'
 import RegisterUser from './views/RegisterUser.vue'
-import CreateBeer from './views/CreateBeer.vue'
 import CreatePost from './views/CreatePost.vue'
 import CreateReview from './views/CreateReview.vue'
 import CreateLocation from './views/CreateLocation.vue'
-import BeerDetails from './views/BeerDetails.vue'
-import BreweryInfo from './views/BreweryInfo.vue'
 import UserDetails from './views/UserDetails.vue'
-import CreateBrewery from './views/CreateBrewery.vue'
-import EditBrewery from './views/EditBrewery.vue'
 
 Vue.use(Router)
 

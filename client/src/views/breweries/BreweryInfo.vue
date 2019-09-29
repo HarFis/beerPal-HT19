@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="breweryInfo">
-        <img style="width: 25%" alt="Brewery" src="../assets/brewery.png">
+        <img style="width: 25%" alt="Brewery" src="../../assets/brewery.png">
         <br>
         <h2>{{ brewery.name }}</h2>
         <p v-if=" !brewery.adress">Adress: Not found </p>
