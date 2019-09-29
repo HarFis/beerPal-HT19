@@ -18,17 +18,27 @@ import Beers from './views/beers/Beers.vue'
 import CreateBeer from './views/beers/CreateBeer.vue'
 import BeerDetails from './views/beers/BeerDetails.vue'
 
+/* -------------
+------Reviews---
+------------- */
+
+import Reviews from './views/reviews/Reviews.vue'
+import CreateReview from './views/reviews/CreateReview.vue'
+import EditReview from './views/reviews/EditReview.vue'
+
+/* -------------
+----Locations---
+------------- */
+
+import Locations from './views/locations/Locations.vue'
+import CreateLocation from './views/locations/CreateLocation.vue'
+
 import Home from './views/Home.vue'
 import Users from './views/Users.vue'
 import LoginPage from './views/Login.vue'
-import Reviews from './views/Reviews.vue'
-import Locations from './views/Locations.vue'
 import RegisterUser from './views/RegisterUser.vue'
 import CreatePost from './views/CreatePost.vue'
-import CreateReview from './views/CreateReview.vue'
-import CreateLocation from './views/CreateLocation.vue'
 import UserDetails from './views/UserDetails.vue'
-import EditReview from './views/EditReview.vue'
 
 Vue.use(Router)
 
