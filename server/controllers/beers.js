@@ -151,7 +151,13 @@ router.delete('/:id', function(req, res, next) {
         }
         res.json(beer);
     });
+    Review.deleteMany({beer: id}, function(err){
+    if (err) { return next(err); 
+    } 
+    console.log("Comments deleted");
+    });
 });
+
 
 /*------------
 -----PUT------

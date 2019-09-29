@@ -4,7 +4,8 @@
       <b-container>
         <b-row>
           <b-col>
-            <p class="text-left">Beer: {{ review.beer.name }}</p>
+            <p class="text-left"><span v-if="!(review.beer==null)">Beer: {{ review.beer.name }}</span>
+            <span v-else>deleted Beer</span></p>
           </b-col>
           <b-col>
             Score:
@@ -32,7 +33,7 @@
 <script>
 export default {
   name: "review-item",
-  props: ["review"]
+  props: ["review"],
 };
 </script>
 

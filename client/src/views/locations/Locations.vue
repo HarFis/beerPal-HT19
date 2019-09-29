@@ -10,6 +10,8 @@
         @edit-location="editLocation"
       ></location-item>
     </b-list-group>
+    <br>
+  <b-button variant="danger" @click="deleteAllLocations" v-show="!(locations.length===0)">Delete all locations</b-button>
   </div>
 </template>
 
@@ -62,6 +64,17 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    deleteAllLocations() {
+        if(confirm('Are you sure you want to delete all locations?')){
+        Api.delete('locations')
+        .then(response =>{
+          this.locations = []
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+      }
     }
   },
 
