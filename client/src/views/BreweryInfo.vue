@@ -8,6 +8,7 @@
         <p v-else>Adress: {{ brewery.adress}} </p>
         <p v-if=" !brewery.link">Web page: Not found </p>
         <p v-else>Web page: {{ brewery.link }} </p>
+        <b-button variant="outline-secondary" router-link :to="'/edit-brewery/'  + brewery._id ">Edit</b-button>
     </div>
     <div class="beerList">
         <h1>All {{ brewery.name }} beers: </h1>

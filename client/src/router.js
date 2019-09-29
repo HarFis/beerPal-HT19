@@ -18,6 +18,7 @@ import BeerDetails from './views/BeerDetails.vue'
 import BreweryInfo from './views/BreweryInfo.vue'
 import UserDetails from './views/UserDetails.vue'
 import CreateBrewery from './views/CreateBrewery.vue'
+import EditBrewery from './views/EditBrewery.vue'
 
 Vue.use(Router)
 
@@ -109,6 +110,12 @@ export default new Router({
       path: '/create-brewery',
       name: 'create-brewery',
       component: CreateBrewery
+    },
+    {
+      path: '/edit-brewery/:breweryId',
+      name: 'edit-brewery',
+      component: EditBrewery,
+      props: true
     }
   ]
 })
