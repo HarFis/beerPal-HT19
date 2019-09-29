@@ -16,7 +16,6 @@
 <script>
 import { Api } from "@/Api";
 import LocationItem from "@/components/LocationItem";
-import Vue from "vue";
 
 export default {
   name: "Locations",
@@ -58,6 +57,7 @@ export default {
       Api.patch(`/locations/${id}`, newLocation)
         .then(response => {
           console.log(response.data);
+            this.getLocations();
         })
         .catch(error => {
           console.log(error);

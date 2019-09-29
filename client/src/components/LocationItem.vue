@@ -11,7 +11,7 @@
             <b-dropdown
               variant="outline-info"
               id="dropdown-form"
-              text="Edit"
+              text="edit"
               ref="dropdown"
               class="m-2"
             >
@@ -37,7 +37,6 @@
               </b-dropdown-form>
             </b-dropdown>
 
-            <!-- <b-col> <b-button pill variant="outline-info" size="sm"  @click="$emit('edit-location', location._id)">edit</b-button></b-col> -->
             <b-button
               variant="outline-danger"
               @click="$emit('delete-location', location._id)"

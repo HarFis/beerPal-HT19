@@ -7,7 +7,6 @@
         <span v-if="beer.brewery">by {{ beer.brewery.name }}</span>
       </span>
       <b-button
-        pill
         variant="outline-info"
         size="sm"
         router-link
