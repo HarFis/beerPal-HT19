@@ -4,13 +4,13 @@
       <b-carousel
       id="homeCarousel"
       v-model="slide"
-      :interval="8000"
+      :interval="4000"
       controls
       indicators
       background="#ababab"
       img-width="1024"
       img-height="480"
-      style="text-shadow: 2px 2px 4px #999;"
+      style="text-shadow: 2px 4px 4px #000;"
       fade
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd">
@@ -46,13 +46,13 @@
       </b-carousel>
     </div>
       <b-button variant="primary" href="/CreatePost/">CreatePost</b-button>
-    
       <div>
+        <b-container>
         <p>
       <post-item v-for="post in posts" :key="post._id" :post="post"></post-item>
         </p>
+      </b-container>
       </div>
-    
       <!-- Mobile (< 768px): stack columns by making one half-width and one full-width
            Desktop (>= 768px): keep both columns in same row in 4:8 ratio -->
   </div>
@@ -70,16 +70,16 @@ export default {
     return {
       posts: [],
       slide: 0,
-      sliding: null,
+      sliding: null
     }
   },
   mounted() {
-    this.getPosts()
+    this.getOrderedPosts()
   },
 
   methods: {
-    getPosts() {
-      Api.get('posts')
+    getOrderedPosts() {
+      Api.get("posts?sort=1")
         .then(response => {
           this.posts = []
           this.posts = response.data
@@ -89,11 +89,11 @@ export default {
           console.log(error)
         })
     },
-    onSlideStart(slide){
-      this.sliding=true
+    onSlideStart(slide) {
+      this.sliding = true
     },
-    onSlideEnd(slide){
-      this.sliding=false
+    onSlideEnd(slide) {
+      this.sliding = false
     }
   },
   components: {

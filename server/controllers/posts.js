@@ -7,10 +7,29 @@ var Review = require ('../models/review');
 
 // Return a list of all posts
 router.get('/', function(req, res, next, ) {
-    var populateOwner = ({path: 'users', select: 'username'});
+    var sort = req.query.sort;
+    console.log(sort)
+    if(sort){next(); return;}
     Post.find({})
         .populate({
             path : 'review', 
+        populate : {path : 'beer'}})
+        .populate('location')
+        .populate('postOwner', 'username')
+        .exec(function(err, post)
+         {
+        if (err) { return next(err); }
+        res.status(200).json(post);
+    });
+});
+
+// Return a list of all posts, sorted
+router.get('/', function(req, res, next, ) {
+    console.log('got here')
+    Post.find({})
+        .sort({dateAndTime: -1})
+        .populate({
+        path : 'review', 
         populate : {path : 'beer'}})
         .populate('location')
         .populate('postOwner', 'username')

@@ -35,7 +35,6 @@ import CreateLocation from './views/locations/CreateLocation.vue'
 
 import Home from './views/Home.vue'
 import Users from './views/Users.vue'
-import LoginPage from './views/Login.vue'
 import RegisterUser from './views/RegisterUser.vue'
 import CreatePost from './views/CreatePost.vue'
 import UserDetails from './views/UserDetails.vue'
@@ -55,11 +54,6 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: Users
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginPage
     },
     {
       path: '/reviews',
