@@ -13,7 +13,13 @@
       <router-link to="/create-location"> Create a Location</router-link> |
       <router-link to="/create-brewery"> Create a Brewery</router-link> |
     </div>
-    <router-view/>
+    
+    <div id="body">
+      <router-view/>
+    </div>
+    <div id="footer">
+     <p class="cp-text">Copyright © 2019 Fischer-Vaara-Strand Enterprise. All rights reserved</p>
+    </div>
   </div>
 </template>
 
@@ -24,6 +30,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-height:100%;
+  position:relative;
 }
 #nav {
   padding: 30px;
@@ -37,4 +45,31 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+html, body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+#body {
+   padding:10px;
+   padding-bottom:40px;   /* Height of the footer */
+}
+
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:40px;   /* Height of the footer */
+   background:#cfcdcc; 
+   text-align: center; 
+}
+
+.cp-text{ 
+  font-family: monospace;
+  color: rgba(0,0,0,.7); 
+  text-shadow: 0 1px rgba(255, 255, 255, 0.1);
+}
+
 </style>
