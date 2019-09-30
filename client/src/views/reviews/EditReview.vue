@@ -79,6 +79,7 @@ export default {
         .then(response => {
           this.review = response.data.review;
           alert("Updated!");
+          this.$router.push({path: '/reviews'})
         })
         .catch(error => {
           console.log(error);
