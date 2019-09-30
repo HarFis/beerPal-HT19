@@ -1,6 +1,8 @@
 <template>
 <div>
-    <form class="review-form" @submit.prevent="onSubmit">
+  <h2>Create a new brewery</h2>
+  <b-card>
+    <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="name">Name:</label>
         <input id="name" v-model="name" placeholder="name" required>
@@ -19,7 +21,8 @@
         <input type="submit" value="Submit">
       </p>
 
-    </form>
+    </b-form>
+  </b-card>
   </div>
 </template>
 

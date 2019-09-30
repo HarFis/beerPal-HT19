@@ -1,5 +1,8 @@
 <template>
-  <form class="location-form" @submit.prevent="onSubmit">
+  <div>
+  <h2>Create a new location</h2>
+  <b-card>
+  <b-form class="location-form" @submit.prevent="onSubmit">
     <p>
       <label for="name">Location's name:</label>
       <input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
@@ -18,7 +21,9 @@
     <p>
       <input type="submit" value="Submit" />
     </p>
-  </form>
+  </b-form>
+  </b-card>
+  </div>
 </template>
 
 <script>
