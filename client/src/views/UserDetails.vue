@@ -20,6 +20,7 @@
 import { Api } from '@/Api'
 import ReviewItem from '@/components/ReviewItem'
 import PostItem from '@/components/PostItem'
+import router from "@/router";
 
 export default {
     name: 'UserDetails',
@@ -59,8 +60,8 @@ export default {
         deleteUser(id){
             Api.delete('users/'+ this.userID)
             .then(response => {
-                alert(response.data.message)
-                this.router('/users')
+                alert('user ' + this.user.username + ' deleted')
+                this.$router.push({path: '/users'})
             })
             .catch(error => {
                 console.log(error)
