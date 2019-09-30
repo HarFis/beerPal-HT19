@@ -135,7 +135,10 @@ router.delete('/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.status(200).json(user);
+        Post.deleteMany({postOwner: id}, function(err, post){
+            if (err) {return next(err)}
+        })
+        res.status(200).json('user deleted');
     });
 });
 

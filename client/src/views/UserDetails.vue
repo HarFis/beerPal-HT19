@@ -1,12 +1,17 @@
 <template>
   <div class="user">
     <h1 id="headline">{{ user.username }}</h1>
-    <b-container v-if="!posts"> <p>No posts yet.</p></b-container>
-    <b-container>
+    <p>
+        <b-button type="button" @click="deleteUser()">Delete User</b-button>
+    </p>
+    <p>
+    <b-container v-if="posts == null"> <p>No posts yet.</p></b-container>
+    <b-container v-else>
       <b-list-group>
        <post-item v-for="post in posts" :key="post._id" :post="post"></post-item>
       </b-list-group>
     </b-container>
+    </p>
     
   </div>
 </template>
@@ -26,7 +31,7 @@ export default {
         posts: []
       }
     }, 
-    mounted() {
+    created() {
         this.getPosts(),
         this.getUser() 
     },
@@ -48,6 +53,16 @@ export default {
                 this.posts = response.data
             }).catch(error =>{
                 this.posts = []
+                console.log(error)
+            })
+        },
+        deleteUser(id){
+            Api.delete('users/'+ this.userID)
+            .then(response => {
+                alert(response.data.message)
+                this.router('/users')
+            })
+            .catch(error => {
                 console.log(error)
             })
         }

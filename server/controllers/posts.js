@@ -84,6 +84,14 @@ router.patch('/:id', function(req, res, next) {
     });
 });
 
+// Dete all posts
+router.delete('/', function(req, res, next){
+    Post.deleteMany({}, function(err){
+        if (err){return next(err)}
+        res.status(200).json({'message' : 'deleted all posts'})
+    })
+});
+
 // Delete the post with the given ID
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
