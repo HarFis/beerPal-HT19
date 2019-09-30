@@ -10,13 +10,14 @@
         @edit-location="editLocation"
       ></location-item>
     </b-list-group>
+    <br>
+  <b-button variant="danger" @click="deleteAllLocations" v-show="!(locations.length===0)">Delete all locations</b-button>
   </div>
 </template>
 
 <script>
 import { Api } from "@/Api";
 import LocationItem from "@/components/LocationItem";
-import Vue from "vue";
 
 export default {
   name: "Locations",
@@ -58,10 +59,22 @@ export default {
       Api.patch(`/locations/${id}`, newLocation)
         .then(response => {
           console.log(response.data);
+            this.getLocations();
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    deleteAllLocations() {
+        if(confirm('Are you sure you want to delete all locations?')){
+        Api.delete('locations')
+        .then(response =>{
+          this.locations = []
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+      }
     }
   },
 

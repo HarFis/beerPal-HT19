@@ -83,7 +83,7 @@ router.get('/:id', function (req, res, next) {
             if (!review) {
                 return res.status(404).json({ message: "Review not found" });
             }
-            res.status(200).json({ review });
+            res.status(200).json({review });
         })
         .catch(err => {
             res.status(500).json({
@@ -107,8 +107,11 @@ router.patch('/:id', function (req, res, next) {
         review.textReview = (req.body.textReview || review.textReview);
         review.beer = (req.body.beer || review.beer);
         review.created = (req.body.created || review.created);
-        review.save();
-        res.json(review);
+        review.save(function(err, review) {
+            review
+            .populate('beer')
+            .execPopulate()});
+        res.json({review});
     });
 });
 

@@ -10,6 +10,7 @@
         <span id="warning" v-else>No ratings yet! Be the first to rate!</span>
       </li>
     </ul>
+    <b-button variant="outline-danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
     <b-container v-if="reviews==0">
       <b-row>
         <p id="warning">No reviews yet. Be the first to review this beer!!</p>
@@ -17,7 +18,7 @@
     </b-container>
     <b-container v-else>
       <b-list-group>
-        <review-item v-for="review in reviews" :key="review._id" :review="review"></review-item>
+        <review-item v-for="review in reviews" :key="review._id" :review="review" @delete-review="deleteReview"></review-item>
       </b-list-group>
     </b-container>
   </div>
@@ -26,6 +27,7 @@
 <script>
 import { Api } from "@/Api";
 import ReviewItem from "@/components/ReviewItem";
+import router from "@/router";
 
 export default {
   name: "BeerDetails",
@@ -61,18 +63,30 @@ export default {
           this.reviews = [];
           console.log(error);
         });
-    }
-    /*,
-        deleteBeer(id) {
+    },
+    deleteBeer(id) {
+      if(confirm('Are you sure you want to delete this beer?')){
           Api.delete(`/beers/${id}`)
           .then(response => {
-          var index = this.beers.findIndex(beer => beer._id === id)
-          this.beers.splice(index, 1)
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error)
         })
-        }*/
+        .then(this.$router.push({path: '/beers'}))
+        }},
+        deleteReview(id) {
+      Api.delete(`/reviews/${id}`)
+        .then(response => {
+          console.log(response.data.message);
+          var index = this.reviews.findIndex(review => review._id === id);
+          this.reviews.splice(index, 1);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
   },
   components: {
     ReviewItem

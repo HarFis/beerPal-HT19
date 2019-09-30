@@ -5,7 +5,7 @@
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" :showBrewery="showBrewery" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
       <br>
-      <b-button variant="danger" @click="deleteAllBeers">Delete all beers</b-button>
+      <b-button variant="danger" @click="deleteAllBeers" v-show="!(beers.length===0)">Delete all beers</b-button>
   </div>
 </template>
 
