@@ -5,23 +5,24 @@
     <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="name">Name:</label>
-        <input id="name" v-model="name" placeholder="name" required>
+        <b-form-input id="name" v-model="name" placeholder="e.g Carlsberg Hof" required></b-form-input>
       </p>
 
       <p>
-        <label for="adress">Adress</label>
-        <textarea id="adress" v-model="adress"></textarea>
+        <label for="adress">Adress:</label>
+        <b-form-input id="adress" v-model="adress"></b-form-input>
       </p>
 
       <p>
-        <label for="link">Link</label>
-        <textarea id="link" v-model="link"></textarea>
+        <label for="link">Link:</label>
+        <b-form-input id="link" v-model="link"></b-form-input>
       </p>
       <p>
-        <input type="submit" value="Submit">
+        <b-button type="submit" value="Submit">Submit</b-button>
       </p>
 
     </b-form>
+    
   </b-card>
   </div>
 </template>
@@ -52,6 +53,9 @@ export default {
         this.name = null
         this.adress = null
         this.link = null
+        
+        alert("Created!");
+        this.$router.push({path: '/breweries'})
         }
     }
   }

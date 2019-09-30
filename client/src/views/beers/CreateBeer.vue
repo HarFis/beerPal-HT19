@@ -71,6 +71,8 @@ export default {
       this.type = null;
       this.alcohol = null;
       this.brewery = null;
+      alert("Created!");
+      this.$router.push({path: '/beers'})
     },
     getBreweries() {
       Api.get("breweries")

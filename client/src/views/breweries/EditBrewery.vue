@@ -64,6 +64,8 @@ export default {
             this.newName = null
             this.newAdress = null
             this.newLink = null
+            alert("Updated!");
+          this.$router.push({path: '/breweries'})
         }
     }
   }
