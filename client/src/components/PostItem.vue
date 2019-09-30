@@ -3,7 +3,7 @@
   <b-list-group-item>
    <!-- <img alt="Review" src="../assets/camel.jpg"> -->
     <b-container>
-    <b-row>
+        <b-row>
     <b-col> <p class="text-left">Beer: {{ post.review.beer.name }} </p></b-col>
     <b-col> Score: <span class="badge badge-primary badge-pill">{{ post.review.score }}</span> points </b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>

@@ -1,6 +1,7 @@
 <template>
 <div class="createPost">
   <h1>
+    <b-card>
     <b-form @submit.prevent="onSubmit">
 
       <div>
@@ -62,6 +63,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
 
     </b-form>
+    </b-card>
     
   </h1>
 </div>
@@ -182,18 +184,25 @@ export default {
         };
         console.log(post.review)
         Api.post('posts', post)
-        .then(alert('Post Created'))
+        .then(
+          alert('Post Created'),
+        this.selectedBeer = null,
+      this.selectedLocation = null,
+      this.selectedUser = null,
+      this.score = null,
+      this.brewery = null,
+      this.location = null,
+      this.userName = null,
+      this.beerName = null,
+      this.reviewText = null
+        )
         .catch(error => {
           console.log(error)
         })
         })
         .catch(error => {
-        console.log(error);
-      });
-        this.name = null
-        this.type = null
-        this.alcohol = null
-        this.brewery = null
+        console.log(error)
+      })
       },
   },
   components: {

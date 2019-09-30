@@ -80,12 +80,15 @@ router.get('/followers/:id', function(req, res, next) {
 // Create a new user
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
-    /*if(User.findOne({user: user})!=true){
-        return res.status(403)
-        .json({'message' : 'A user with this username already exists'});
-    }*/
     user.save(function(err) {
-        if (err) { return next(err); }
+        if (err) { 
+            if (err.name === 'MongoError' && err.keyPattern.username){
+                return res.status(422).json({success: false, message: 'User with this username already exists'})
+            }
+            if (err.name === 'MongoError' && err.keyPattern.mail){
+                return res.status(422).json({success: false, message: 'User with this e-mail already exists'})
+            }
+            return next(err); }
         res.status(201).json(user);
     });
 });
@@ -135,7 +138,10 @@ router.delete('/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.status(200).json(user);
+        Post.deleteMany({postOwner: id}, function(err, post){
+            if (err) {return next(err)}
+        })
+        res.status(200).json('user deleted');
     });
 });
 

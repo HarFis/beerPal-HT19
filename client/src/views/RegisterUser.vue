@@ -40,9 +40,7 @@ export default {
       password: null
     }
   },
-  mounted() {
-    this.getUsers()
-  },
+
   methods: {
     onSubmit() {
       var user = {
@@ -52,6 +50,7 @@ export default {
       }
       Api.post('/users', user)
         .catch(error => {
+          alert(error.response.data.message)
           console.log(error)
         })
       this.username = null
