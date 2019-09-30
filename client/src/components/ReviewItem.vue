@@ -9,12 +9,16 @@
           </b-col>
           <b-col>
             Score:
-            <span class="badge badge-primary badge-pill">{{ review.score }}</span> points
-             <!-- TODO IF ELSE STATEMENT <img alt="pic" src=""'../assets/'+{{review.score}}+'av5.png'"> -->
+            <span v-if="review.score===1"><img alt="1/5 beers" src="../assets/1av5.png"></span>
+            <span v-else-if="review.score===2"><img alt="2/5 beers" src="../assets/2av5.png"></span>
+            <span v-else-if="review.score===3"><img alt="3/5 beers" src="../assets/3av5.png"></span>
+            <span v-else-if="review.score===4"><img alt="4/5 beers" src="../assets/4av5.png"></span>
+            <span v-else><img alt="5/5 beers" src="../assets/5av5.png"></span>
           </b-col>
-          <b-col>consumed on: {{ review.created }}</b-col>
+          <b-col>consumed on: {{ changeFormat(this.review.created) }}</b-col>
           <b-col>
-            <b-button variant="outline-info" router-link :to="'/reviews/edit/' + review._id">edit</b-button> 
+            <b-button variant="outline-info" router-link :to="'/reviews/edit/' + review._id">edit</b-button>
+            &nbsp;
             <b-button variant="outline-danger" @click="$emit('delete-review', review._id)">delete</b-button>
           </b-col>
         </b-row>
@@ -32,15 +36,24 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: "review-item",
   props: ["review"],
+  methods: {
+    changeFormat(value){
+      if (value) {
+           return moment(String(value)).format('YYYY-MM-DD')
+      }
+  }
+}
 };
 </script>
 
 <style scoped>
 img {
-  width: 33px;
+  height: 25px;
   margin-right: 10px;
 }
 

@@ -5,7 +5,11 @@
     <b-container>
         <b-row>
     <b-col> <p class="text-left">Beer: {{ post.review.beer.name }} </p></b-col>
-    <b-col> Score: <span class="badge badge-primary badge-pill">{{ post.review.score }}</span> points </b-col>
+    <b-col> Score: <span v-if="post.review.score===1"><img alt="1/5 beers" src="../assets/1av5.png"></span>
+            <span v-else-if="post.review.score===2"><img alt="2/5 beers" src="../assets/2av5.png"></span>
+            <span v-else-if="post.review.score===3"><img alt="3/5 beers" src="../assets/3av5.png"></span>
+            <span v-else-if="post.review.score===4"><img alt="4/5 beers" src="../assets/4av5.png"></span>
+            <span v-else><img alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>
     <b-col> at: <p>{{ changeFormat2(this.post.review.created)}}</p>  </b-col>
     </b-row> 
@@ -47,7 +51,7 @@ export default {
 <style scoped>
 
 img {
-  width: 33px;
+  height: 25px;
   margin-right: 10px;
 }
 
