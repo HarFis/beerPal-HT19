@@ -15,7 +15,7 @@
             <span v-else-if="review.score===4"><img alt="4/5 beers" src="../assets/4av5.png"></span>
             <span v-else><img alt="5/5 beers" src="../assets/5av5.png"></span>
           </b-col>
-          <b-col>consumed on: {{ review.created }}</b-col>
+          <b-col>consumed on: {{ changeFormat(this.review.created) }}</b-col>
           <b-col>
             <b-button variant="outline-info" router-link :to="'/reviews/edit/' + review._id">edit</b-button>
             &nbsp;
@@ -36,9 +36,18 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: "review-item",
   props: ["review"],
+  methods: {
+    changeFormat(value){
+      if (value) {
+           return moment(String(value)).format('YYYY-MM-DD')
+      }
+  }
+}
 };
 </script>
 
