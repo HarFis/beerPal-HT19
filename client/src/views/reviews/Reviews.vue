@@ -1,6 +1,7 @@
 <template>
   <div class="reviews">
-    <h1>List of {{ reviews.length }} reviews</h1>
+    <h1>Reviews</h1>
+    <h3>Current number of reviews: {{ reviews.length }}</h3>
     <!-- <b-button type="button" class="createButton" @click="createReview()">Create Review</b-button> -->
     <b-list-group>
       <review-item
@@ -8,6 +9,7 @@
         :key="review._id"
         :review="review"
         @delete-review="deleteReview"
+        @edit-review="editReview"
       ></review-item>
     </b-list-group>
     <br/>
@@ -45,6 +47,16 @@ export default {
         })
         .then(() => {
           // This code is always executed (after success or error).
+        });
+    },
+    editReview(id, newReview) {
+      Api.patch(`/reviews/${id}`, newReview)
+        .then(response => {
+          console.log(response.data);
+            this.getReviews();
+        })
+        .catch(error => {
+          console.log(error);
         });
     },
     deleteReview(id) {

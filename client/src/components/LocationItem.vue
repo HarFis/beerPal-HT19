@@ -3,15 +3,15 @@
     <b-list-group-item>
       <b-container>
         <b-row>
-          <b-col>
-            <p class="text-left">Location name: {{ location.name }}</p>
-          </b-col>
-          <b-col>Type of location: {{ location.typeOfLocation }}</b-col>
-          <b-col>
+          <b-col md=5>
+            <p class="text-left"><img id="map" alt="Location" src="../assets/map.png" />{{ location.name }}</p>
+          </b-col >
+          <b-col md=3 class="text-left">Type of location: {{ location.typeOfLocation }}</b-col>
+          <b-col md=4 >
             <b-dropdown
               variant="outline-info"
-              id="dropdown-form"
-              text="edit"
+              id="dropdown-right"
+              right text="edit"
               ref="dropdown"
               class="m-2"
             >
@@ -76,4 +76,8 @@ export default {
 </script>
 
 <style scoped>
+#map {
+  width: 33px;
+  margin-right: 10px;
+}
 </style>

@@ -1,9 +1,13 @@
 <template>
     <div class="breweryList">
-      <h1>List of {{ breweries.length}} breweries</h1>
+      <h1>Breweries</h1>
+      <h3>Current number of breweries: {{ breweries.length}}</h3>
       <b-list-group>
         <brewery-item v-for="brewery in breweries" :key="brewery._id" :brewery="brewery" @delete-brewery="deleteBrewery"></brewery-item>
       </b-list-group>
+       <br>
+        <b-button variant="danger" @click="deleteAllBreweries" v-show="!(breweries.length===0)">Delete all Breweries</b-button>
+
     </div>
 </template>
 
@@ -43,7 +47,19 @@ export default {
         .catch(error => {
           console.log(error)
         })
-        }
+        },
+
+        deleteAllBreweries() {
+        if(confirm('Are you sure you want to delete all breweries?')){
+        Api.delete('breweries')
+        .then(response =>{
+          this.breweries = []
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+      }
+    }
     }, 
     components: {
         BreweryItem

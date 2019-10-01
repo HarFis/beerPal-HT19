@@ -1,6 +1,7 @@
 <template>
   <div class="locations">
-    <h1>List of {{ locations.length }} Locations</h1>
+    <h1>Locations</h1>
+    <h3>Current number of locations: {{ locations.length }}</h3>
     <b-list-group>
       <location-item
         v-for="location in locations"

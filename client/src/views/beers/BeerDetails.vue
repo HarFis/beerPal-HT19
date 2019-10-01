@@ -10,7 +10,7 @@
         <span id="warning" v-else>No ratings yet! Be the first to rate!</span>
       </li>
     </ul>
-    <b-button variant="outline-danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
+    <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
     <b-container v-if="reviews==0">
       <b-row>
         <p id="warning">No reviews yet. Be the first to review this beer!!</p>
