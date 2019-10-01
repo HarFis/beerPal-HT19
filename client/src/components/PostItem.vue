@@ -4,18 +4,18 @@
    <!-- <img alt="Review" src="../assets/camel.jpg"> -->
     <b-container>
         <b-row>
-    <b-col> <p class="text-left">Beer: {{ post.review.beer.name }} </p></b-col>
-    <b-col> Score: <span v-if="post.review.score===1"><img alt="1/5 beers" src="../assets/1av5.png"></span>
-            <span v-else-if="post.review.score===2"><img alt="2/5 beers" src="../assets/2av5.png"></span>
-            <span v-else-if="post.review.score===3"><img alt="3/5 beers" src="../assets/3av5.png"></span>
-            <span v-else-if="post.review.score===4"><img alt="4/5 beers" src="../assets/4av5.png"></span>
-            <span v-else><img alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
+    <b-col> <p class="text-left beer-titel">Beer: {{ post.review.beer.name }} </p></b-col>
+    <b-col> Score: <span v-if="post.review.score===1"><img class="img-score" alt="1/5 beers" src="../assets/1av5.png"></span>
+            <span v-else-if="post.review.score===2"><img class="img-score" alt="2/5 beers" src="../assets/2av5.png"></span>
+            <span v-else-if="post.review.score===3"><img class="img-score" alt="3/5 beers" src="../assets/3av5.png"></span>
+            <span v-else-if="post.review.score===4"><img class="img-score" alt="4/5 beers" src="../assets/4av5.png"></span>
+            <span v-else><img class="img-score" alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>
     <b-col> at: <p>{{ changeFormat2(this.post.review.created)}}</p>  </b-col>
     </b-row> 
     <b-row v-show="post.review.textReview">
       <b-col>
-      <p class="text-left">{{ post.postOwner.username + '\'s opinion' }}: <span class="opinion">{{ post.review.textReview }}</span></p>
+      <p class="text-left">{{ post.postOwner.username + '\'s comment' }}: <span class="font-review">{{ post.review.textReview }}</span></p>
       </b-col>
     </b-row>
     </b-container>
@@ -49,15 +49,5 @@ export default {
 </script>
 
 <style scoped>
-
-img {
-  height: 25px;
-  margin-right: 10px;
-}
-
-.opinion
-{
-  font-family: Chalkduster, fantasy ;
-}
 
 </style>

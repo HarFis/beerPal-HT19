@@ -18,14 +18,18 @@
       <router-view/>
     </div>
     <div id="footer">
-     <p class="cp-text">Copyright © 2019 Fischer-Vaara-Strand Enterprise. All rights reserved</p>
+     Copyright © 2019 Fischer-Vaara-Strand Enterprise. All rights reserved
     </div>
   </div>
 </template>
 
 <style>
+ @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
+ 
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -54,22 +58,32 @@ html, body {
 
 #body {
    padding:10px;
-   padding-bottom:40px;   /* Height of the footer */
+   padding-bottom: 40px;   /* Height of the footer */
 }
 
 #footer {
    position:absolute;
    bottom:0;
    width:100%;
-   height:40px;   /* Height of the footer */
+   height:20px;   /* Height of the footer */
    background:#cfcdcc; 
    text-align: center; 
+   font-family: monospace;
+   font-size: medium;
+   text-shadow: 0 1px rgba(255, 255, 255, 0);
 }
 
-.cp-text{ 
-  font-family: monospace;
-  color: rgba(0,0,0,.7); 
-  text-shadow: 0 1px rgba(255, 255, 255, 0.1);
+.beer-titel {
+  font-weight: bolder;
 }
 
+.font-review {
+    font-family: 'Patrick Hand', cursive;
+    font-size:large;
+    font-weight: bold;
+}
+
+.img-score {
+  height: 25px;
+}
 </style>
