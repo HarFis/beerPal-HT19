@@ -5,7 +5,7 @@
     <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="name">Name:</label>
-        <b-form-input id="name" v-model="name" placeholder="e.g Carlsberg Hof" required></b-form-input>
+        <b-form-input id="name" v-model="name" placeholder="e.g Carlsberg Bryggeri" required></b-form-input>
       </p>
 
       <p>

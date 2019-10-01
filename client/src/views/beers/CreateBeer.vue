@@ -5,17 +5,17 @@
     <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="name">Name:</label>
-        <input id="name" v-model="name" placeholder="name" required />
+        <b-form-input id="name" v-model="name" placeholder="eg. Carlsberg Hof" required />
       </p>
 
       <p>
         <label for="type">Type</label>
-        <textarea id="type" v-model="type"></textarea>
+        <b-form-input id="type" v-model="type"></b-form-input>
       </p>
 
       <p>
         <label for="alcohol">Alcohol</label>
-        <textarea id="alcohol" v-model.number="alcohol"></textarea>
+        <b-form-input id="alcohol" v-model.number="alcohol"></b-form-input>
       </p>
       <b-form-select
         v-model="selectedBrewery"
@@ -31,7 +31,7 @@
         >{{ brewery.name }}</option>
       </b-form-select>
       <p>
-        <input type="submit" value="Submit" />
+        <b-button type="submit" value="Submit">Submit</b-button>
       </p>
     </b-form>
     </b-card>

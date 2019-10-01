@@ -5,21 +5,21 @@
   <b-form class="location-form" @submit.prevent="onSubmit">
     <p>
       <label for="name">Location's name:</label>
-      <input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
+      <b-form-input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
     </p>
 
     <p>
       <label for="typeOfLocation">Type of Location:</label>
-      <select id="typeOfLocation" v-model="typeOfLocation">
+      <b-form-select id="typeOfLocation" v-model="typeOfLocation">
         <option>Restaurant</option>
         <option>Bar</option>
         <option>Pub</option>
         <option>Club</option>
         <option>private</option>
-      </select>
+      </b-form-select>
     </p>
     <p>
-      <input type="submit" value="Submit" />
+      <b-button type="submit" value="Submit">Submit</b-button>
     </p>
   </b-form>
   </b-card>
