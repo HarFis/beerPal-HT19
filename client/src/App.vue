@@ -11,7 +11,7 @@
       <router-link to="/create-beer"> Create a Beer</router-link> |
       <router-link to="/create-review"> Create a Review</router-link> |
       <router-link to="/create-location"> Create a Location</router-link> |
-      <router-link to="/create-brewery"> Create a Brewery</router-link> |
+      <router-link to="/create-brewery"> Create a Brewery</router-link>
     </div>
     
     <div id="body">
@@ -66,7 +66,7 @@ html, body {
    bottom:0;
    width:100%;
    height:20px;   /* Height of the footer */
-   background:#cfcdcc; 
+   background:#8899aa; 
    text-align: center; 
    font-family: monospace;
    font-size: medium;
@@ -78,9 +78,8 @@ html, body {
 }
 
 .font-review {
-    font-family: 'Patrick Hand', cursive;
-    font-size:large;
-    font-weight: bold;
+    font-family: 'Chalkduster', 'Patrick Hand', cursive;
+    font-size:medium;
 }
 
 .img-score {
