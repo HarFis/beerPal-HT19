@@ -1,26 +1,26 @@
 <template>
 <div>
-    <h1>Edit {{ brewery.name }}</h1>
-    <form class="review-form" @submit.prevent="onSubmit">
+    <h1>{{ brewery.name }}</h1>
+    <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
         <label for="newName">Name:</label>
-        <input id="newName" v-model="newName" v-bind:placeholder="brewery.name" required>
+        <b-form-input id="newName" v-model="newName" v-bind:placeholder="brewery.name" required></b-form-input>
       </p>
 
       <p>
         <label for="newAdress">Adress</label>
-        <textarea id="newAdress" v-model="newAdress" v-bind:placeholder="brewery.adress"></textarea>
+        <b-form-input id="newAdress" v-model="newAdress" v-bind:placeholder="brewery.adress"></b-form-input>
       </p>
 
       <p>
         <label for="newLink">Link</label>
-        <textarea id="newLink" v-model="newLink" v-bind:placeholder="brewery.link"></textarea>
+        <b-form-input id="newLink" v-model="newLink" v-bind:placeholder="brewery.link"></b-form-input>
       </p>
       <p>
-        <input type="submit" value="Submit">
+         <b-button type="submit" value="Submit" >Submit</b-button>
       </p>
 
-    </form>
+    </b-form>
   </div>
 </template>
 
@@ -28,36 +28,23 @@
 import { Api } from '@/Api'
 
 export default {
-    name: 'CreateBrewery',
-    props: ['breweryId'],
+    name: 'edit-brewery',
+    props: ['brewery'],
     data() {
         return {
-            brewery: "",
             newName: null,
             newAdress: null,
-            newLink: null,
+            newLink: null
         }
     },
-    mounted() {
-        this.getBrewery()
-    },
     methods: {
-        getBrewery() {
-            Api.get('breweries/' + this.breweryId)
-                 .then(response => {
-                     this.brewery = response.data
-                }).catch(error =>{
-                    this.brewery = []
-                    console.log(error)
-                })
-        },
         onSubmit() {
             var newBrewery = {
                 name: this.newName,
                 adress: this.newAdress,
                 link: this.newLink
             }
-            Api.put('/breweries/' + this.breweryId, newBrewery)
+            Api.put('/breweries/' + this.brewery._id, newBrewery)
             .catch(error => {
                 console.log(error)
             })
@@ -65,7 +52,7 @@ export default {
             this.newAdress = null
             this.newLink = null
             alert("Updated!");
-          this.$router.push({path: '/breweries'})
+            this.$emit('set-brewery', newBrewery)
         }
     }
   }
