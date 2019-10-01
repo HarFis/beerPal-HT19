@@ -33,7 +33,7 @@
 <script>
 import { Api } from '@/Api'
 import BeerItem from '@/components/BeerItem'
-import EditBrewery from '@/views/breweries/EditBrewery'
+import EditBrewery from '@/components/EditBrewery'
 
 export default {
     name: 'BreweryInfo',

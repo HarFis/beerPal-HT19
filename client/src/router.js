@@ -8,7 +8,6 @@ import Router from 'vue-router'
 import Breweries from './views/breweries/Breweries.vue'
 import BreweryInfo from './views/breweries/BreweryInfo.vue'
 import CreateBrewery from './views/breweries/CreateBrewery.vue'
-import EditBrewery from './views/breweries/EditBrewery.vue'
 
 /* -------------
 ------Beers-----
@@ -137,12 +136,6 @@ export default new Router({
       path: '/create-brewery',
       name: 'create-brewery',
       component: CreateBrewery
-    },
-    {
-      path: '/edit-brewery/:breweryId',
-      name: 'edit-brewery',
-      component: EditBrewery,
-      props: true
     }
   ]
 })
