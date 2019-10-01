@@ -67,6 +67,15 @@ router.get('/:id/users', function(req, res, next) {
     });
 });
 
+// Get a user based on username
+router.get('/:username', function(req, res, next){
+    var username = req.params.username;
+    User.findOne({username: username}, function(err, user){
+        if (err) {return next(err); } 
+        res.status(200).json(user)
+    })
+})
+
 // Return a list of all users following a specific user
 router.get('/followers/:id', function(req, res, next) {
     var id = req.params.id;

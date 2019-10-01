@@ -1,80 +1,105 @@
 <template>
-<div class="createPost">
-  <h1>
-    <b-card>
-    <b-form @submit.prevent="onSubmit">
-
+  <div class="createPost">
+    <h1>
+      <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <p>User: {{userName}}</p>
-        <b-form-select v-model="selectedUser" :users="users" @change="setUser(selectedUser)">
-          <option name="Header4" :value="null">Please choose user</option>
-          <option name="users" :value="user._id" v-for="user in users" :key="user._id">
-            {{user.username}}
-            </option>
-        </b-form-select>
+        <b-modal hide-footer hide-header-close ref="loginModal" title="Login">
+          <b-form @submit.prevent="onSubmitModal" @cancel="onCancelModal">
+            <b-form-group id="input-username" label="Username:" label-for="username">
+              <b-form-input
+                id="username-input"
+                v-model="form.username"
+                required
+                placeholder="Username..."
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-password" label="Password:" label-for="password">
+              <b-form-input
+                type="password"
+                id="password-input"
+                v-model="form.password"
+                required
+                placeholder="Password..."
+              ></b-form-input>
+            </b-form-group>
+
+            <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
+          </b-form>
+        </b-modal>
       </div>
 
-      <div>
-        <p>Beer: {{beerName}}</p>
-        <b-form-select v-model="selectedBeer" :beers="beers" @change="setBrewery(selectedBeer)">
-          <option name="Header1" :value="null">Please choose beer</option>
-          <option name="beers" :value="beer._id" v-for="beer in beers" :key="beer._id">
-            {{beer.name}}
-            </option>
-        </b-form-select>
-      </div>
-      <div class="mt-2">Brewery: {{ brewery }}</div>
-    
-    
-      <div>
-        <b-form-select v-model="score">
-          <option name="Header2" :value="null">Please choose your score</option>
-          <option name="1" :value="1">1</option>
-          <option name="2" :value="2">2</option>
-          <option name="3" :value="3">3</option>
-          <option name="4" :value="4">4</option>
-          <option name="5" :value="5">5</option>
-          </b-form-select>
-      </div>
-      <p>Score: {{this.score}}</p>
-      <div>Please write your review here</div>
-      <b-form-group
-        id="review"
-        label-for="reviewInput">
-        <b-form-input
-        id="reviewInput"
-        v-model="reviewText"
-        type="text"
-        placeholder="Write here..."
-        > 
-        </b-form-input>
-      </b-form-group>
-      <p>Location: {{location}}</p>
-      <b-form-group>
-        <b-form-select v-model="selectedLocation" :locations="locations" @change="setLocation(selectedLocation)">
-          <option name="Header3" :value="null">Please choose location</option>
-          <option name="locations" :value="location._id" v-for="location in locations" :key="location._id">
-            {{location.name}}
-            </option>
-        </b-form-select>
-      </b-form-group>
-    
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <!-- THIS IS THE FORM TO CREATE A POST -->
 
-    </b-form>
-    </b-card>
-    
-  </h1>
-</div>
+      <b-card>
+        <b-form @submit.prevent="onSubmit">
+          <div>
+            <p>User: {{userName}}</p>
+          </div>
+          <div>
+            <p>Beer: {{beerName}}</p>
+            <b-form-select v-model="selectedBeer" :beers="beers" @change="setBrewery(selectedBeer)">
+              <option name="Header1" :value="null">Please choose beer</option>
+              <option
+                name="beers"
+                :value="beer._id"
+                v-for="beer in beers"
+                :key="beer._id"
+              >{{beer.name}}</option>
+            </b-form-select>
+          </div>
+          <div class="mt-2">Brewery: {{ brewery }}</div>
+          <p>Score: {{this.score}}</p>
+          <div>
+            <b-form-select v-model="score">
+              <option name="Header2" :value="null">Please choose your score</option>
+              <option name="1" :value="1">1</option>
+              <option name="2" :value="2">2</option>
+              <option name="3" :value="3">3</option>
+              <option name="4" :value="4">4</option>
+              <option name="5" :value="5">5</option>
+            </b-form-select>
+          </div>
+
+          <div>Please write your review here</div>
+          <b-form-group id="review" label-for="reviewInput">
+            <b-form-input
+              id="reviewInput"
+              v-model="reviewText"
+              type="text"
+              placeholder="Write here..."
+            ></b-form-input>
+          </b-form-group>
+          <p>Location: {{location}}</p>
+          <b-form-group>
+            <b-form-select
+              v-model="selectedLocation"
+              :locations="locations"
+              @change="setLocation(selectedLocation)"
+            >
+              <option name="Header3" :value="null">Please choose location</option>
+              <option
+                name="locations"
+                :value="location._id"
+                v-for="location in locations"
+                :key="location._id"
+              >{{location.name}}</option>
+            </b-form-select>
+          </b-form-group>
+
+          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="reset" variant="danger">Reset</b-button>
+        </b-form>
+      </b-card>
+    </h1>
+  </div>
 </template>
 
 <script>
-
-import { Api } from '@/Api'
+import { Api } from "@/Api";
 
 export default {
-  name: 'CreatePost',
+  name: "CreatePost",
   data() {
     return {
       selectedBeer: null,
@@ -89,139 +114,160 @@ export default {
       createdReview: null,
       beers: [],
       locations: [],
-      users: []
-    }
+      users: [],
+      form: {
+        username: "",
+        password: ""
+      }
+    };
   },
   mounted() {
-    this.getBeers(),
-    this.getLocations(),
-    this.getUsers()
+    this.showModal();
+    this.getBeers(), this.getLocations(), this.getUsers();
   },
   methods: {
+    showModal() {
+      this.$refs["loginModal"].show();
+    },
+    hideModal() {
+      this.$refs["loginModal"].hide();
+    },
     getBeers() {
-      Api.get('beers')
+      Api.get("beers")
         .then(response => {
-          this.beers = response.data.beers
-        }).catch(error => {
-          this.beers = []
-          console.log(error)
+          this.beers = response.data.beers;
+        })
+        .catch(error => {
+          this.beers = [];
+          console.log(error);
         })
         .then(() => {
           // This code is always executed (after success or error).
-        })
+        });
     },
-    setBrewery(id){
+    setBrewery(id) {
       console.log(
         Api.get(`/beers/${id}`)
-        .then(response => {
-          this.brewery = response.data.brewery.name
-          this.beerName = response.data.name
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      )
+          .then(response => {
+            this.brewery = response.data.brewery.name;
+            this.beerName = response.data.name;
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      );
     },
     getLocations() {
-      Api.get('locations')
+      Api.get("locations")
         .then(response => {
-          this.locations = response.data.locations
-        }).catch(error => {
-          this.locations = []
-          console.log(error)
+          this.locations = response.data.locations;
+        })
+        .catch(error => {
+          this.locations = [];
+          console.log(error);
         })
         .then(() => {
           // This code is always executed (after success or error).
-        })
+        });
     },
-    setLocation(id){
+    setLocation(id) {
       console.log(
         Api.get(`/locations/${id}`)
-        .then(response => {
-          this.location = response.data.name
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      )
+          .then(response => {
+            this.location = response.data.name;
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      );
     },
-    setUser(id){
+    setUser(id) {
       console.log(
         Api.get(`/users/${id}`)
-        .then(response => {
-          this.userName = response.data.username
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      )
+          .then(response => {
+            this.userName = response.data.username;
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      );
     },
     getUsers() {
-      Api.get('users')
+      Api.get("users")
         .then(response => {
-          this.users = response.data.users
-        }).catch(error => {
-          this.users = []
-          console.log(error)
+          this.users = response.data.users;
+        })
+        .catch(error => {
+          this.users = [];
+          console.log(error);
         })
         .then(() => {
           // This code is always executed (after success or error).
-        })
+        });
     },
-    onSubmit(){
-        var review = {
-          beerID: this.selectedBeer,
-          score: this.score,
-          textReview: this.reviewText
-        };
-        Api.post("/reviews", review)
-        .then(response =>{
-          this.createdReview = response.data._id
-        var post = {
+    onSubmit() {
+      var review = {
+        beerID: this.selectedBeer,
+        score: this.score,
+        textReview: this.reviewText
+      };
+      Api.post("/reviews", review)
+        .then(response => {
+          this.createdReview = response.data._id;
+          var post = {
             review: this.createdReview,
             location: this.selectedLocation,
             postOwner: this.selectedUser
-        };
-        console.log(post.review)
-        Api.post('posts', post)
-        .then(
-          alert('Post Created'),
-        this.selectedBeer = null,
-      this.selectedLocation = null,
-      this.selectedUser = null,
-      this.score = null,
-      this.brewery = null,
-      this.location = null,
-      this.userName = null,
-      this.beerName = null,
-      this.reviewText = null
-        )
-        .catch(error => {
-          console.log(error)
+          };
+          console.log(post.review);
+          Api.post("posts", post)
+            .then(
+              alert("Post Created"),
+              (this.selectedBeer = null),
+              (this.selectedLocation = null),
+              (this.selectedUser = null),
+              (this.score = null),
+              (this.brewery = null),
+              (this.location = null),
+              (this.userName = null),
+              (this.beerName = null),
+              (this.reviewText = null)
+            )
+            .catch(error => {
+              console.log(error);
+            });
         })
-        })
         .catch(error => {
-        console.log(error)
-      })
-      },
+          console.log(error);
+        });
+    },
+    onSubmitModal() {
+      console.log("hej " + this.form.username);
+      Api.get("users/" + this.form.username).then(response => {
+        var foundUser = response.data;
+        if (foundUser.password == this.form.password) {
+          this.selectedUser = this.form.username;
+          this.setUser(this.selectedUser);
+          this.hideModal();
+        }
+      });
+      console.log("Hejdå");
+    },
+    onCancelModal() {}
   },
-  components: {
-    
-  },
+  components: {},
   computed: {
-    computedBrewery(selected){
-    }
+    computedBrewery(selected) {}
   }
-
-}
+};
 </script>
 
 <style scoped>
-.color{
-    color: #42b983;
+.color {
+  color: #42b983;
 }
 
-.createPost{
+.createPost {
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;
