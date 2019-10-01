@@ -22,6 +22,12 @@
             {{beer.name}}
             </option>
         </b-form-select>
+        <div>
+            <b-button v-b-modal.modalBeer>Add new beer</b-button>
+            <b-modal id="modalBeer" ref="modalBeer" title="Add new beer" ok-title="Submit" hide-footer>
+                <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
+            </b-modal>
+        </div>
       </div>
       <div class="mt-2">Brewery: {{ brewery }}</div>
     
@@ -72,6 +78,7 @@
 <script>
 
 import { Api } from '@/Api'
+import CreateBeerItem from '@/components/CreateBeerItem'
 
 export default {
   name: 'CreatePost',
@@ -204,9 +211,15 @@ export default {
         console.log(error)
       })
       },
+      
+      newBeerHandler(newBeer) {
+        this.selectedBeer = newBeer._id
+        this.$refs['modalBeer'].hide()
+        this.$forceUpdate(); 
+      }
   },
   components: {
-    
+    CreateBeerItem
   },
   computed: {
     computedBrewery(selected){
