@@ -68,13 +68,27 @@ router.get('/:id/users', function(req, res, next) {
 });
 
 // Get a user based on username
-router.get('/:username', function(req, res, next){
+router.get('/name/:username', function(req, res, next){
     var username = req.params.username;
     User.findOne({username: username}, function(err, user){
         if (err) {return next(err); } 
         res.status(200).json(user)
     })
-})
+});
+
+// Return the user with the given ID
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id)
+    .populate('post')
+    .exec(function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        }
+        res.status(200).json(user);
+    });
+});
 
 // Return a list of all users following a specific user
 router.get('/followers/:id', function(req, res, next) {
@@ -102,19 +116,7 @@ router.post('/', function(req, res, next) {
     });
 });
 
-// Return the user with the given ID
-router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    User.findById(id)
-    .populate('post')
-    .exec(function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json({'message': 'User not found'});
-        }
-        res.status(200).json(user);
-    });
-});
+
 
 // Replaces the user with the given ID
 router.put('/:id', function(req, res, next) {

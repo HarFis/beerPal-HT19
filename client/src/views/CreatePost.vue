@@ -195,6 +195,7 @@ export default {
       console.log(
         Api.get(`/users/${id}`)
           .then(response => {
+            console.log('inside setUser ' + response.data)
             this.userName = response.data.username;
           })
           .catch(error => {
@@ -254,11 +255,12 @@ export default {
     onSubmitModal(bvModalEvt) {
        bvModalEvt.preventDefault()
       console.log("hej " + this.form.username);
-      Api.get("users/" + this.form.username).then(response => {
+      Api.get("users/name/" + this.form.username).then(response => {
         var foundUser = response.data;
         if (foundUser.password == this.form.password) {
-          this.selectedUser = this.form.username;
-          this.setUser(this.selectedUser);
+          this.selectedUser = foundUser;
+          console.log(foundUser._id)
+          this.setUser(foundUser._id);
           this.hideModal();
         }
       });
