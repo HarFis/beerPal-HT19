@@ -3,8 +3,9 @@
     <h1>
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <b-modal hide-footer hide-header-close ref="loginModal" title="Login">
-          <b-form @submit.prevent="onSubmitModal" @cancel="onCancelModal">
+        <b-modal id="loginModal"  hide-footer hide-header-close ref="loginModal" title="Login">
+          <p>You need to be logged in to post</p>
+          <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
             <b-form-group id="input-username" label="Username:" label-for="username">
               <b-form-input
                 id="username-input"
@@ -95,7 +96,9 @@
   </div>
 </template>
 
+
 <script>
+
 import { Api } from "@/Api";
 
 export default {
@@ -241,7 +244,8 @@ export default {
           console.log(error);
         });
     },
-    onSubmitModal() {
+    onSubmitModal(bvModalEvt) {
+       bvModalEvt.preventDefault()
       console.log("hej " + this.form.username);
       Api.get("users/" + this.form.username).then(response => {
         var foundUser = response.data;
