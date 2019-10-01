@@ -45,7 +45,7 @@
 
       </b-carousel>
     </div>
-      <b-button variant="primary" href="/CreatePost/">CreatePost</b-button>
+      <b-button class="buttonClass" variant="secondary" href="/CreatePost/">CreatePost</b-button>
       <div>
         <b-container>
         <p>
@@ -108,4 +108,12 @@ export default {
   height: 1024px;
   max-height: 480px;
 }
+
+.buttonClass {
+  margin-top: 2em;
+  margin-bottom: 2em;
+
+}
+
+
 </style>

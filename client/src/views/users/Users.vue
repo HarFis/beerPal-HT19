@@ -3,7 +3,7 @@
   <div class="users">
     <h1>List of {{ users.length }} users</h1>
     <h2>
-      <b-button pill variant="primary" router-link to="/RegisterUser" tag="button">Create User</b-button>
+      <b-button class="buttonClass" variant="secondary" router-link to="/RegisterUser" tag="button">Create User</b-button>
     </h2>
     <b-list-group>
       <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteUser"></user-item>
