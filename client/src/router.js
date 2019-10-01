@@ -33,11 +33,24 @@ import EditReview from './views/reviews/EditReview.vue'
 import Locations from './views/locations/Locations.vue'
 import CreateLocation from './views/locations/CreateLocation.vue'
 
-import Home from './views/Home.vue'
-import Users from './views/Users.vue'
-import RegisterUser from './views/RegisterUser.vue'
+/* --------------
+------Users------
+-------------- */
+import RegisterUser from './views/users/RegisterUser.vue'
+import Users from './views/users/Users.vue'
+import UserDetails from './views/users/UserDetails.vue'
+
+/* --------------
+------Posts------
+-------------- */
+
 import CreatePost from './views/CreatePost.vue'
-import UserDetails from './views/UserDetails.vue'
+
+/* --------------
+-------Home------
+-------------- */
+
+import Home from './views/Home.vue'
 
 Vue.use(Router)
 

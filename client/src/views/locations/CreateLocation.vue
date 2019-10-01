@@ -19,7 +19,7 @@
       </b-form-select>
     </p>
     <p>
-      <b-button type="submit" value="Submit">Submit</b-button>
+      <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>
     </p>
   </b-form>
   </b-card>

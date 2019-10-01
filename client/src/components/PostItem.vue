@@ -15,7 +15,7 @@
     </b-row> 
     <b-row v-show="post.review.textReview">
       <b-col>
-      <p class="text-left">BeerPals opinion: <span class="opinion">{{ post.review.textReview }}</span></p>
+      <p class="text-left">{{ post.postOwner.username + '\'s opinion' }}: <span class="opinion">{{ post.review.textReview }}</span></p>
       </b-col>
     </b-row>
     </b-container>
