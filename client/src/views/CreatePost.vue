@@ -192,16 +192,13 @@ export default {
       );
     },
     setUser(id) {
-      console.log(
         Api.get(`/users/${id}`)
           .then(response => {
-            console.log('inside setUser ' + response.data)
             this.userName = response.data.username;
           })
           .catch(error => {
             console.log(error);
           })
-      );
     },
     getUsers() {
       Api.get("users")
@@ -258,7 +255,6 @@ export default {
         var foundUser = response.data;
         if (foundUser.password == this.form.password) {
           this.selectedUser = foundUser;
-          console.log(foundUser._id)
           this.setUser(foundUser._id);
           this.hideModal();
         }
