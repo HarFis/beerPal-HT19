@@ -16,7 +16,7 @@
       <router-view/>
     </div>
     <div id="footer">
-     Copyright © 2019 Fischer-Vaara-Strand Enterprise. All rights reserved
+     <p class="cp-text">Copyright © 2019 Fischer-Vaara-Strand Enterprise. All rights reserved</p>
     </div>
   </div>
 </template>
@@ -65,11 +65,8 @@ html, body {
    bottom:0;
    width:100%;
    height:20px;   /* Height of the footer */
-   background:#8899aa; 
+   background:#cfcdcc; 
    text-align: center; 
-   font-family: monospace;
-   font-size: medium;
-   text-shadow: 0 1px rgba(255, 255, 255, 0);
 }
 
 .beer-titel {
@@ -77,11 +74,18 @@ html, body {
 }
 
 .font-review {
-    font-family: 'Chalkduster', 'Patrick Hand', cursive;
-    font-size:medium;
+    font-family: 'Patrick Hand', cursive;
+    font-size:large;
+    font-weight: bold;
 }
 
 .img-score {
   height: 25px;
+}
+
+.cp-text{
+  font-family: monospace;
+  font-size: medium;
+  text-shadow: 0 1px rgba(255, 255, 255, 0);
 }
 </style>
