@@ -1,44 +1,52 @@
 <template>
-
   <div class="users">
-      <h1>Register a User</h1>
-  <div>
-      <form class="register-form" @submit.prevent="onSubmit">
-          <p>
-          <label for ="username">Username</label>
-          <input id="username" v-model="username" placeholder="Username">
-          </p>
+    <h2>Register a new user</h2>
+    <b-container>
+      <b-row class="justify-content-md-center">
+        <b-col md="6">
+          <b-card>
+            <b-form class="review-form text-left" @submit.prevent="onSubmit">
+              <p>
+                <label for="username">Username: </label>
+                <b-form-input id="username" v-model="username" placeholder="Username" required />
+              </p>
 
-          <p>
-          <label for ="mail">Mail</label>
-          <input id="mail" v-model="mail" placeholder="E-mail Adress">
-          </p>
+              <p>
+                <label for="mail">Mail:</label>
+                <b-form-input id="mail" v-model="mail" placeholder="E-mail Adress" required />
+              </p>
 
-          <p>
-             <label for ="password">password</label>
-             <input type="password" id="password" v-model="password" placeholder="Password">
-          </p>
-          <p>
-        <input type="submit" value ="Submit">
-            </p>
-
-          </form>
-</div>
-</div>
-
+              <p>
+                <label for="password">Password:</label>
+                <b-form-input
+                  type="password"
+                  id="password"
+                  v-model="password"
+                  placeholder="Password"
+                  required
+                />
+              </p>
+              <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>&nbsp;
+              <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
-import { Api } from '@/Api'
+import { Api } from "@/Api";
 
 export default {
-  name: 'RegisterUser',
+  name: "RegisterUser",
   data() {
     return {
       username: null,
       mail: null,
       password: null
-    }
+    };
   },
 
   methods: {
@@ -47,27 +55,25 @@ export default {
         username: this.username,
         mail: this.mail,
         password: this.password
-      }
-      Api.post('/users', user)
-        .catch(error => {
-          alert(error.response.data.message)
-          console.log(error)
-        })
-      this.username = null
-      this.mail = null
-      this.password = null
+      };
+      Api.post("/users", user).catch(error => {
+        alert(error.response.data.message);
+        console.log(error);
+      });
+      this.username = null;
+      this.mail = null;
+      this.password = null;
     }
   }
-}
-
+};
 </script>
 
 <style scoped>
-.color{
-    color: #42b983;
+.color {
+  color: #42b983;
 }
 
-.users{
+.users {
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;

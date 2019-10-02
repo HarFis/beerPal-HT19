@@ -105,12 +105,6 @@ export default {
 .breweryInfo { 
  border-radius: 20px;
   margin: 10px;
-}
-.beerList { /*
-  float: right;
-  width: 44%;
-  margin: 2%;
-  border-radius: 20px;
-  padding: 1%;*/
+
 }
 </style>

@@ -71,6 +71,7 @@ export default {
 
   data() {
     return {
+      post: null,
       posts: [],
       slide: 0,
       sliding: null

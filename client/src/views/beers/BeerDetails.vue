@@ -7,13 +7,13 @@
       <li>
         Average rating:
         <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
-        <span id="warning" v-else>No ratings yet! Be the first to rate!</span>
+        <span id="warning" v-else>No ratings yet! </span>
       </li>
     </ul>
     <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
     <b-container v-if="reviews==0">
       <b-row>
-        <p id="warning">No reviews yet. Be the first to review this beer!!</p>
+        <p class="text-center" id="warning">No reviews yet.</p>
       </b-row>
     </b-container>
     <b-container v-else>
