@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/users">Users</router-link> |
-      <router-link to ="/login">Login</router-link> |
-      <router-link to="/beers"> Beers</router-link> |
-      <router-link to="/breweries"> Breweries</router-link> |
-      <router-link to="/reviews"> Reviews</router-link> |
-      <router-link to="/locations"> Locations</router-link> |
-      <router-link to="/create-beer"> Create a Beer</router-link> |
-      <router-link to="/create-review"> Create a Review</router-link> |
-      <router-link to="/create-location"> Create a Location</router-link> |
-      <router-link to="/create-brewery"> Create a Brewery</router-link> |
+    <div id="nav" class="navbar sticky-top navbar-light bg-light">
+      <div class="navbar-brand"><router-link to="/"><img src="./assets/logo.png" width="80" height="80" alt="Beer-pal Logo" ></router-link></div>
+      <router-link to="/users">Users</router-link> | 
+      <router-link to="/beers"> Beers</router-link> | 
+      <router-link to="/breweries"> Breweries</router-link> | 
+      <router-link to="/reviews"> Reviews</router-link> | 
+      <router-link to="/locations"> Locations</router-link> | 
+      <router-link to="/create-beer"> Create a Beer</router-link> | 
+      <router-link to="/create-location"> Create a Location</router-link> | 
+      <router-link to="/create-brewery"> Create a Brewery</router-link>
     </div>
     
     <div id="body">
@@ -38,7 +36,8 @@
   position:relative;
 }
 #nav {
-  padding: 30px;
+  padding: 20px;
+  border: 10px;
 }
 
 #nav a {
@@ -47,7 +46,7 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #e97b15;
 }
 
 html, body {
