@@ -1,7 +1,7 @@
 <template>
   <div class="beers">
       <h1>Beers</h1>
-      <h3>Current number of breweries: {{ beers.lenght }}</h3>
+      <h3>Current number of beers: {{ beers.length }}</h3>
       <b-list-group>
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" :showBrewery="showBrewery" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
