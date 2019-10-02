@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h2>Create a new brewery</h2>
-    <b-container>
+
+<div>
+  <vue-headful
+            title="Create a brewery - BeerPal"
+        />
+  <h2>Create a new brewery</h2>
+<b-container>
       <b-row class="justify-content-md-center">
         <b-col md="6">
           <b-card>

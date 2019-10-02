@@ -1,5 +1,8 @@
 <template>
-
+<div>
+  <vue-headful
+            title="Users - BeerPal"
+        />
   <div class="users">
     <h1>Users</h1>
           <h3>Current number of users: {{ users.length}}</h3>
@@ -10,6 +13,7 @@
       <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteUser"></user-item>
     </b-list-group>
   </div>
+</div>
 </template>
 
 <script>

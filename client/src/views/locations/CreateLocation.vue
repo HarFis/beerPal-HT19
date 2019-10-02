@@ -1,5 +1,8 @@
 <template>
   <div>
+    <vue-headful
+            title="Create a location - BeerPal"
+        />
   <h2>Create a new location</h2>
   <b-container >
     <b-row class="justify-content-md-center">

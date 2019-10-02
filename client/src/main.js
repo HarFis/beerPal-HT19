@@ -3,11 +3,13 @@ import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import vSelect from 'vue-select'
+import vueHeadful from 'vue-headful'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-select/dist/vue-select.css'
 
+Vue.component('vue-headful', vueHeadful)
 Vue.component('v-select', vSelect)
 Vue.use(BootstrapVue)
 
