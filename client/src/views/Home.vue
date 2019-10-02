@@ -10,6 +10,7 @@
       background="#ababab"
       img-width="1024"
       img-height="480"
+      
       style="text-shadow: 2px 4px 4px #000;"
       fade
       @sliding-start="onSlideStart"
