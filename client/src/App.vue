@@ -65,7 +65,7 @@ html, body {
    bottom:0;
    width:100%;
    height:20px;   /* Height of the footer */
-   background:#8899aa; 
+   background:#cfcdcc; 
    text-align: center; 
 }
 
@@ -74,8 +74,9 @@ html, body {
 }
 
 .font-review {
-    font-family: 'Chalkduster', 'Patrick Hand', cursive;
-    font-size:medium;
+    font-family: 'Patrick Hand', cursive;
+    font-size:large;
+    font-weight: bold;
 }
 
 .img-score {

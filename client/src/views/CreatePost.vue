@@ -125,6 +125,7 @@ export default {
       beers: [],
       locations: [],
       users: [],
+      dateAndTime: null, 
       form: {
         username: "",
         password: ""
@@ -132,10 +133,15 @@ export default {
     };
   },
   mounted() {
-    this.showModal();
-    this.getBeers(), this.getLocations(), this.getUsers();
+    this.showModal(),
+    this.getBeers(), this.getLocations(), this.getUsers(),
+    this.setDateAndTime()
   },
   methods: {
+    setDateAndTime(){
+      var date = new Date().now();
+      this.dateAndTime = date;
+    },
     showModal() {
       this.$refs["loginModal"].show();
     },
@@ -221,7 +227,9 @@ export default {
       var review = {
         beerID: this.selectedBeer,
         score: this.score,
-        textReview: this.reviewText
+        textReview: this.reviewText,
+        created: this.dateAndTime
+
       };
       Api.post("/reviews", review)
         .then(response => {
@@ -229,7 +237,8 @@ export default {
           var post = {
             review: this.createdReview,
             location: this.selectedLocation,
-            postOwner: this.selectedUser
+            postOwner: this.selectedUser,
+            dateAndTime: this.dateAndTime
           };
           console.log(post.review);
           Api.post("posts", post)
