@@ -254,7 +254,6 @@ export default {
     },
     onSubmitModal(bvModalEvt) {
        bvModalEvt.preventDefault()
-      console.log("hej " + this.form.username);
       Api.get("users/name/" + this.form.username).then(response => {
         var foundUser = response.data;
         if (foundUser.password == this.form.password) {
@@ -264,7 +263,6 @@ export default {
           this.hideModal();
         }
       });
-      console.log("Hejdå");
     },
     onCancelModal() {},
     newBeerHandler(newBeer) {
