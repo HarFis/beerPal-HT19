@@ -159,7 +159,11 @@ export default {
       console.log(
         Api.get(`/beers/${id}`)
           .then(response => {
-            this.brewery = response.data.brewery.name;
+            if(response.data.brewery){
+              this.brewery = response.data.brewery.name;
+            }else{
+              this.brewery = "No brewery found"
+            }
             this.beerName = response.data.name;
           })
           .catch(error => {
@@ -239,7 +243,8 @@ export default {
               (this.location = null),
               (this.userName = null),
               (this.beerName = null),
-              (this.reviewText = null)
+              (this.reviewText = null),
+              this.$router.push({path: '/'})
             )
             .catch(error => {
               console.log(error);
@@ -262,9 +267,14 @@ export default {
     },
     onCancelModal() {},
     newBeerHandler(newBeer) {
-        this.selectedBeer = newBeer._id
+        console.log(newBeer._id)
+        this.beers = []
+        
+        //this.$forceUpdate();
         this.$refs['modalBeer'].hide()
-        this.$forceUpdate(); 
+        this.getBeers()
+        this.selectedBeer = newBeer._id
+        
       }
   },
   components: {
