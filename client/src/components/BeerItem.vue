@@ -11,7 +11,7 @@
       </b-col>
       <b-col md=3>
          <span v-if="beer.averageRating">
-      Average scores:
+      Average score:
       <span v-if="beer.averageRating<=1.4"><img class="img-score" alt="1/5 beers" src="../assets/1av5.png"></span>
             <span v-else-if="beer.averageRating<=2.4"><img class="img-score" alt="2/5 beers" src="../assets/2av5.png"></span>
             <span v-else-if="beer.averageRating<=3.4"><img class="img-score" alt="3/5 beers" src="../assets/3av5.png"></span>
