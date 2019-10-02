@@ -1,4 +1,8 @@
 <template>
+<div>
+  <vue-headful
+            title="Reviews - BeerPal"
+        />
   <div class="reviews">
     <h1>Reviews</h1>
     <h3>Current number of reviews: {{ reviews.length }}</h3>
@@ -19,6 +23,7 @@
       v-show="!(reviews.length===0)"
     >Delete all reviews</b-button>
   </div>
+</div>
 </template>
 
 <script>

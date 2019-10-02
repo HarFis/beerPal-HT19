@@ -1,4 +1,8 @@
 <template>
+<div>
+  <vue-headful
+            title="Create a post - BeerPal"
+        />
   <div class="createPost">
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
@@ -101,6 +105,7 @@
         </b-form>
       </b-card>
   </div>
+</div>
 </template>
 
 

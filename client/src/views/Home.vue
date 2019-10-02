@@ -1,5 +1,9 @@
 <template>
   <div>
+    <vue-headful
+            title="Home - BeerPal"
+            description="Description from vue-headful"
+        />
     <div>
       <b-carousel
       v-model="slide"
