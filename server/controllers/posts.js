@@ -63,6 +63,7 @@ router.post('/', (req, res, next) => {
     console.log(req.body.review)
     var post = new Post(req.body);    
     var userId = req.body.postOwner;
+    console.log(post.dateAndTime);
     User.findById(userId).then(user => {
         if (!user) {
             return res.status(404)

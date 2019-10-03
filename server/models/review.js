@@ -9,7 +9,7 @@ var reviewSchema = new Schema({
             min: 1,
             max: 5 },
     textReview: { type: String, maxlength: 60},
-    created: { type: Date, default: Date.now() }
+    created: { type: Date }
 });
 
 module.exports = mongoose.model('reviews', reviewSchema);
