@@ -14,10 +14,12 @@
             <span v-else><img class="img-score" alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>
     <b-col> at: <p>{{ changeFormat2(this.post.review.created)}}</p>  </b-col>
+    
     </b-row> 
-    <b-col class="text-right location name">
+    <b-col v-if="post.location" class="text-right location name">
       Location: {{post.location.name}}
     </b-col>
+    <b-col v-else class="text-right location name">Location: Not Provided</b-col>
     <b-row v-show="post.review.textReview">
       <b-col>
       <p class="text-left">{{ post.postOwner.username + '\'s comment' }}: <span class="font-review">{{ post.review.textReview }}</span></p>
