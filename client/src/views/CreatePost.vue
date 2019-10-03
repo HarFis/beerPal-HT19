@@ -81,7 +81,7 @@
                     <option name="5" :value="5">5</option>
                   </b-form-select><br><br>
                 <p>Please write your review (optional):</p>
-                <b-form-group id="review" label-for="reviewInput">
+                <b-form-group id="review" label-for="reviewInput" description="maximum: 60 characters">
                   <b-form-input
                     id="reviewInput"
                     v-model="reviewText"

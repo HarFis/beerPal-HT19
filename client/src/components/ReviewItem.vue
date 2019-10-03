@@ -36,7 +36,7 @@
               ref="dropdown"
               class="m-2"
             >
-              <b-dropdown-text style="width: 350px">Edit fields you want to update:</b-dropdown-text>
+              <b-dropdown-text style="max-width: 350px">Edit fields you want to update:</b-dropdown-text>
               <b-dropdown-divider></b-dropdown-divider>
               <b-dropdown-form>
                 <b-form-group label="Score" @submit.stop.prevent>

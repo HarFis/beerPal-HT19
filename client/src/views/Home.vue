@@ -75,6 +75,7 @@ export default {
 
   data() {
     return {
+      message: "",
       post: null,
       posts: [],
       slide: 0,
