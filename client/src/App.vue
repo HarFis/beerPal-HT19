@@ -7,6 +7,8 @@
       <router-link to="/breweries"> Breweries</router-link> | 
       <router-link to="/reviews"> Reviews</router-link> | 
       <router-link to="/locations"> Locations</router-link> 
+      &nbsp;
+
     </div>
     
     <div id="body">
@@ -69,10 +71,12 @@ html, body {
 .beer-titel {
   font-weight: bolder;
 }
+.brewery-titel {
+font: bold;}
 
 .font-review {
     font-family: 'Chalkduster', 'Patrick Hand', cursive;
-    font-size:large;
+    font-size:medium;
     font-weight: bold;
 }
 

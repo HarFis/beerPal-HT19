@@ -21,7 +21,7 @@
 
               <p>
                 <label for="alcohol">Alcohol/Vol (in %):</label>
-                <b-form-input id="alcohol" v-model.number="alcohol" placeholder="e.g. 2.3"></b-form-input>
+                <b-form-input id="alcohol" v-model.number="alcohol" placeholder="e.g. 2.3 (don't use ' , '-sign!)"></b-form-input>
               </p>Brewery:
               <b-form-select
                 v-model="selectedBrewery"
@@ -83,6 +83,7 @@ export default {
       {
       val = /^[0-9.]*$/.test(this.alcohol);}
       if(val){
+      this.alcohol = this.alcohol.toFixed(1);
       var beer = {
         name: this.name,
         type: this.type,
