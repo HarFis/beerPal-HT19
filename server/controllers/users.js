@@ -32,9 +32,16 @@ router.get('/', function(req, res, next) {
 // Return a list of all user's posts
 router.get('/:id/posts', function(req, res, next) {
     var id = req.params.id;
-    Post.find({postOwner : id}).exec(function(err, posts) {
+    Post.find({postOwner: id})
+        .populate({
+            path : 'review', 
+        populate : {path : 'beer', populate:{path:'brewery'}}})
+        .populate('location')
+        .populate('postOwner', 'username')
+        .exec(function(err, post)
+         {
         if (err) { return next(err); }
-        res.status(200).json({'posts': posts});
+        res.status(200).json(post);
     });
 });
 
@@ -60,6 +67,29 @@ router.get('/:id/users', function(req, res, next) {
     });
 });
 
+// Get a user based on username
+router.get('/name/:username', function(req, res, next){
+    var username = req.params.username;
+    User.findOne({username: username}, function(err, user){
+        if (err) {return next(err); } 
+        res.status(200).json(user)
+    })
+});
+
+// Return the user with the given ID
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id)
+    .populate('post')
+    .exec(function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        }
+        res.status(200).json(user);
+    });
+});
+
 // Return a list of all users following a specific user
 router.get('/followers/:id', function(req, res, next) {
     var id = req.params.id;
@@ -73,33 +103,28 @@ router.get('/followers/:id', function(req, res, next) {
 // Create a new user
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
-    /*if(User.findOne({user: user})!=true){
-        return res.status(403)
-        .json({'message' : 'A user with this username already exists'});
-    }*/
     user.save(function(err) {
-        if (err) { return next(err); }
+        if (err) {
+            if (err.name === 'MongoError' && err.code === 11000){
+                return res.status(422).json({success: false, message: 'User with this username or email already exists'})
+            }/*
+            if (err.name === 'MongoError' && err.keyPattern.mail){
+                return res.status(422).json({success: false, message: 'User with this e-mail already exists'})
+            }*/
+            return next(err); }
         res.status(201).json(user);
     });
 });
 
-// Return the user with the given ID
-router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    User.findById(id, function(err, user) {
-        if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json({'message': 'User not found'});
-        }
-        res.status(200).json(user);
-    });
-});
+
 
 // Replaces the user with the given ID
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findByIdAndUpdate(id, req.body, 
-        {overwrite : true, new : true}, function(err) {
+        {overwrite : true, new : true},
+        //{runValidators:true, context: query}, 
+        function(err) { //Checks the "unique and required", might not work
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });
@@ -108,7 +133,9 @@ router.put('/:id', function(req, res, next) {
 //Updates the user with the given ID
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findByIdAndUpdate(id, req.body, function(err) {
+    User.findByIdAndUpdate(id, req.body, 
+        //{runValidators:true, context: query}, 
+        function(err) { //Checks the "unique and required", might not work    
         if (err){return next(err)}
         res.status(200).json({'message' : 'Updated Successfully'})
     });
@@ -122,8 +149,21 @@ router.delete('/:id', function(req, res, next) {
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.status(200).json(user);
+        Post.deleteMany({postOwner: id}, function(err, post){
+            if (err) {return next(err)}
+        })
+        res.status(200).json('user deleted');
     });
 });
+
+// Delete all users
+router.delete('/', function(req, res, next) {
+    User.find().remove().exec(function(err, user) {
+        if (err) { return next(err); }
+        res.json(user);
+    });
+});
+
+
 
 module.exports = router;

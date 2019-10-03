@@ -16,6 +16,7 @@ function setAverageScore(review, id, req, res){
             totalScores += reviews[i].score;
         }
         var avgScore = (totalScores/reviews.length);
+        var avgScore = Math.round(avgScore*10)/10;
         
         Beer.findById({ _id: id }, function (err, beer) {
             if (err) { return next(err); }
@@ -27,7 +28,6 @@ function setAverageScore(review, id, req, res){
         
     });
  }
-
 
 // Create a new review v.2
 router.post('/', function (req, res, next){
@@ -60,8 +60,8 @@ router.get('/', function (req, res, next) {
     Review.find()
         .populate('beer')
         .exec()
-        .then(review => {
-            res.status(200).json({ review });
+        .then(reviews => {
+            res.status(200).json({ 'reviews': reviews });
         })
         .catch(err => {
             res.status(500).json({
@@ -77,13 +77,13 @@ router.get('/:id', function (req, res, next) {
         return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
       }
     Review.findById(id)
-        .populate('beer')
+        .populate({path: 'beer', populate: { path: 'brewery' }})
         .exec()
         .then(review => {
             if (!review) {
                 return res.status(404).json({ message: "Review not found" });
             }
-            res.status(200).json({ review });
+            res.status(200).json({review });
         })
         .catch(err => {
             res.status(500).json({
@@ -107,8 +107,11 @@ router.patch('/:id', function (req, res, next) {
         review.textReview = (req.body.textReview || review.textReview);
         review.beer = (req.body.beer || review.beer);
         review.created = (req.body.created || review.created);
-        review.save();
-        res.json(review);
+        review.save(function(err, review) {
+            review
+            .populate('beer')
+            .execPopulate()});
+        res.json({review});
     });
 });
 
@@ -152,24 +155,6 @@ router.put('/:id', function (req, res, next) {
     });
 });
 
-// Bulk (PUT) update all info to same NOT USED
-/*router.put('/', function (req, res, next) {
-    var id = req.params.id;
-    Review.find(function (err, reviews) {
-        if (err) { return next(err); }
-        if (reviews === null) {
-            return res.status(404).json({ 'message': 'Review not found' });
-        }
-        for(var i = 0; i>reviews.length; i++)
-        {review[i].score = (req.body.score);
-        review[i].textReview = (req.body.textReview);
-        review[i].beer = (req.body.beer);
-        review[i].created = (req.body.created);
-        review[i].save();}
-        res.json(review);
-    });
-});*/
-
 // Delete the review with the given ID
 router.delete('/:id', function (req, res, next) {
     var id = req.params.id;
@@ -192,7 +177,5 @@ router.delete('/', function (req, res, next) {
         res.json(review);
     });
 });
-
-
 
 module.exports = router;

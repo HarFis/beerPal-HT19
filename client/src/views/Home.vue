@@ -1,56 +1,129 @@
 <template>
   <div>
-    <b-jumbotron header="DIT341 Frontend" lead="Welcome to Your DIT341 Frontend Vue.js App">
-      <p>Message from the server: {{ message }}</p>
-      <b-button variant="primary" href="/camels">List Camels</b-button>
-    </b-jumbotron>
-    <b-container>
-      <b-row>
-        <b-col><h1>Responsive BootstrapVue: <a href="https://bootstrap-vue.js.org/docs/components/layout/">Layout and Grid System</a></h1></b-col>
-      </b-row>
+    <vue-headful
+            title="Home - BeerPal"
+            description="Description from vue-headful"
+        />
+    <div>
+      <b-carousel
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      
+      style="text-shadow: 2px 4px 4px #000;"
+      fade
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd">
+
+      <b-carousel-slide
+        caption="When you want to relax..."
+        text="Enjoy beer with your pals."
+        img-src="https://images.squarespace-cdn.com/content/v1/5b1717b5a9e028b430240f15/1545270392722-RKIPUBCGHK6060L2FVVA/ke17ZwdGBToddI8pDm48kA47qaxzGU3oa60Mv3IrElh7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jBK0T3M-v-AVkQFEHxhNgUudw45kiY-UQ73op4W9iSPFDhmgzum_ZisgY9UJzHOlA/beer+samples.png?format=2500w"
+        class="img-carousel"
+      ></b-carousel-slide>
+
+      <b-carousel-slide
+        caption="When you want to rewind..."
+        text="Enjoy beer with your pals."
+        img-src="https://www.history.com/.image/t_share/MTU4NTE1Nzg2MDcwMTA3Mzk0/beer-oldest.jpg"
+        class="img-carousel"
+
+      ></b-carousel-slide>
+
+      <b-carousel-slide
+        caption="When you want to feel at home..."
+        text="Enjoy beer with your pals."
+        img-src="https://www.connshg.com/Resources/b5f10bc2-4cd8-4ccf-be25-d8b538cf524c/bigstock-Beer-Cold-Craft-light-Beer-in-202781995.jpg"
+        class="img-carousel"
+
+      ></b-carousel-slide>
+
+      <b-carousel-slide
+        caption="When you just want beer..."
+        text="Enjoy beer with your pals."
+        img-src="https://mondrian.mashable.com/2018%252F10%252F07%252F40%252F91e98805579249bbb0451c5a6f4256c6.af09a.jpg%252F1200x630.jpg?signature=hxJhg6l6eKzcolcV2wO_qNltn0Q="
+        class="img-carousel"
+
+      ></b-carousel-slide>
+
+      </b-carousel>
+    </div>
+      <b-button class="buttonClass" variant="secondary" href="/CreatePost/">CreatePost</b-button>
+      <div>
+        <b-container>
+        <p>
+      <post-item v-for="post in posts" :key="post._id" :post="post"></post-item>
+        </p>
+      </b-container>
+      </div>
       <!-- Mobile (< 768px): stack columns by making one half-width and one full-width
            Desktop (>= 768px): keep both columns in same row in 4:8 ratio -->
-      <b-row>
-        <b-col class="example-col" cols="6" md="4">Message from the server</b-col>
-        <b-col class="example-col" cols="12" md="8">{{ message }}</b-col>
-      </b-row>
-    </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+import PostItem from '@/components/PostItem'
 
 export default {
   name: 'home',
+
   data() {
     return {
-      message: ''
+      message: "",
+      post: null,
+      posts: [],
+      slide: 0,
+      sliding: null
     }
   },
   mounted() {
-    this.getMessage()
+    this.getOrderedPosts()
   },
+
   methods: {
-    getMessage() {
-      Api.get('/')
+    getOrderedPosts() {
+      Api.get("posts?sort=1")
         .then(response => {
-          this.message = response.data.message
+          this.posts = []
+          this.posts = response.data
         })
         .catch(error => {
-          this.message = error
+          this.posts = []
+          console.log(error)
         })
+    },
+    onSlideStart(slide) {
+      this.sliding = true
+    },
+    onSlideEnd(slide) {
+      this.sliding = false
     }
+  },
+  components: {
+    PostItem
   }
 }
 </script>
 
 <style>
-.example-col {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  background-color: whitesmoke;
-  border: 2px solid lightgray;
+.img-carousel{
+max-height: 350px;
+width: 100%;
+height: auto;
 }
+
+
+.buttonClass {
+  margin-top: 2em;
+  margin-bottom: 2em;
+
+}
+
+
 </style>
