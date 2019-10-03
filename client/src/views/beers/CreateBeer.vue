@@ -1,9 +1,9 @@
 <template>
   <div>
     <vue-headful
-            title="Create a beer - BeerPal"
+            title="Add beer - BeerPal"
         />
-    <h2>Create a new beer</h2>
+    <h2>Add new beer</h2>
     <b-container>
       <b-row class="justify-content-md-center">
         <b-col md="6">
@@ -21,8 +21,7 @@
 
               <p>
                 <label for="alcohol">Alcohol/Vol (in %):</label>
-                <b-form-input id="alcohol" v-model.number="alcohol" placeholder="e.g. 2.3">
-                </b-form-input>
+                <b-form-input id="alcohol" v-model.number="alcohol" placeholder="e.g. 2.3"></b-form-input>
               </p>Brewery:
               <b-form-select
                 v-model="selectedBrewery"
@@ -39,9 +38,8 @@
               </b-form-select>
               <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>
 &nbsp;
-           
-          <b-button type="reset" variant="danger">Reset</b-button>
-           </b-form>
+              <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
           </b-card>
         </b-col>
       </b-row>
@@ -72,24 +70,39 @@ export default {
         return /^[0-9]?[0-9]?[.]?[0-9]*$/.test(this.alcohol);
       }},*/
   methods: {
+    /* validation(a)
+    {
+      var vali = /^[0-9.,]*$/.test(a);
+      console.log(vali);
+      return vali;
+    }, */
     onSubmit() {
-        var beer = {
+      var that = this;
+      var val=true;
+      if(!(this.alcohol===null))
+      {
+      val = /^[0-9.]*$/.test(this.alcohol);}
+      if(val){
+      var beer = {
         name: this.name,
         type: this.type,
         alcohol: this.alcohol,
         brewery: this.brewery
       };
       Api.post("/beers", beer)
-      .catch(error => {
-        console.log(error);
-      });
-      this.name = null;
-      this.type = null;
-      this.alcohol = null;
-      this.brewery = null;
-      alert("Created!");
-      this.$router.push({ path: "/beers" });
-      },
+        .then(function() {
+          that.name = null;
+          that.type = null;
+          that.alcohol = null;
+          that.brewery = null;
+          alert("Created!");
+          that.$router.push({ path: "/beers" });
+        })
+        .catch(error => {
+          console.log(error);
+        })}
+        else {alert("Please use only numbers and \".\" for alcohol/vol!")};
+    },
     getBreweries() {
       Api.get("breweries")
         .then(response => {

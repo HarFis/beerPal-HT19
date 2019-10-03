@@ -6,6 +6,7 @@
     <div class="breweryList">
       <h1>Breweries</h1>
       <h3>Current number of breweries: {{ breweries.length}}</h3>
+      <b-button class="buttonClass" router-link to="/add-brewery">Add new brewery</b-button>
       <b-list-group>
         <brewery-item v-for="brewery in breweries" :key="brewery._id" :brewery="brewery" @delete-brewery="deleteBrewery"></brewery-item>
       </b-list-group>
@@ -74,9 +75,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
+
 .createButton {
   margin-bottom: 1em;
 }

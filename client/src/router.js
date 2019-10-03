@@ -88,8 +88,8 @@ export default new Router({
       component: RegisterUser
     },
     {
-      path: '/create-beer',
-      name: 'create-beer',
+      path: '/add-beer',
+      name: 'add-beer',
       component: CreateBeer
     },
     {
@@ -103,8 +103,8 @@ export default new Router({
       component: CreateReview
     },
     {
-      path: '/create-location',
-      name: 'create-location',
+      path: '/add-location',
+      name: 'add-location',
       component: CreateLocation
     },
     {
@@ -133,8 +133,8 @@ export default new Router({
       props: true
     },
     {
-      path: '/create-brewery',
-      name: 'create-brewery',
+      path: '/add-brewery',
+      name: 'add-brewery',
       component: CreateBrewery
     }
   ]

@@ -6,10 +6,7 @@
       <router-link to="/beers"> Beers</router-link> | 
       <router-link to="/breweries"> Breweries</router-link> | 
       <router-link to="/reviews"> Reviews</router-link> | 
-      <router-link to="/locations"> Locations</router-link> | 
-      <router-link to="/create-beer"> Create a Beer</router-link> | 
-      <router-link to="/create-location"> Create a Location</router-link> | 
-      <router-link to="/create-brewery"> Create a Brewery</router-link>
+      <router-link to="/locations"> Locations</router-link> 
     </div>
     
     <div id="body">
