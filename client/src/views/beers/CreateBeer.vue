@@ -1,7 +1,9 @@
 <template>
   <div>
-    <vue-headful title="Create a beer - BeerPal" />
-    <h2>Create a new beer</h2>
+    <vue-headful
+            title="Add beer - BeerPal"
+        />
+    <h2>Add new beer</h2>
     <b-container>
       <b-row class="justify-content-md-center">
         <b-col md="6">

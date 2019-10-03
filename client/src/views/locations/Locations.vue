@@ -6,6 +6,7 @@
   <div class="locations">
     <h1>Locations</h1>
     <h3>Current number of locations: {{ locations.length }}</h3>
+    <b-button class="buttonClass" router-link to="/add-location">Add new location</b-button>
     <b-list-group>
       <location-item
         v-for="location in locations"
@@ -92,9 +93,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
+
 .createButton {
   margin-bottom: 1em;
 }
