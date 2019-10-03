@@ -105,12 +105,12 @@ router.post('/', function(req, res, next) {
     var user = new User(req.body);
     user.save(function(err) {
         if (err) {
-            if (err.name === 'MongoError' && err.keyPattern.username){
-                return res.status(422).json({success: false, message: 'User with this username already exists'})
-            }
+            if (err.name === 'MongoError' && err.code === 11000){
+                return res.status(422).json({success: false, message: 'User with this username or email already exists'})
+            }/*
             if (err.name === 'MongoError' && err.keyPattern.mail){
                 return res.status(422).json({success: false, message: 'User with this e-mail already exists'})
-            }
+            }*/
             return next(err); }
         res.status(201).json(user);
     });
