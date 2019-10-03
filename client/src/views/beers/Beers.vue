@@ -6,6 +6,7 @@
   <div class="beers">
       <h1>Beers</h1>
       <h3>Current number of beers: {{ beers.length }}</h3>
+      <b-button class="buttonClass" router-link to="/add-beer">Add new beer</b-button>
       <b-list-group>
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" :showBrewery="showBrewery" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
@@ -73,9 +74,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
+
 .createButton {
   margin-bottom: 1em;
 }
