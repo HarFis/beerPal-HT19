@@ -13,7 +13,7 @@
             <span v-else-if="post.review.score===4"><img class="img-score" alt="4/5 beers" src="../assets/4av5.png"></span>
             <span v-else><img class="img-score" alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>
-    <b-col> at: <p v-if="post.location">{{ post.location.name }}</p>  </b-col>
+    <b-col> at: <p>{{ changeFormat2(this.post.review.created)}}</p>  </b-col>
     </b-row> 
     <b-col class="text-right location name">
       Location: {{post.location.name}}
@@ -42,8 +42,15 @@ export default {
       if (value) {
            return moment(String(value)).format('YYYY-MM-DD')
       }
+    },
+    changeFormat2(value){
+      if (value) {
+           return moment(String(value)).format('h:mm:ss a')
+      }
     }
   }
+  
+
   
 }
 
