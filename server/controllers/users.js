@@ -104,7 +104,7 @@ router.get('/followers/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
     user.save(function(err) {
-        if (err) { 
+        if (err) {
             if (err.name === 'MongoError' && err.keyPattern.username){
                 return res.status(422).json({success: false, message: 'User with this username already exists'})
             }

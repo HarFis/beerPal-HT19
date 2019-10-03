@@ -25,7 +25,6 @@ router.get('/', function (req, res, next, ) {
 
 // Return a list of all posts, sorted
 router.get('/', function (req, res, next, ) {
-    console.log('got here')
     Post.find({})
         .sort({ dateAndTime: -1 })
         .populate({
@@ -42,7 +41,6 @@ router.get('/', function (req, res, next, ) {
 
 // Return the post with the given ID
 router.get('/:id', function (req, res, next) {
-    console.log("HERE")
     var id = req.params.id;
     Post.findById(id)
         .populate('review')
