@@ -74,12 +74,13 @@ html, body {
 }
 
 .font-review {
-    font-family: 'Patrick Hand', cursive;
+    font-family: 'Chalkduster', 'Patrick Hand', cursive;
     font-size:large;
     font-weight: bold;
 }
 
 .img-score {
+  margin-left: 7px;
   height: 25px;
 }
 
@@ -87,5 +88,10 @@ html, body {
   font-family: monospace;
   font-size: medium;
   text-shadow: 0 1px rgba(255, 255, 255, 0);
+}
+
+#warning {
+  color: crimson;
+  font-weight: bold;
 }
 </style>

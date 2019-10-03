@@ -1,4 +1,8 @@
 <template>
+<div>
+  <vue-headful
+            title="Locations - BeerPal"
+        />
   <div class="locations">
     <h1>Locations</h1>
     <h3>Current number of locations: {{ locations.length }}</h3>
@@ -14,6 +18,7 @@
     <br>
   <b-button variant="danger" @click="deleteAllLocations" v-show="!(locations.length===0)">Delete all locations</b-button>
   </div>
+</div>
 </template>
 
 <script>

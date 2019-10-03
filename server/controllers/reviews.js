@@ -77,7 +77,7 @@ router.get('/:id', function (req, res, next) {
         return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
       }
     Review.findById(id)
-        .populate('beer')
+        .populate({path: 'beer', populate: { path: 'brewery' }})
         .exec()
         .then(review => {
             if (!review) {

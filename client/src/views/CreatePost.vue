@@ -1,6 +1,9 @@
 <template>
+<div>
+  <vue-headful
+            title="Create a post - BeerPal"
+        />
   <div class="createPost">
-    <h1>
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
         <b-modal id="loginModal"  hide-footer hide-header-close ref="loginModal" title="Login">
@@ -49,6 +52,7 @@
               >{{beer.name}}</option>
             </b-form-select>
             <div>
+              <br>
             <b-button v-b-modal.modalBeer>Add new beer</b-button>
             <b-modal id="modalBeer" ref="modalBeer" title="Add new beer" ok-title="Submit" hide-footer>
                 <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
@@ -95,11 +99,13 @@
           </b-form-group>
 
           <b-button type="submit" variant="primary">Submit</b-button>
+                      &nbsp;
+
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </b-card>
-    </h1>
   </div>
+</div>
 </template>
 
 
@@ -293,6 +299,8 @@ export default {
 }
 
 .createPost {
+  font-size:large;
+  font-weight: bolder;
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;

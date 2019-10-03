@@ -1,5 +1,9 @@
 <template>
   <div>
+    <vue-headful
+            title="Home - BeerPal"
+            description="Description from vue-headful"
+        />
     <div>
       <b-carousel
       v-model="slide"
@@ -71,6 +75,7 @@ export default {
 
   data() {
     return {
+      post: null,
       posts: [],
       slide: 0,
       sliding: null

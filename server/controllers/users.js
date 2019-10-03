@@ -35,7 +35,7 @@ router.get('/:id/posts', function(req, res, next) {
     Post.find({postOwner: id})
         .populate({
             path : 'review', 
-        populate : {path : 'beer'}})
+        populate : {path : 'beer', populate:{path:'brewery'}}})
         .populate('location')
         .populate('postOwner', 'username')
         .exec(function(err, post)
@@ -155,5 +155,15 @@ router.delete('/:id', function(req, res, next) {
         res.status(200).json('user deleted');
     });
 });
+
+// Delete all users
+router.delete('/', function(req, res, next) {
+    User.find().remove().exec(function(err, user) {
+        if (err) { return next(err); }
+        res.json(user);
+    });
+});
+
+
 
 module.exports = router;

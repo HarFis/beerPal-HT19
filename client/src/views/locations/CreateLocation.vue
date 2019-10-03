@@ -1,28 +1,39 @@
 <template>
   <div>
+    <vue-headful
+            title="Create a location - BeerPal"
+        />
   <h2>Create a new location</h2>
+  <b-container >
+    <b-row class="justify-content-md-center">
+      <b-col md="6">
   <b-card>
-  <b-form class="location-form" @submit.prevent="onSubmit">
+  <b-form class="location-form text-left" @submit.prevent="onSubmit">
     <p>
       <label for="name">Location's name:</label>
       <b-form-input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
     </p>
 
-    <p>
+    
       <label for="typeOfLocation">Type of Location:</label>
-      <b-form-select id="typeOfLocation" v-model="typeOfLocation">
+      <b-form-select id="typeOfLocation" v-model="typeOfLocation" required>
+        <option :value=null>Choose...</option>
         <option>Restaurant</option>
         <option>Bar</option>
         <option>Pub</option>
         <option>Club</option>
         <option>private</option>
       </b-form-select>
-    </p>
-    <p>
+    
       <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>
-    </p>
+&nbsp;
+      <b-button type="reset" variant="danger">Reset</b-button>
+
   </b-form>
   </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
   </div>
 </template>
 
@@ -50,6 +61,7 @@ export default {
         alert("New Location successfully created!");
         this.name = null;
         this.typeOfLocation = null;
+        this.$router.push({ path: "/locations" });
       } else {
         if (!this.name) this.errors.push("Name required.");
         if (!this.typeOfLocation)
