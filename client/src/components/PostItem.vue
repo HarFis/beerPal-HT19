@@ -4,8 +4,8 @@
    <!-- <img alt="Review" src="../assets/camel.jpg"> -->
     <b-container>
         <b-row>
-    <b-col class="text-left beer-titel"> <span >{{ post.review.beer.name }} </span><br>
-    <span v-if="post.review.beer.brewery"> {{ post.review.beer.brewery.name }}</span>
+    <b-col class="text-left"> <span class="beer-titel">{{ post.review.beer.name }} </span><br>
+    <span class="brewery-titel" v-if="post.review.beer.brewery"> {{ post.review.beer.brewery.name }}</span>
     </b-col>
     <b-col> Score: <span v-if="post.review.score===1"><img class="img-score" alt="1/5 beers" src="../assets/1av5.png"></span>
             <span v-else-if="post.review.score===2"><img class="img-score" alt="2/5 beers" src="../assets/2av5.png"></span>
@@ -13,7 +13,7 @@
             <span v-else-if="post.review.score===4"><img class="img-score" alt="4/5 beers" src="../assets/4av5.png"></span>
             <span v-else><img class="img-score" alt="5/5 beers" src="../assets/5av5.png"></span></b-col>
     <b-col> consumed on: <p>{{ changeFormat(this.post.review.created)}}</p>  </b-col>
-    <b-col> at: <p>{{ changeFormat2(this.post.review.created)}}</p>  </b-col>
+    <b-col> at: <p v-if="post.location">{{ post.location.name }}</p>  </b-col>
     </b-row> 
     <b-col class="text-right location name">
       Location: {{post.location.name}}
@@ -41,11 +41,6 @@ export default {
       changeFormat(value){
       if (value) {
            return moment(String(value)).format('YYYY-MM-DD')
-      }
-      },
-  changeFormat2(value){
-      if (value) {
-           return moment(String(value)).format('h:mm:ss a')
       }
     }
   }
