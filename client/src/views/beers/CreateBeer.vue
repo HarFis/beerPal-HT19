@@ -83,7 +83,6 @@ export default {
       {
       val = /^[0-9.]*$/.test(this.alcohol);}
       if(val){
-      this.alcohol = this.alcohol.toFixed(1);
       var beer = {
         name: this.name,
         type: this.type,
