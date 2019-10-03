@@ -56,7 +56,10 @@ export default {
         mail: this.mail,
         password: this.password
       };
-      Api.post("/users", user).catch(error => {
+      Api.post("/users", user).then( response => {
+        alert('User Created');
+        this.$router.push({path: '/users'})
+      }).catch(error => {
         alert(error.response.data.message);
         console.log(error);
       });
