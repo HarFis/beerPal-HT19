@@ -1,10 +1,13 @@
 <template>
   <div class="user">
-    <h1 id="headline">{{ user.username }}</h1>
-    <p>email: {{ user.mail }}</p>
-    <p>
-      <b-button variant="danger" @click="deleteUser()">delete</b-button>
-    </p>
+    <b-container><b-card><b-row>
+      <b-col><img alt="User" src="../../assets/drinkingStanding.png"></b-col>
+      <b-col><h2 id="headline">User: {{ user.username }}</h2>
+      <p>Email: {{ user.mail }}</p>
+      <p>
+        <b-button variant="danger" @click="deleteUser()">delete</b-button>
+      </p></b-col>
+      </b-row></b-card></b-container>
     <p>
       <b-container v-if="posts.length===0">
         <b-row id="warning">No posts yet.</b-row>
@@ -34,7 +37,7 @@ export default {
   },
   created() {
     this.getPosts();
-     this.getUser();
+    this.getUser();
   },
   methods: {
     getUser() {
