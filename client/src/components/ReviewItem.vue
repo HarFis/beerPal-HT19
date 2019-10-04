@@ -1,88 +1,97 @@
 <template>
-  <b-list-group>
-    <b-list-group-item>
-      <b-container>
-        <b-row>
-          <b-col md=3 class="text-left">
-            <p class="beer-titel">
-              <span v-if="!(review.beer==null)">{{ review.beer.name }}</span>
-              <span v-else>deleted Beer</span>
-            </p>
-          </b-col>
-          <b-col md=2>
-            Score:
-            <span v-if="review.score===1">
-              <img class="img-score" alt="1/5 beers" src="../assets/1av5.png" />
-            </span>
-            <span v-else-if="review.score===2">
-              <img class="img-score" alt="2/5 beers" src="../assets/2av5.png" />
-            </span>
-            <span v-else-if="review.score===3">
-              <img class="img-score" alt="3/5 beers" src="../assets/3av5.png" />
-            </span>
-            <span v-else-if="review.score===4">
-              <img class="img-score" alt="4/5 beers" src="../assets/4av5.png" />
-            </span>
-            <span v-else>
-              <img class="img-score" alt="5/5 beers" src="../assets/5av5.png" />
-            </span>
-          </b-col>
-          <b-col md=3>consumed on: {{ changeFormat(this.review.created) }}</b-col>
-          <b-col md=4>
-            <b-dropdown
-              variant="outline-info"
-             id="dropdown-right" 
-             right text="edit"
-              ref="dropdown"
-              class="m-2"
-            >
-              <b-dropdown-text style="max-width: 350px">Edit fields you want to update:</b-dropdown-text>
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-form>
-                <b-form-group label="Score" @submit.stop.prevent>
-                  <b-form-select
-                    id="form-review-score"
-                    v-model.number="form.score"
-                    :options="options"
-                  ></b-form-select>
-                </b-form-group>
-                <b-form-group label="Review" description="maximum: 60 characters">
-                  <b-form-input v-model="form.textReview" id="form-review-text" size="sm"></b-form-input>
-                </b-form-group>
-                <b-button variant="info" size="sm" @click="onClick(review._id)">Save changes</b-button>
-              </b-dropdown-form>
-            </b-dropdown>&nbsp;
-            <b-button variant="outline-danger" @click="$emit('delete-review', review._id)">delete</b-button>
-          </b-col>
-        </b-row>
-        <b-row v-show="review.textReview">
-          <b-col>
-            <p class="text-left">
-              Comment:
-              <span class="font-review">{{ review.textReview }}</span>
-            </p>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-list-group-item>
-  </b-list-group>
+  <div>
+    <b-list-group>
+      <b-list-group-item>
+        <b-container>
+          <b-row>
+            <b-col md="3" class="text-left">
+              <p class="beer-titel">
+                <span v-if="!(review.beer==null)">{{ review.beer.name }}</span>
+                <span v-else>deleted Beer</span>
+              </p>
+            </b-col>
+            <b-col md="2">
+              Score:
+              <span v-if="review.score===1">
+                <img class="img-score" alt="1/5 beers" src="../assets/1av5.png" />
+              </span>
+              <span v-else-if="review.score===2">
+                <img class="img-score" alt="2/5 beers" src="../assets/2av5.png" />
+              </span>
+              <span v-else-if="review.score===3">
+                <img class="img-score" alt="3/5 beers" src="../assets/3av5.png" />
+              </span>
+              <span v-else-if="review.score===4">
+                <img class="img-score" alt="4/5 beers" src="../assets/4av5.png" />
+              </span>
+              <span v-else>
+                <img class="img-score" alt="5/5 beers" src="../assets/5av5.png" />
+              </span>
+            </b-col>
+            <b-col md="3">consumed on: {{ changeFormat(this.review.created) }}</b-col>
+            <b-col md="4">
+              
+              <b-button ref="modal" variant="outline-info" size="sm" @click="showModal">edit</b-button>&nbsp;
+              <b-button variant="outline-danger" size="sm" @click="$emit('delete-review', review._id)">delete</b-button>
+            </b-col>
+          </b-row>
+          <b-row v-show="review.textReview">
+            <b-col>
+              <p class="text-left">
+                Comment:
+                <span class="font-review">{{ review.textReview }}</span>
+              </p>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-list-group-item>
+    </b-list-group>
+
+    <!-- MODAL element S-T-A-R-T -->
+    <b-modal
+      ref="modal"
+      title="Edit review:"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <b-form>
+        <b-form-group label="Score" label-for="form-review-score" @submit.stop.prevent>
+          <b-form-select id="score" v-model="form.score">
+            <option :value="null">Choose...</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </b-form-select>
+        </b-form-group>
+        <b-form-group label="Review" label-for="form-review-textReview" description="Maximum 60 characters"  invalid-feedback="Review is too long. Max 60 characters." >
+          <b-form-input
+            v-model="form.textReview"
+            id="form-review-textReview"
+            size="sm"
+            placeholder="Write here ... "
+            
+          ></b-form-input>
+        </b-form-group>
+      </b-form>
+    </b-modal>
+    <!-- MODAL element E-N-D -->
+
+  </div>
 </template>
 
 <script>
 import moment from "moment";
 
 export default {
+  invalid: false,
   name: "review-item",
   props: ["review"],
   data() {
     return {
-      options: [
-        { value: 1, text: "1" },
-        { value: 2, text: "2" },
-        { value: 3, text: "3" },
-        { value: 4, text: "4" },
-        { value: 5, text: "5" }
-      ],
+      invalid: false,
       form: {
         score: null,
         textReview: null
@@ -95,18 +104,40 @@ export default {
         return moment(String(value)).format("YYYY-MM-DD");
       }
     },
-    onClick(id) {
-      console.log(id);
-      let newReview = {
+    checkFormInvalidity() {
+      this.invalid = false;
+        if(this.form.textReview.length > 60){this.invalid=true;}
+        return this.invalid;
+      },
+    handleSubmit(id) {
+       if (this.checkFormInvalidity()) {
+          return
+        }
+      
+            let newReview = {
         score: this.form.score,
         textReview: this.form.textReview
       };
       this.$emit("edit-review", id, newReview);
-      this.$refs.dropdown.hide(true);
+      this.$nextTick(() => {
+        this.$refs.modal.hide();
+      });
+    },
+    resetModal() {
       this.form.score = null;
-      this.form.textReview = null;
-      this.$forceUpdate();
-
+      this.form.textReview = "";
+    },
+    showModal() {
+      this.$refs["modal"].show();
+    },
+    hideModal() {
+      this.$refs["modal"].hide();
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmit(this.review._id);
     }
   }
 };
