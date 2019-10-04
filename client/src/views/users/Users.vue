@@ -27,7 +27,7 @@ export default {
       users: []
     }
   },
-  mounted() {
+  created() {
     this.getUsers()
   },
   methods: {

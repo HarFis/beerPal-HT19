@@ -82,7 +82,7 @@ export default {
       sliding: null
     }
   },
-  mounted() {
+  created() {
     this.getOrderedPosts()
   },
 
