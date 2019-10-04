@@ -8,7 +8,6 @@ var postSchema = new Schema({
         ref : 'reviews'},
     location: { type: mongoose.Schema.Types.ObjectId, 
         ref: 'locations'},
-    dateAndTime: {type: Date},
     postOwner: {type: mongoose.Schema.Types.ObjectId, 
         ref: 'users', required: true},
     // TODO taggedUsers: [String],
