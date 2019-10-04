@@ -58,10 +58,13 @@ router.get('/:id', function (req, res, next) {
 
 // Create a new post
 router.post('/', (req, res, next) => {
-    console.log(req.body.review)
-    var post = new Post(req.body);
+    var post = new Post({
+        review: req.body.review,
+        location: req.body.location,
+        dateAndTime: new Date(),
+        postOwner: req.body.postOwner
+        });
     var userId = req.body.postOwner;
-    console.log(post.dateAndTime);
     User.findById(userId).then(user => {
         if (!user) {
             return res.status(404)
