@@ -239,14 +239,13 @@ export default {
         });
     },
     onSubmit() {
-      //console.log(new Date())
       var review = {
         beerID: this.selectedBeer,
         score: this.score,
         textReview: this.reviewText,
-        //created: new Date().toISOString()
       };
-     // console.log(review.created)
+     if (!review.beerID) {return(alert('Please Select a Beer'))}
+     if(!review.score) {return(alert('Please Select a score'))}
       Api.post("/reviews", review)
         .then(response => {
           this.createdReview = response.data._id;
