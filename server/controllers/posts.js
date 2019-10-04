@@ -8,8 +8,9 @@ var Review = require('../models/review');
 // Return a list of all posts
 router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
+    var count = req.query.count;
     console.log(sort)
-    if (sort) { next(); return; }
+    if (sort|| count) { next(); return; }
     Post.find({})
         .populate({
             path: 'review',
@@ -23,9 +24,19 @@ router.get('/', function (req, res, next, ) {
         });
 });
 
-// Return a list of all posts, sorted
+// Return a list of all posts, sorted with pagination
 router.get('/', function (req, res, next, ) {
-    Post.find({})
+    var count = req.query.count
+    var pageNo = req.query.pageNo
+    var size = 5
+    var query = {}
+    if(count){ next(); return; }
+    if (pageNo < 0 || pageNo === 0){
+        return res.json('Page number can\'t be less than 1');
+    }
+    query.skip = size * (pageNo - 1);
+    query.limit = size;
+    Post.find({}, {}, query)
         .sort({ dateAndTime: -1 })
         .populate({
             path: 'review',
@@ -38,6 +49,14 @@ router.get('/', function (req, res, next, ) {
             res.status(200).json(post);
         });
 });
+
+//Return the number of posts
+router.get('/', function (req, res, next){
+    Post.countDocuments({}, function(err, count){
+        res.json(count);
+    })
+})
+
 
 // Return the post with the given ID
 router.get('/:id', function (req, res, next) {
