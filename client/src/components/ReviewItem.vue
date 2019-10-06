@@ -66,13 +66,13 @@
             <option>5</option>
           </b-form-select>
         </b-form-group>
-        <b-form-group label="Review" label-for="form-review-textReview" description="Maximum 60 characters"  invalid-feedback="Review is too long. Max 60 characters." >
+        <b-form-group label="Review" label-for="form-review-textReview" description="Maximum 60 characters"  force-show="true" invalid-feedback="Review is too long. Max 60 characters." >
           <b-form-input
             v-model="form.textReview"
             id="form-review-textReview"
             size="sm"
             placeholder="Write here ... "
-            
+            :state="valid"
           ></b-form-input>
         </b-form-group>
       </b-form>
@@ -91,7 +91,7 @@ export default {
   props: ["review"],
   data() {
     return {
-      invalid: false,
+      valid: true,
       form: {
         score: null,
         textReview: null
@@ -104,17 +104,16 @@ export default {
         return moment(String(value)).format("YYYY-MM-DD");
       }
     },
-    checkFormInvalidity() {
-      this.invalid = false;
-        if(this.form.textReview.length > 60){this.invalid=true;}
-        return this.invalid;
+    checkFormValidity() {
+      this.valid = true;
+        if(this.form.textReview.length > 60){this.valid=false;}
+        return this.valid;
       },
     handleSubmit(id) {
-       if (this.checkFormInvalidity()) {
+       if (!this.checkFormValidity()) {
           return
         }
-      
-            let newReview = {
+        let newReview = {
         score: this.form.score,
         textReview: this.form.textReview
       };
