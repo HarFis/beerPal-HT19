@@ -145,6 +145,7 @@ export default {
       beers: [],
       locations: [],
       users: [],
+      date: new Date().toLocaleString(),
       form: {
         username: "",
         password: ""
@@ -241,9 +242,10 @@ export default {
       var review = {
         beerID: this.selectedBeer,
         score: this.score,
-        textReview: this.reviewText
-
+        textReview: this.reviewText,
       };
+     if (!review.beerID) {return(alert('Please Select a Beer'))}
+     if(!review.score) {return(alert('Please Select a score'))}
       Api.post("/reviews", review)
         .then(response => {
           this.createdReview = response.data._id;
@@ -252,9 +254,10 @@ export default {
             location: this.selectedLocation,
             postOwner: this.selectedUser
           };
-          console.log(post.review);
+          
           Api.post("posts", post)
             .then(
+              console.log(post),
               alert("Post Created"),
               (this.selectedBeer = null),
               (this.selectedLocation = null),

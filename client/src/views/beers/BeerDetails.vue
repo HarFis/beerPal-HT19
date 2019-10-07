@@ -1,26 +1,43 @@
 <template>
-  <div class="beer">
-    <h1 id="headline">{{ beer.name }}</h1>
-    <ul>
-      <li>Type: {{ beer.type }}</li>
-      <li>Alcohol/Vol: {{ beer.alcohol }}</li>
-      <li>
-        Average rating:
-        <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
-        <span id="warning" v-else>No ratings yet! </span>
-      </li>
-    </ul>
-    <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
-    <b-container v-if="reviews==0">
-      <b-row>
-        <p class="text-center" id="warning">No reviews yet.</p>
-      </b-row>
-    </b-container>
-    <b-container v-else>
-      <b-list-group>
-        <review-item v-for="review in reviews" :key="review._id" :review="review" @delete-review="deleteReview"></review-item>
-      </b-list-group>
-    </b-container>
+  <div>
+    <b-card-group deck>
+      <b-card>
+        <div class="beer">
+          <img alt="beer" src="../../assets/beer.png">
+          <br>
+          <h2 id="headline">{{ beer.name }}</h2>
+          
+            <p>Type: {{ beer.type }}</p>
+            <p>Alcohol/Vol: {{ beer.alcohol }}</p>
+            <p>
+              Average rating:
+              <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
+              <span id="warning" v-else>No ratings yet!</span>
+            </p>
+          
+          <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
+        </div>
+      </b-card>
+      <b-card>
+        <div>
+          <b-container v-if="reviews==0">
+            <b-row>
+              <p class="text-center" id="warning">No reviews yet.</p>
+            </b-row>
+          </b-container>
+          <b-container v-else>
+            <b-list-group>
+              <review-item
+                v-for="review in reviews"
+                :key="review._id"
+                :review="review"
+                @delete-review="deleteReview"
+              ></review-item>
+            </b-list-group>
+          </b-container>
+        </div>
+      </b-card>
+    </b-card-group>
   </div>
 </template>
 
@@ -65,17 +82,18 @@ export default {
         });
     },
     deleteBeer(id) {
-      if(confirm('Are you sure you want to delete this beer?')){
-          Api.delete(`/beers/${id}`)
+      if (confirm("Are you sure you want to delete this beer?")) {
+        Api.delete(`/beers/${id}`)
           .then(response => {
-          console.log(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .then(this.$router.push({path: '/beers'}))
-        }},
-        deleteReview(id) {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+          .then(this.$router.push({ path: "/beers" }));
+      }
+    },
+    deleteReview(id) {
       Api.delete(`/reviews/${id}`)
         .then(response => {
           console.log(response.data.message);
@@ -86,7 +104,6 @@ export default {
           console.log(error);
         });
     }
-
   },
   components: {
     ReviewItem
@@ -104,6 +121,8 @@ a {
 }
 .beer {
   color: darkslategray;
+   border-radius: 20px;
+  margin: 10px;
 }
 
 #headline {

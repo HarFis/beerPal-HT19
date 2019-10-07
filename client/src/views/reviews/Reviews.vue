@@ -37,7 +37,7 @@ export default {
       reviews: []
     };
   },
-  mounted() {
+  created() {
     this.getReviews();
   },
   methods: {

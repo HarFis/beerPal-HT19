@@ -28,7 +28,7 @@ export default {
             breweries: []
         }
     }, 
-    mounted() {
+    created() {
         this.getBreweries()
     },
     methods: {

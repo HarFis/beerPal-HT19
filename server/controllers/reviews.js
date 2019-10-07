@@ -47,6 +47,7 @@ router.post('/', function (req, res, next){
             beer: req.body.beerID,
             score: req.body.score,
             textReview: req.body.textReview,
+            created: new Date(),
         });
         review.save(function(err){
             if (err) { return next(err); }

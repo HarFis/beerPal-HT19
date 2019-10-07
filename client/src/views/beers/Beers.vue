@@ -28,7 +28,7 @@ export default {
       showBrewery: true
     }
   },
-  mounted() {
+  created() {
     this.getBeers()
   },
   methods: {
