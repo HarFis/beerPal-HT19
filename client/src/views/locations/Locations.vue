@@ -18,6 +18,9 @@
     </b-list-group>
     <br>
   <b-button variant="danger" @click="deleteAllLocations" v-show="!(locations.length===0)">Delete all locations</b-button>
+  
+
+  
   </div>
 </div>
 </template>
@@ -30,10 +33,11 @@ export default {
   name: "Locations",
   data() {
     return {
+      show: false,
       locations: []
     };
   },
-  mounted() {
+  created() {
     this.getLocations();
   },
   methods: {
@@ -83,6 +87,7 @@ export default {
         })
       }
     }
+
   },
 
   components: {
