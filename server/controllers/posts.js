@@ -9,7 +9,6 @@ var Review = require('../models/review');
 router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
     var count = req.query.count;
-    console.log(sort)
     if (sort|| count) { next(); return; }
     Post.find({})
         .populate({
@@ -28,15 +27,35 @@ router.get('/', function (req, res, next, ) {
 router.get('/', function (req, res, next, ) {
     var count = req.query.count
     var pageNo = req.query.pageNo
+    var sort = req.query.sort
     var size = 5
     var query = {}
-    if(count){ next(); return; }
+    if((sort && !pageNo) || count){ next(); return; }
     if (pageNo < 0 || pageNo === 0){
         return res.json('Page number can\'t be less than 1');
     }
     query.skip = size * (pageNo - 1);
     query.limit = size;
     Post.find({}, {}, query)
+        .sort({ dateAndTime: -1 })
+        .populate({
+            path: 'review',
+            populate: { path: 'beer' , populate: { path: 'brewery' }}
+        })
+        .populate('location')
+        .populate('postOwner', 'username')
+        .exec(function (err, post) {
+            if (err) { return next(err); }
+            res.status(200).json(post);
+        });
+});
+
+// Return a list of all posts, sorted
+router.get('/', function (req, res, next, ) {
+    var count = req.query.count
+    if(count){ next(); return; }
+
+    Post.find({})
         .sort({ dateAndTime: -1 })
         .populate({
             path: 'review',
