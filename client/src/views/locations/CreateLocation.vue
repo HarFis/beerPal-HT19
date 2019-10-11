@@ -61,7 +61,10 @@ export default {
         alert("New Location successfully created!");
         this.name = null;
         this.typeOfLocation = null;
-        this.$router.push({ path: "/locations" });
+        //this.$router.push({ path: "/locations" });
+        var that = this;
+        setTimeout( function(){that.$router.push({ path: "/locations" })}, 100)
+
       } else {
         if (!this.name) this.errors.push("Name required.");
         if (!this.typeOfLocation)

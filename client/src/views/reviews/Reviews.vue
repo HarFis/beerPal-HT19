@@ -1,29 +1,30 @@
 <template>
-<div>
-  <vue-headful
-            title="Reviews - BeerPal"
-        />
-  <div class="reviews">
-    <h1>Reviews</h1>
-    <h3>Current number of reviews: {{ reviews.length }}</h3>
-    <!-- <b-button type="button" class="createButton" @click="createReview()">Create Review</b-button> -->
-    <b-list-group>
-      <review-item
-        v-for="review in reviews"
-        :key="review._id"
-        :review="review"
-        @delete-review="deleteReview"
-        @edit-review="editReview"
-      ></review-item>
-    </b-list-group>
-    <br/>
-    <b-button
-      variant="danger"
-      @click="deleteAllReviews"
-      v-show="!(reviews.length===0)"
-    >Delete all reviews</b-button>
+  <div>
+    <vue-headful title="Reviews - BeerPal" />
+    <div class="reviews">
+      <h1>Reviews</h1>
+      <h3 v-if="!serverOK">
+        <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
+      </h3>
+      <h3 v-else>Current number of reviews: {{ reviews.length }}</h3>
+      <!-- <b-button type="button" class="createButton" @click="createReview()">Create Review</b-button> -->
+      <b-list-group>
+        <review-item
+          v-for="review in reviews"
+          :key="review._id"
+          :review="review"
+          @delete-review="deleteReview"
+          @edit-review="editReview"
+        ></review-item>
+      </b-list-group>
+      <br />
+      <b-button
+        variant="danger"
+        @click="deleteAllReviews"
+        v-show="!(reviews.length===0)"
+      >Delete all reviews</b-button>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -34,6 +35,7 @@ export default {
   name: "Reviews",
   data() {
     return {
+      serverOK: true,
       reviews: []
     };
   },
@@ -42,11 +44,13 @@ export default {
   },
   methods: {
     getReviews() {
+      this.serverOK = true;
       Api.get("reviews")
         .then(response => {
           this.reviews = response.data.reviews;
         })
         .catch(error => {
+          this.serverOK = false;
           this.reviews = [];
           console.log(error);
         })
@@ -58,7 +62,7 @@ export default {
       Api.patch(`/reviews/${id}`, newReview)
         .then(response => {
           console.log(response.data);
-            this.getReviews();
+          this.getReviews();
         })
         .catch(error => {
           console.log(error);

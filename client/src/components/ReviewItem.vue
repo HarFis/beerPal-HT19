@@ -10,7 +10,7 @@
                 <span v-else>deleted Beer</span>
               </p>
             </b-col>
-            <b-col md="2">
+            <b-col md="3">
               Score:
               <span v-if="review.score===1">
                 <img class="img-score" alt="1/5 beers" src="../assets/1av5.png" />
@@ -28,18 +28,20 @@
                 <img class="img-score" alt="5/5 beers" src="../assets/5av5.png" />
               </span>
             </b-col>
-            <b-col md="3">consumed on: {{ changeFormat(this.review.created) }}</b-col>
+            <b-col md="2">{{ changeFormat(this.review.created) }}</b-col>
             <b-col md="4">
               
               <b-button ref="modal" variant="outline-info" size="sm" @click="showModal">edit</b-button>&nbsp;
               <b-button variant="outline-danger" size="sm" @click="$emit('delete-review', review._id)">delete</b-button>
             </b-col>
           </b-row>
-          <b-row v-show="review.textReview">
+          <b-row >
             <b-col>
               <p class="text-left">
-                Comment:
-                <span class="font-review">{{ review.textReview }}</span>
+                Comment: 
+                <span v-if="review.textReview" class="font-review">{{ review.textReview }}</span>
+                                <span v-else class="font-review"> n/a</span>
+
               </p>
             </b-col>
           </b-row>

@@ -65,17 +65,8 @@ export default {
   mounted() {
     this.getBreweries();
   },
-  /*computed: {
-      validation() {
-        return /^[0-9]?[0-9]?[.]?[0-9]*$/.test(this.alcohol);
-      }},*/
+  
   methods: {
-    /* validation(a)
-    {
-      var vali = /^[0-9.,]*$/.test(a);
-      console.log(vali);
-      return vali;
-    }, */
     onSubmit() {
       var that = this;
       var val=true;
@@ -96,7 +87,7 @@ export default {
           that.alcohol = null;
           that.brewery = null;
           alert("Created!");
-          that.$router.push({ path: "/beers" });
+          setTimeout(function(){that.$router.push({ path: "/beers" });}, 100);
         })
         .catch(error => {
           console.log(error);

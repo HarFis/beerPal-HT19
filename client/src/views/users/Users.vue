@@ -1,75 +1,81 @@
 <template>
-<div>
-  <vue-headful
-            title="Users - BeerPal"
-        />
-  <div class="users">
-    <h1>Users</h1>
-          <h3>Current number of users: {{ users.length}}</h3>
+  <div>
+    <vue-headful title="Users - BeerPal" />
+    <div class="users">
+      <h1>Users</h1>
+      <h3 v-if="!serverOK">
+        <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
+      </h3>
+      <span v-else>
+        <h3>Current number of users: {{ users.length}}</h3>
 
-      <b-button class="buttonClass" router-link to="/RegisterUser" tag="button">Create User</b-button>
-    
-    <b-list-group>
-      <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteUser"></user-item>
-    </b-list-group>
+        <b-button class="buttonClass" router-link to="/RegisterUser" tag="button">Create User</b-button>
+      </span>
+
+      <b-list-group>
+        <user-item v-for="user in users" :key="user._id" :user="user" @delete-user="deleteUser"></user-item>
+      </b-list-group>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { Api } from '@/Api'
-import UserItem from '@/components/UserItem'
+import { Api } from "@/Api";
+import UserItem from "@/components/UserItem";
 
 export default {
-  name: 'Users',
+  name: "Users",
   data() {
     return {
+      serverOK: true,
       users: []
-    }
+    };
   },
   created() {
-    this.getUsers()
+    this.getUsers();
   },
   methods: {
     getUsers() {
-      Api.get('users')
+      this.serverOK = true;
+      Api.get("users")
         .then(response => {
-          this.users = response.data.users
+          this.users = response.data.users;
         })
         .catch(error => {
-          this.users = []
-          console.log(error)
+          this.serverOK = false;
+          this.users = [];
+          console.log(error);
         })
         .then(() => {
           // This code is always executed (after success or error).
-        })
+        });
     },
     deleteUser(id) {
-      if (confirm('Are you sure?')) {
+      if (confirm("Are you sure?")) {
         Api.delete(`/users/${id}`)
           .then(response => {
-            console.log(response.data.message)
-            var index = this.users.findIndex(user => user._id === id)
-            this.users.splice(index, 1)
+            console.log(response.data.message);
+            var index = this.users.findIndex(user => user._id === id);
+            this.users.splice(index, 1);
           })
           .catch(error => {
-            console.log(error)
-          })
+            console.log(error);
+          });
       }
     }
   },
   components: {
     UserItem
   }
-}
+};
 </script>
 
 <style scoped>
-.color{
-    color: #42b983;
+.color {
+  color: #42b983;
 }
 
-.users{
+.users {
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2em;
