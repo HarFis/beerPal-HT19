@@ -10,11 +10,11 @@ router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
     var count = req.query.count;
     console.log(sort)
-    if (sort|| count) { next(); return; }
+    if (sort || count) { next(); return; }
     Post.find({})
         .populate({
             path: 'review',
-            populate: { path: 'beer' , populate: { path: 'brewery' }}
+            populate: { path: 'beer', populate: { path: 'brewery' } }
         })
         .populate('location')
         .populate('postOwner', 'username')
@@ -31,8 +31,8 @@ router.get('/', function (req, res, next, ) {
     var sort = req.query.sort
     var size = 5
     var query = {}
-    if((sort && !pageNo) || count){ next(); return; }
-    if (pageNo < 0 || pageNo === 0){
+    if ((sort && !pageNo) || count) { next(); return; }
+    if (pageNo < 0 || pageNo === 0) {
         return res.json('Page number can\'t be less than 1');
     }
     query.skip = size * (pageNo - 1);
@@ -41,7 +41,7 @@ router.get('/', function (req, res, next, ) {
         .sort({ dateAndTime: -1 })
         .populate({
             path: 'review',
-            populate: { path: 'beer' , populate: { path: 'brewery' }}
+            populate: { path: 'beer', populate: { path: 'brewery' } }
         })
         .populate('location')
         .populate('postOwner', 'username')
@@ -54,13 +54,13 @@ router.get('/', function (req, res, next, ) {
 // Return a list of all posts, sorted
 router.get('/', function (req, res, next, ) {
     var count = req.query.count
-    if(count){ next(); return; }
+    if (count) { next(); return; }
 
     Post.find({})
         .sort({ dateAndTime: -1 })
         .populate({
             path: 'review',
-            populate: { path: 'beer' , populate: { path: 'brewery' }}
+            populate: { path: 'beer', populate: { path: 'brewery' } }
         })
         .populate('location')
         .populate('postOwner', 'username')
@@ -71,8 +71,8 @@ router.get('/', function (req, res, next, ) {
 });
 
 //Return the number of posts
-router.get('/', function (req, res, next){
-    Post.countDocuments({}, function(err, count){
+router.get('/', function (req, res, next) {
+    Post.countDocuments({}, function (err, count) {
         res.json(count);
     })
 })
@@ -81,8 +81,11 @@ router.get('/', function (req, res, next){
 // Return the post with the given ID
 router.get('/:id', function (req, res, next) {
     var id = req.params.id;
-    Post.findById(id)
-        .populate('review')
+    Post.findOne({_id: id})
+    .populate({
+        path: 'review',
+        populate: { path: 'beer', populate: { path: 'brewery' } }
+    })
         .populate('location')
         .populate('postOwner', 'username')
         .exec(function (err, post) {
@@ -102,7 +105,7 @@ router.post('/', (req, res, next) => {
         location: req.body.location,
         dateAndTime: new Date(),
         postOwner: req.body.postOwner
-        });
+    });
     var userId = req.body.postOwner;
     User.findById(userId).then(user => {
         if (!user) {
