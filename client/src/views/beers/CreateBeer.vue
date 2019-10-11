@@ -65,17 +65,8 @@ export default {
   mounted() {
     this.getBreweries();
   },
-  /*computed: {
-      validation() {
-        return /^[0-9]?[0-9]?[.]?[0-9]*$/.test(this.alcohol);
-      }},*/
+  
   methods: {
-    /* validation(a)
-    {
-      var vali = /^[0-9.,]*$/.test(a);
-      console.log(vali);
-      return vali;
-    }, */
     onSubmit() {
       var that = this;
       var val=true;

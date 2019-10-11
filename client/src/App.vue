@@ -29,9 +29,11 @@ export default {
   data() {
     return { message: "" };
   },
+  /*
   mounted() {
     this.getCheckServer();
-  },
+  },*/
+  
   methods: {
     getCheckServer() {
       Api.get("/").catch(error => {

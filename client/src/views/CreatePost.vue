@@ -18,7 +18,8 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-password" label="Password:" label-for="password">
+            <b-form-group id="input-password" label="Password:" label-for="password" force-show="false" invalid-feedback="Wrong password."
+                :state="valid">
               <b-form-input
                 type="password"
                 id="password-input"
@@ -59,6 +60,8 @@
                     >{{beer.name}}</option>
                   </b-form-select>
                     <b-button v-b-modal.modalBeer class="buttonClass">Add new beer</b-button>
+                    
+                    <!-- MODAL create beer START -->
                     <b-modal
                       id="modalBeer"
                       ref="modalBeer"
@@ -68,6 +71,8 @@
                     >
                       <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
                     </b-modal>
+                   <!-- MODAL create beer END -->
+
                 <p>Brewery: {{ brewery }}</p>
                 </b-list-group-item>
                 <b-list-group-item>
@@ -132,6 +137,7 @@ export default {
   name: "CreatePost",
   data() {
     return {
+      valid: true,
       selectedBeer: null,
       selectedLocation: null,
       selectedUser: null,
@@ -183,7 +189,7 @@ export default {
             if (response.data.brewery) {
               this.brewery = response.data.brewery.name;
             } else {
-              this.brewery = "No brewery found";
+              this.brewery = "n/a";
             }
             this.beerName = response.data.name;
           })
@@ -280,6 +286,7 @@ export default {
         });
     },
     onSubmitModal(bvModalEvt) {
+      this.valid = true;
       bvModalEvt.preventDefault();
       Api.get("users/name/" + this.form.username).then(response => {
         var foundUser = response.data;
@@ -287,7 +294,7 @@ export default {
           this.selectedUser = foundUser;
           this.setUser(foundUser._id);
           this.hideModal();
-        }
+        }else{this.valid=false;}
       });
     },
     onCancelModal() {},

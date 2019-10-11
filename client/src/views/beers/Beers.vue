@@ -5,8 +5,11 @@
         />
   <div class="beers">
       <h1>Beers</h1>
-      <h3>Current number of beers: {{ beers.length }}</h3>
-      <b-button class="buttonClass" router-link to="/add-beer">Add new beer</b-button>
+      <h3 v-if="!serverOK">
+          <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
+        </h3>
+      <span v-else><h3>Current number of beers: {{ beers.length }}</h3>
+      <b-button class="buttonClass" router-link to="/add-beer">Add new beer</b-button></span>
       <b-list-group>
         <beer-item v-for="beer in beers" :key="beer._id" :beer="beer" :showBrewery="showBrewery" @delete-beer="deleteBeer"></beer-item>
       </b-list-group>
@@ -24,6 +27,7 @@ export default {
   name: 'Beers',
   data() {
     return {
+      serverOK: true,
       beers: [],
       showBrewery: true
     }
@@ -33,12 +37,14 @@ export default {
   },
   methods: {
     getBeers() {
+      this.serverOK = true;
       Api.get('beers')
         .then(response => {
           this.beers = response.data.beers
         }).catch(error => {
-          this.beers = []
-          console.log(error)
+          this.serverOK = false;
+          this.beers = [];
+          console.log(error);
         })
         .then(() => {
           // This code is always executed (after success or error).
