@@ -244,6 +244,7 @@ export default {
         score: this.score,
         textReview: this.reviewText,
       };
+      var that = this;
      if (!review.beerID) {return(alert('Please Select a Beer'))}
      if(!review.score) {return(alert('Please Select a score'))}
       Api.post("/reviews", review)
@@ -257,7 +258,6 @@ export default {
           
           Api.post("posts", post)
             .then(
-              console.log(post),
               alert("Post Created"),
               (this.selectedBeer = null),
               (this.selectedLocation = null),
@@ -268,7 +268,8 @@ export default {
               (this.userName = null),
               (this.beerName = null),
               (this.reviewText = null),
-              this.$router.push({ path: "/" })
+              //this.$router.push({ path: "/" }),
+              setTimeout( function(){that.$router.push({ path: "/" })}, 100)
             )
             .catch(error => {
               console.log(error);

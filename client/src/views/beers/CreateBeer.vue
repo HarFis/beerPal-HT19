@@ -96,7 +96,7 @@ export default {
           that.alcohol = null;
           that.brewery = null;
           alert("Created!");
-          that.$router.push({ path: "/beers" });
+          setTimeout(function(){that.$router.push({ path: "/beers" });}, 100);
         })
         .catch(error => {
           console.log(error);
