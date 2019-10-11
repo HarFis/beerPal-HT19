@@ -9,7 +9,6 @@ var Review = require('../models/review');
 router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
     var count = req.query.count;
-    console.log(sort)
     if (sort|| count) { next(); return; }
     Post.find({})
         .populate({
