@@ -30,18 +30,20 @@
             </b-col>
             <b-col md="2">{{ changeFormat(this.review.created) }}</b-col>
             <b-col md="4">
-              
               <b-button ref="modal" variant="outline-info" size="sm" @click="showModal">edit</b-button>&nbsp;
-              <b-button variant="outline-danger" size="sm" @click="$emit('delete-review', review._id)">delete</b-button>
+              <b-button
+                variant="outline-danger"
+                size="sm"
+                @click="$emit('delete-review', review._id)"
+              >delete</b-button>
             </b-col>
           </b-row>
-          <b-row >
+          <b-row>
             <b-col>
               <p class="text-left">
-                Comment: 
+                Comment:
                 <span v-if="review.textReview" class="font-review">{{ review.textReview }}</span>
-                                <span v-else class="font-review"> n/a</span>
-
+                <span v-else class="font-review">n/a</span>
               </p>
             </b-col>
           </b-row>
@@ -68,7 +70,13 @@
             <option>5</option>
           </b-form-select>
         </b-form-group>
-        <b-form-group label="Review" label-for="form-review-textReview" description="Maximum 60 characters"  force-show="true" invalid-feedback="Review is too long. Max 60 characters." >
+        <b-form-group
+          label="Review"
+          label-for="form-review-textReview"
+          description="Maximum 60 characters"
+          force-show="true"
+          invalid-feedback="Review is too long. Max 60 characters."
+        >
           <b-form-input
             v-model="form.textReview"
             id="form-review-textReview"
@@ -80,7 +88,6 @@
       </b-form>
     </b-modal>
     <!-- MODAL element E-N-D -->
-
   </div>
 </template>
 
@@ -108,14 +115,16 @@ export default {
     },
     checkFormValidity() {
       this.valid = true;
-        if(this.form.textReview.length > 60){this.valid=false;}
-        return this.valid;
-      },
+      if (this.form.textReview.length > 60) {
+        this.valid = false;
+      }
+      return this.valid;
+    },
     handleSubmit(id) {
-       if (!this.checkFormValidity()) {
-          return
-        }
-        let newReview = {
+      if (!this.checkFormValidity()) {
+        return;
+      }
+      let newReview = {
         score: this.form.score,
         textReview: this.form.textReview
       };

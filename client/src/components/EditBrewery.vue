@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <h1>{{ brewery.name }}</h1>
     <b-form class="review-form" @submit.prevent="onSubmit">
       <p>
@@ -17,44 +17,41 @@
         <b-form-input id="newLink" v-model="newLink" v-bind:placeholder="brewery.link"></b-form-input>
       </p>
       <p>
-         <b-button type="submit" value="Submit" >Submit</b-button>
+        <b-button type="submit" value="Submit">Submit</b-button>
       </p>
-
     </b-form>
   </div>
 </template>
 
 <script>
-import { Api } from '@/Api'
+import { Api } from "@/Api";
 
 export default {
-    name: 'edit-brewery',
-    props: ['brewery'],
-    data() {
-        return {
-            newName: null,
-            newAdress: null,
-            newLink: null
-        }
-    },
-    methods: {
-        onSubmit() {
-            var newBrewery = {
-                name: this.newName,
-                adress: this.newAdress,
-                link: this.newLink
-            }
-            Api.put('/breweries/' + this.brewery._id, newBrewery)
-            .catch(error => {
-                console.log(error)
-            })
-            this.newName = null
-            this.newAdress = null
-            this.newLink = null
-            alert("Updated!");
-            this.$emit('set-brewery', newBrewery)
-        }
+  name: "edit-brewery",
+  props: ["brewery"],
+  data() {
+    return {
+      newName: null,
+      newAdress: null,
+      newLink: null
+    };
+  },
+  methods: {
+    onSubmit() {
+      var newBrewery = {
+        name: this.newName,
+        adress: this.newAdress,
+        link: this.newLink
+      };
+      Api.put("/breweries/" + this.brewery._id, newBrewery).catch(error => {
+        console.log(error);
+      });
+      this.newName = null;
+      this.newAdress = null;
+      this.newLink = null;
+      alert("Updated!");
+      this.$emit("set-brewery", newBrewery);
     }
   }
-
+};
 </script>

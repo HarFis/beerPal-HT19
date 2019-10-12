@@ -39,7 +39,7 @@ export default {
       this.serverOK = true;
       Api.get("users")
         .then(response => {
-          this.users = response.data.users;
+          this.users = response.data;
         })
         .catch(error => {
           this.serverOK = false;

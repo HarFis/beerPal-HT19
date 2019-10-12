@@ -3,9 +3,8 @@
     <b-list-group-item>
       <b-container>
         <b-row>
-          <b-col md=4>
-          </b-col>
-          <b-col md=4 class="text-left">
+          <b-col md="4"></b-col>
+          <b-col md="4" class="text-left">
             <img alt="Brewery" src="../assets/brewery.png" />
             {{ brewery.name }}
           </b-col>

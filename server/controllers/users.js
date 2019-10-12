@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     if(pageNo){next(); return;}
     User.find(function(err, users) {
         if (err) { return next(err); }
-        res.status(200).json({'users': users});
+        res.status(200).json(users);
     });
 });
 
