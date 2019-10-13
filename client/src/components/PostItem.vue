@@ -40,18 +40,18 @@
             <p>{{ changeFormat2(this.post.review.created)}}</p>
           </b-col>
         </b-row>
-        <b-col
-          v-if="post.location"
-          class="text-right location name"
-        >Location: {{post.location.name}}</b-col>
-        <b-col v-else class="text-right location name">Location: Not Provided</b-col>
-        <b-row v-show="post.review.textReview">
-          <b-col>
-            <p class="text-left">
-              {{ post.postOwner.username + '\'s comment' }}:
+        <b-row>
+          <b-col md="9">
+            <p class="text-left" v-show="post.review.textReview">
+              <span v-if="post.postOwner">{{ post.postOwner.username }}</span>
+              <span v-else>Deleted user</span>'s comment: 
               <span class="font-review">{{ post.review.textReview }}</span>
             </p>
           </b-col>
+          <b-col
+            v-if="post.location"
+            class="text-left"
+          >Location: {{post.location.name}}</b-col>
         </b-row>
       </b-container>
     </b-list-group-item>
