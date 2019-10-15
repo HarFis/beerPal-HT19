@@ -6,7 +6,7 @@
     <div class="createPost">
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <b-modal id="loginModal" hide-footer hide-header-close ref="loginModal" title="Login">
+        <b-modal id="loginModal" data-backdrop="static" data-keyboard="false" :clickToClose="false" hide-footer hide-header-close ref="loginModal" title="Login">
           <p>You need to be logged in to post</p>
           <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
             <b-form-group id="input-username" label="Username:" label-for="username">
@@ -315,7 +315,9 @@ export default {
         }
       });
     },
-    onCancelModal() {},
+    onCancelModal() {
+      // this.$router.push({ path: "/home" })
+    },
     newBeerHandler(newBeer) {
       console.log(newBeer._id);
       this.beers = [];

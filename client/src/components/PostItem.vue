@@ -1,11 +1,11 @@
 <template>
   <b-list-group>
-    <b-list-group-item v-if="post.review">
+    <b-list-group-item v-if="post.review===null || post.review.beer===null">
       <!-- <img alt="Review" src="../assets/camel.jpg"> -->
       <b-container>
         <b-row>
           <b-col class="text-left">
-            <span class="beer-titel">{{ post.review.beer.name }}</span>
+            <span class="beer-titel" v-if="post.review.beer">{{ post.review.beer.name }}</span>
             <br />
             <span
               class="brewery-titel"
