@@ -3,6 +3,8 @@ var router = express.Router();
 var Review = require('../models/review');
 var mongoose = require('mongoose');
 var Beer = require('../models/beer');
+var Post = require('../models/post');
+
 
 //Function for setting the average score to a beer when creating a new review
 function setAverageScore(review, id, req, res){
@@ -162,6 +164,10 @@ router.delete('/:id', function (req, res, next) {
     if( !mongoose.Types.ObjectId.isValid(id) ){
         return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
       }
+    Post.findOneAndDelete({review: id}, function(err){
+        if (err) { return next(err); 
+        } });
+
     Review.findOneAndDelete({ _id: id }, function (err, review) {
         if (err) { return next(err); }
         if (review === null) {
@@ -169,13 +175,14 @@ router.delete('/:id', function (req, res, next) {
         }
         res.json(review);
     });
+    
 });
 
 // Delete all reviews
 router.delete('/', function (req, res, next) {
-    Review.collection.remove(function (err, review) {
+    Review.find().deleteMany().exec(function(err, reviews) {
         if (err) { return next(err); }
-        res.json(review);
+        res.json(reviews);
     });
 });
 

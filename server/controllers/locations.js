@@ -111,7 +111,7 @@ router.delete('/:id', function(req, res, next) {
 
 // Delete all locations
 router.delete('/', function (req, res, next) {
-    Location.collection.remove(function (err, location) {
+    Location.find().deleteMany().exec(function (err, location) {
         if (err) { return next(err); }
         res.json(location);
     });

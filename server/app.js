@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'); 
 var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
@@ -20,6 +20,7 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/BeerPal';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
+mongoose.set('useCreateIndex', true);
 mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     if (err) {
         console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);

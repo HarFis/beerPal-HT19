@@ -1,7 +1,6 @@
 <template>
   <b-list-group>
-    <b-list-group-item v-if="post.review===null || post.review.beer===null">
-      <!-- <img alt="Review" src="../assets/camel.jpg"> -->
+    <b-list-group-item>
       <b-container>
         <b-row>
           <b-col class="text-left">

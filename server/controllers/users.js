@@ -158,7 +158,7 @@ router.delete('/:id', function(req, res, next) {
 
 // Delete all users
 router.delete('/', function(req, res, next) {
-    User.find().remove().exec(function(err, user) {
+    User.find().deleteMany().exec(function(err, user) {
         if (err) { return next(err); }
         res.json(user);
     });

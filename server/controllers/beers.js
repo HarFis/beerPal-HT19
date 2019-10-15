@@ -4,6 +4,7 @@ var Beer = require('../models/beer');
 var mongoose = require('mongoose');
 var Review = require('../models/review')
 var Brewery = require('../models/brewery')
+var Post = require('../models/post')
 
 /*------------
 -----GET------
@@ -132,11 +133,21 @@ router.post('/:id/reviews', function (req, res, next){
 
 // Delete all beers
 router.delete('/', function(req, res, next) {
-    Beer.find().remove().exec(function(err, beers) {
+    Beer.find().deleteMany().exec(function(err, beers) {
         if (err) { return next(err); }
-        res.json(beers);
+        console.log("Beers deleted");
+        res.json(beers)
+    });
+    Review.find().deleteMany().exec(function(err, reviews) {
+        if (err) { return next(err); }
+        console.log("Related comments deleted");
+    });
+    Post.find().deleteMany().exec(function(err, posts) {
+        if (err) { return next(err); }
+        console.log("Related posts deleted");
     });
 });
+
 
 // Delete the beer with the given ID
 router.delete('/:id', function(req, res, next) {
@@ -151,11 +162,20 @@ router.delete('/:id', function(req, res, next) {
         }
         res.json(beer);
     });
-    Review.deleteMany({beer: id}, function(err){
+    Review.find({beer: id}, function(err, reviews){
     if (err) { return next(err); 
     } 
-    console.log("Comments deleted");
-    });
+    for(var i = 0; i < reviews.length; i ++){
+        var review_id = reviews[i]._id
+        console.log(review_id)
+        Post.findOneAndDelete({review: review_id}, function(err){
+            if (err) { return next(err); 
+            } });
+        reviews[i].delete();
+    }
+
+
+});
 });
 
 
