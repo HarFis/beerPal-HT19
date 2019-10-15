@@ -7,11 +7,17 @@ var Post = require('../models/post');
 
 
 //Function for setting the average score to a beer when creating a new review
-function setAverageScore(review, id, req, res){
+function setAverageScore( id, req, res){
     Review.find({beer : id}).exec(function (err, reviews){
         if (err) { return next(err); }
         if (!reviews.length) {
-            return res.status(404).json({'message': 'Beer reviews not found'});
+            Beer.findById({ _id: id }, function (err, beer) {
+                if (err) { return next(err); }
+                beer.averageRating = null;
+                beer.save();
+                
+            });
+            return //res.status(404).json({'message': 'Beer reviews not found'});
         }
         var totalScores = 0;
         for(var i = 0; i < reviews.length; i++){
@@ -26,7 +32,7 @@ function setAverageScore(review, id, req, res){
             beer.save();
             
         });
-        res.status(201).json(review);
+        //res.status(201).json({message: "Average score updated"});
         
     });
  }
@@ -53,7 +59,8 @@ router.post('/', function (req, res, next){
         });
         review.save(function(err){
             if (err) { return next(err); }
-            setAverageScore(review, beer_id, req, res);
+            setAverageScore(beer_id, req, res);
+            res.status(201).json(review);
         });
     });
 });
@@ -165,15 +172,19 @@ router.delete('/:id', function (req, res, next) {
         return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
       }
     Post.findOneAndDelete({review: id}, function(err){
-        if (err) { return next(err); 
-        } });
+        if (err) { return next(err); } 
+    });
 
     Review.findOneAndDelete({ _id: id }, function (err, review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({ 'message': 'Review not found' });
         }
-        res.json(review);
+        var beerId = review.beer;
+        setAverageScore(beerId, req, res);    
+        res.json({message: "Review deleted"});
+        
+        
     });
     
 });
