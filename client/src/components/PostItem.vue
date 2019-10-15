@@ -1,6 +1,10 @@
 <template>
   <b-list-group>
     <b-list-group-item>
+<<<<<<< HEAD
+=======
+      <!-- <img alt="Review" src="../assets/camel.jpg"> -->
+>>>>>>> c4fcf03268fb4d1da93ffc8f5c60e8b1f84f95da
       <b-container>
         <b-row>
           <b-col class="text-left">
