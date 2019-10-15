@@ -6,7 +6,7 @@
     <div class="createPost">
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <b-modal id="loginModal" data-backdrop="static" data-keyboard="false" :clickToClose="false" hide-footer hide-header-close ref="loginModal" title="Login">
+        <b-modal id="loginModal" no-close-on-esc no-close-on-backdrop hide-footer hide-header-close ref="loginModal" title="Login">
           <p>You need to be logged in to post</p>
           <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
             <b-form-group id="input-username" label="Username:" label-for="username">
@@ -35,7 +35,10 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
+            <b-container><b-row>
+              <b-col ><b-button type="submit" value="Submit" variant="secondary">Submit</b-button></b-col>
+              <b-col><b-button type="button" @click="onCancelModal">Cancel</b-button></b-col>
+            </b-row></b-container>
           </b-form>
         </b-modal>
       </div>
@@ -316,7 +319,7 @@ export default {
       });
     },
     onCancelModal() {
-      // this.$router.push({ path: "/home" })
+      this.$router.push({ path: "/" })
     },
     newBeerHandler(newBeer) {
       console.log(newBeer._id);
