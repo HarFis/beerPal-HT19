@@ -7,7 +7,7 @@ var Post = require('../models/post');
 
 
 //Function for setting the average score to a beer when creating a new review
-function setAverageScore( id, req, res){
+function setAverageScore( id, req, res, next){
     Review.find({beer : id}).exec(function (err, reviews){
         if (err) { return next(err); }
         if (!reviews.length) {
@@ -59,7 +59,7 @@ router.post('/', function (req, res, next){
         });
         review.save(function(err){
             if (err) { return next(err); }
-            setAverageScore(beer_id, req, res);
+            setAverageScore(beer_id, req, res, next);
             res.status(201).json(review);
         });
     });
@@ -181,8 +181,8 @@ router.delete('/:id', function (req, res, next) {
             return res.status(404).json({ 'message': 'Review not found' });
         }
         var beerId = review.beer;
-        setAverageScore(beerId, req, res);    
-        res.json({message: "Review deleted"});
+        setAverageScore(beerId, req, res, next);    
+        res.status(200).json({message: "Review deleted"});
         
         
     });
