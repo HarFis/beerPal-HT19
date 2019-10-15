@@ -6,7 +6,15 @@
     <div class="createPost">
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <b-modal id="loginModal" no-close-on-esc no-close-on-backdrop hide-footer hide-header-close ref="loginModal" title="Login">
+        <b-modal
+          id="loginModal"
+          no-close-on-esc
+          no-close-on-backdrop
+          hide-footer
+          hide-header-close
+          ref="loginModal"
+          title="Login"
+        >
           <p>You need to be logged in to post</p>
           <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
             <b-form-group id="input-username" label="Username:" label-for="username">
@@ -35,10 +43,16 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-container><b-row>
-              <b-col ><b-button type="submit" value="Submit" variant="secondary">Submit</b-button></b-col>
-              <b-col><b-button type="button" @click="onCancelModal">Cancel</b-button></b-col>
-            </b-row></b-container>
+            <b-container>
+              <b-row>
+                <b-col>
+                  <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
+                </b-col>
+                <b-col>
+                  <b-button type="button" @click="onCancelModal">Cancel</b-button>
+                </b-col>
+              </b-row>
+            </b-container>
           </b-form>
         </b-modal>
       </div>
@@ -58,7 +72,6 @@
                   </b-list-group-item>
                   <b-list-group-item>
                     <p>Beer: {{beerName}}</p>
-                    <p>Brewery: {{ brewery }}</p>
                     <b-form-select
                       v-model="selectedBeer"
                       :beers="beers"
@@ -73,18 +86,14 @@
                       >{{beer.name}}</option>
                     </b-form-select>
                     <b-button v-b-modal.modalBeer size="sm" class="buttonClass">Add new beer</b-button>
+                    <p>Brewery: {{ brewery }}</p>
                   </b-list-group-item>
-                    <!-- MODAL create beer START -->
-                    <b-modal
-                      id="modalBeer"
-                      ref="modalBeer"
-                      ok-title="Submit"
-                      hide-footer
-                    >
-                      <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
-                    </b-modal>
-                    <!-- MODAL create beer END -->
-                    
+                  <!-- MODAL create beer START -->
+                  <b-modal id="modalBeer" ref="modalBeer" ok-title="Submit" hide-footer>
+                    <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
+                  </b-modal>
+                  <!-- MODAL create beer END -->
+
                   <b-list-group-item>
                     <p>Score: {{this.score}}</p>
                     <b-form-select v-model="score">
@@ -319,16 +328,15 @@ export default {
       });
     },
     onCancelModal() {
-      this.$router.push({ path: "/" })
+      this.$router.push({ path: "/" });
     },
     newBeerHandler(newBeer) {
       console.log(newBeer._id);
       this.beers = [];
-
-      //this.$forceUpdate();
       this.$refs["modalBeer"].hide();
       this.getBeers();
-      this.selectedBeer = newBeer._id;
+      //this.selectedBeer = newBeer._id;
+      this.$forceUpdate();
     }
   },
   components: {

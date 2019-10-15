@@ -15,7 +15,11 @@
 
         <p>
           <label for="alcohol">Alcohol:</label>
-          <b-form-input id="alcohol" v-model.number="alcohol"></b-form-input>
+          <b-form-input
+            id="alcohol"
+            v-model.number="alcohol"
+            :state="valid"
+          ></b-form-input>
         </p>
         <p>
           <label for="selectedBrewery">Brewery:</label>
@@ -46,6 +50,7 @@ export default {
   name: "create-beer-item",
   data() {
     return {
+      valid: true,
       newBeer: null,
       selectedBrewery: null,
       name: null,
@@ -60,27 +65,32 @@ export default {
   },
   methods: {
     onSubmit() {
-      var beer = {
+      var that = this;
+      this.valid = true;
+      if (!(this.alcohol === null)) {
+        this.valid = /^[0-9.,]*$/.test(this.alcohol);
+      }
+      if (this.valid) {
+        var beer = {
         name: this.name,
         type: this.type,
         alcohol: this.alcohol,
         brewery: this.brewery
       };
-      Api.post("/beers", beer)
-        .then(response => {
-          this.newBeer = response.data;
-          console.log(response.data);
-          console.log(this.newBeer);
-          this.$emit("new-beer-added", this.newBeer);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      Api.post("/beers", beer).then(response =>{
+          this.newBeer = response.data
+          console.log(response.data)
+          console.log(this.newBeer)
+          this.$emit('new-beer-added', this.newBeer)
+      }).catch(error => {
+        console.log(error);
+      });
       this.name = null;
       this.type = null;
       this.alcohol = null;
       this.brewery = null;
       alert("Created!");
+      }
     },
     getBreweries() {
       Api.get("breweries")
