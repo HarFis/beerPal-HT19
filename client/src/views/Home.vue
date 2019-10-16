@@ -125,7 +125,7 @@ export default {
       Api.get("posts?sort=1&pageNo=" + this.currentPage)
         .then(response => {
           this.posts = response.data;
-          this.scrollToTop();
+          this.scrollToTop()
         })
         .catch(error => {
           this.posts = [];
@@ -135,11 +135,11 @@ export default {
 
     nextPage() {
       this.currentPage++;
-      this.updatePosts();
+      this.getOrderedPosts();
     },
     previousPage() {
       this.currentPage--;
-      this.updatePosts();
+      this.getOrderedPosts();
     },
     onSlideStart(slide) {
       this.sliding = true;

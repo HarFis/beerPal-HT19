@@ -8,7 +8,7 @@
           <b-col class="text-left">
             <span class="beer-titel" v-if="post.review.beer">{{ post.review.beer.name }}</span>
             <br />
-            <span
+            <span 
               class="brewery-titel"
               v-if="post.review.beer.brewery"
             >{{ post.review.beer.brewery.name }}</span>
