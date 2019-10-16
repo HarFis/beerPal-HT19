@@ -193,7 +193,21 @@ router.delete('/:id', function (req, res, next) {
 router.delete('/', function (req, res, next) {
     Review.find().deleteMany().exec(function(err, reviews) {
         if (err) { return next(err); }
-        res.json(reviews);
+    });
+    Post.find().deleteMany().exec(function(err) {
+        if (err) { return next(err); }
+    });
+    Beer.find(function(err, beers){
+        if (err) { return next(err); 
+        } 
+        console.log(beers)
+        for(var i = 0; i < beers.length; i ++){
+            console.log(beers[i].averageRating)
+            beers[i].averageRating = null;
+            beers[i].save();
+            console.log(beers[i].averageRating)
+        }
+        res.json(beers);
     });
 });
 
