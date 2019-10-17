@@ -1,6 +1,9 @@
 <template>
   <div>
     <vue-headful title="Home - BeerPal" description="Description from vue-headful" />
+    <h3 v-if="!serverOK">
+          <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
+        </h3>
     <div>
       <b-carousel
         v-model="slide"
@@ -44,8 +47,8 @@
         ></b-carousel-slide>
       </b-carousel>
     </div>
-    <b-button class="buttonClass" variant="secondary" href="/CreatePost/">CreatePost</b-button>
-
+  
+    <b-button v-if="serverOK" class="buttonClass" variant="secondary" href="/CreatePost/">CreatePost</b-button>
     <div>
       <b-container>
         <p>
@@ -82,6 +85,7 @@ export default {
 
   data() {
     return {
+      serverOK: true,
       numberOfPosts: null,
       perPage: 2,
       currentPage: 1,
@@ -99,6 +103,7 @@ export default {
 
   methods: {
     getOrderedPosts() {
+      this.serverOK = true;
       this.posts = [];
       Api.get("posts?sort=1&pageNo=" + this.currentPage)
         .then(response => {
@@ -106,6 +111,7 @@ export default {
           this.posts = response.data;
         })
         .catch(error => {
+          this.serverOK = false;
           this.posts = [];
           console.log(error);
         });
@@ -119,7 +125,7 @@ export default {
       Api.get("posts?sort=1&pageNo=" + this.currentPage)
         .then(response => {
           this.posts = response.data;
-          this.scrollToTop;
+          this.scrollToTop()
         })
         .catch(error => {
           this.posts = [];
@@ -129,11 +135,11 @@ export default {
 
     nextPage() {
       this.currentPage++;
-      this.updatePosts();
+      this.getOrderedPosts();
     },
     previousPage() {
       this.currentPage--;
-      this.updatePosts();
+      this.getOrderedPosts();
     },
     onSlideStart(slide) {
       this.sliding = true;

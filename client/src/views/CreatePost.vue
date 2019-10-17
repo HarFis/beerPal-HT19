@@ -6,7 +6,15 @@
     <div class="createPost">
       <!-- THIS IS THE LOGIN POP-UP -->
       <div>
-        <b-modal id="loginModal" hide-footer hide-header-close ref="loginModal" title="Login">
+        <b-modal
+          id="loginModal"
+          no-close-on-esc
+          no-close-on-backdrop
+          hide-footer
+          hide-header-close
+          ref="loginModal"
+          title="Login"
+        >
           <p>You need to be logged in to post</p>
           <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
             <b-form-group id="input-username" label="Username:" label-for="username">
@@ -18,7 +26,14 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-password" label="Password:" label-for="password">
+            <b-form-group
+              id="input-password"
+              label="Password:"
+              label-for="password"
+              force-show="false"
+              invalid-feedback="Wrong password."
+              :state="valid"
+            >
               <b-form-input
                 type="password"
                 id="password-input"
@@ -28,7 +43,16 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
+            <b-container>
+              <b-row>
+                <b-col>
+                  <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
+                </b-col>
+                <b-col>
+                  <b-button type="button" @click="onCancelModal">Cancel</b-button>
+                </b-col>
+              </b-row>
+            </b-container>
           </b-form>
         </b-modal>
       </div>
@@ -41,80 +65,84 @@
               <b-form @submit.prevent="onSubmit">
                 <b-list-group flush>
                   <b-list-group-item>
-                  <p>You are logged in as user: <span id="warning"> {{userName}}</span></p>
-                </b-list-group-item>
-                <b-list-group-item>
-                  <p>Beer: {{beerName}}</p>
-                  <b-form-select
-                    v-model="selectedBeer"
-                    :beers="beers"
-                    @change="setBrewery(selectedBeer)"
-                  >
-                    <option name="Header1" :value="null">Please choose beer or add new below</option>
-                    <option
-                      name="beers"
-                      :value="beer._id"
-                      v-for="beer in beers"
-                      :key="beer._id"
-                    >{{beer.name}}</option>
-                  </b-form-select>
-                    <b-button v-b-modal.modalBeer class="buttonClass">Add new beer</b-button>
-                    <b-modal
-                      id="modalBeer"
-                      ref="modalBeer"
-                      title="Add new beer"
-                      ok-title="Submit"
-                      hide-footer
+                    <p>
+                      You are logged in as user:
+                      <span id="warning">{{userName}}</span>
+                    </p>
+                  </b-list-group-item>
+                  <b-list-group-item>
+                    <p>Beer: {{beerName}}</p>
+                    <b-form-select
+                      v-model="selectedBeer"
+                      :beers="beers"
+                      @change="setBrewery(selectedBeer)"
                     >
-                      <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
-                    </b-modal>
-                <p>Brewery: {{ brewery }}</p>
-                </b-list-group-item>
-                <b-list-group-item>
-                <p>Score: {{this.score}}</p>
-                  <b-form-select v-model="score">
-                    <option name="Header2" :value="null">Please choose your score</option>
-                    <option name="1" :value="1">1</option>
-                    <option name="2" :value="2">2</option>
-                    <option name="3" :value="3">3</option>
-                    <option name="4" :value="4">4</option>
-                    <option name="5" :value="5">5</option>
-                  </b-form-select><br><br>
-                <p>Please write your review (optional):</p>
-                <b-form-group id="review" label-for="reviewInput" description="maximum: 60 characters">
-                  <b-form-input
-                    id="reviewInput"
-                    v-model="reviewText"
-                    type="text"
-                    placeholder="Write here..."
-                  ></b-form-input>
-                </b-form-group>
-                </b-list-group-item>
-                <b-list-group-item>
-                <p>Location: {{location}}</p>
-                <b-form-group>
-                  <b-form-select
-                    v-model="selectedLocation"
-                    :locations="locations"
-                    @change="setLocation(selectedLocation)"
-                  >
-                    <option name="Header3" :value="null">Please choose location</option>
-                    <option
-                      name="locations"
-                      :value="location._id"
-                      v-for="location in locations"
-                      :key="location._id"
-                    >{{location.name}}</option>
-                  </b-form-select>
-                </b-form-group>
-<br>
-                <b-button type="submit" variant="primary">Submit</b-button>
-&nbsp;
-                <b-button type="reset" variant="danger">Reset</b-button>
-             </b-list-group-item>
+                      <option name="Header1" :value="null">Please choose beer or add new below</option>
+                      <option
+                        name="beers"
+                        :value="beer._id"
+                        v-for="beer in beers"
+                        :key="beer._id"
+                      >{{beer.name}}</option>
+                    </b-form-select>
+                    <b-button v-b-modal.modalBeer size="sm" class="buttonClass">Add new beer</b-button>
+                    <p>Brewery: {{ brewery }}</p>
+                  </b-list-group-item>
+                  <!-- MODAL create beer START -->
+                  <b-modal id="modalBeer" ref="modalBeer" ok-title="Submit" hide-footer>
+                    <create-beer-item @new-beer-added="newBeerHandler"></create-beer-item>
+                  </b-modal>
+                  <!-- MODAL create beer END -->
+
+                  <b-list-group-item>
+                    <p>Score: {{this.score}}</p>
+                    <b-form-select v-model="score">
+                      <option name="Header2" :value="null">Please choose your score</option>
+                      <option name="1" :value="1">1</option>
+                      <option name="2" :value="2">2</option>
+                      <option name="3" :value="3">3</option>
+                      <option name="4" :value="4">4</option>
+                      <option name="5" :value="5">5</option>
+                    </b-form-select>
+                    <br />
+                    <br />
+                    <p>Review (optional):</p>
+                    <b-form-group
+                      id="review"
+                      label-for="reviewInput"
+                      description="maximum: 60 characters"
+                    >
+                      <b-form-input
+                        id="reviewInput"
+                        v-model="reviewText"
+                        type="text"
+                        placeholder="Please write your review here..."
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-list-group-item>
+                  <b-list-group-item>
+                    <p>Location: {{location}}</p>
+                    <b-form-group>
+                      <b-form-select
+                        v-model="selectedLocation"
+                        :locations="locations"
+                        @change="setLocation(selectedLocation)"
+                      >
+                        <option name="Header3" :value="null">Please choose location (optional)</option>
+                        <option
+                          name="locations"
+                          :value="location._id"
+                          v-for="location in locations"
+                          :key="location._id"
+                        >{{location.name}}</option>
+                      </b-form-select>
+                    </b-form-group>
+                    <br />
+                    <b-button type="submit" variant="primary">Submit</b-button>&nbsp;
+                    <b-button type="reset" variant="danger">Reset</b-button>
+                  </b-list-group-item>
                 </b-list-group>
               </b-form>
-               
             </b-card>
           </b-col>
         </b-row>
@@ -132,6 +160,7 @@ export default {
   name: "CreatePost",
   data() {
     return {
+      valid: true,
       selectedBeer: null,
       selectedLocation: null,
       selectedUser: null,
@@ -153,8 +182,7 @@ export default {
     };
   },
   mounted() {
-    this.showModal(),
-    this.getBeers(), this.getLocations(), this.getUsers()
+    this.showModal(), this.getBeers(), this.getLocations(), this.getUsers();
   },
   methods: {
     showModal() {
@@ -183,7 +211,7 @@ export default {
             if (response.data.brewery) {
               this.brewery = response.data.brewery.name;
             } else {
-              this.brewery = "No brewery found";
+              this.brewery = "n/a";
             }
             this.beerName = response.data.name;
           })
@@ -228,7 +256,7 @@ export default {
     getUsers() {
       Api.get("users")
         .then(response => {
-          this.users = response.data.users;
+          this.users = response.data;
         })
         .catch(error => {
           this.users = [];
@@ -242,11 +270,15 @@ export default {
       var review = {
         beerID: this.selectedBeer,
         score: this.score,
-        textReview: this.reviewText,
+        textReview: this.reviewText
       };
       var that = this;
-     if (!review.beerID) {return(alert('Please Select a Beer'))}
-     if(!review.score) {return(alert('Please Select a score'))}
+      if (!review.beerID) {
+        return alert("Please Select a Beer");
+      }
+      if (!review.score) {
+        return alert("Please Select a score");
+      }
       Api.post("/reviews", review)
         .then(response => {
           this.createdReview = response.data._id;
@@ -255,7 +287,7 @@ export default {
             location: this.selectedLocation,
             postOwner: this.selectedUser
           };
-          
+
           Api.post("posts", post)
             .then(
               alert("Post Created"),
@@ -269,7 +301,9 @@ export default {
               (this.beerName = null),
               (this.reviewText = null),
               //this.$router.push({ path: "/" }),
-              setTimeout( function(){that.$router.push({ path: "/" })}, 100)
+              setTimeout(function() {
+                that.$router.push({ path: "/" });
+              }, 100)
             )
             .catch(error => {
               console.log(error);
@@ -280,25 +314,29 @@ export default {
         });
     },
     onSubmitModal(bvModalEvt) {
+      this.valid = true;
       bvModalEvt.preventDefault();
       Api.get("users/name/" + this.form.username).then(response => {
         var foundUser = response.data;
-        if (foundUser.password == this.form.password) {
+        if (foundUser.password === this.form.password) {
           this.selectedUser = foundUser;
           this.setUser(foundUser._id);
           this.hideModal();
+        } else {
+          this.valid = false;
         }
       });
     },
-    onCancelModal() {},
+    onCancelModal() {
+      this.$router.push({ path: "/" });
+    },
     newBeerHandler(newBeer) {
       console.log(newBeer._id);
       this.beers = [];
-
-      //this.$forceUpdate();
       this.$refs["modalBeer"].hide();
       this.getBeers();
-      this.selectedBeer = newBeer._id;
+      //this.selectedBeer = newBeer._id;
+      this.$forceUpdate();
     }
   },
   components: {
@@ -311,7 +349,6 @@ export default {
 </script>
 
 <style scoped>
-
 .createPost {
   font-weight: bold;
   font-size: medium;

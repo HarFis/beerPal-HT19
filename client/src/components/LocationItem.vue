@@ -12,8 +12,7 @@
             </b-col>
             <b-col md="3" class="text-left">Type of location: {{ location.typeOfLocation }}</b-col>
             <b-col md="4">
-              <b-button ref="modal" variant="outline-info" size="sm" @click="showModal">edit</b-button>
-              &nbsp;
+              <b-button ref="modal" variant="outline-info" size="sm" @click="showModal">edit</b-button>&nbsp;
               <b-button
                 variant="outline-danger"
                 size="sm"
@@ -25,7 +24,7 @@
       </b-list-group-item>
     </b-list-group>
 
-<!-- MODAL element S-T-A-R-T -->
+    <!-- MODAL element S-T-A-R-T -->
     <b-modal
       ref="modal"
       title="Edit location's details:"
@@ -54,8 +53,7 @@
         </b-form-group>
       </b-form>
     </b-modal>
-  <!-- MODAL Element -E-N-D- -->
-
+    <!-- MODAL Element -E-N-D- -->
   </div>
 </template>
 

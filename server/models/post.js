@@ -9,10 +9,7 @@ var postSchema = new Schema({
         ref: 'locations'},
         dateAndTime: {type: Date},
     postOwner: {type: mongoose.Schema.Types.ObjectId, 
-        ref: 'users', required: true},
-    // TODO taggedUsers: [String],
-    //image: {}  TO_DO
-    
+        ref: 'users', required: true}  
 });
 
 module.exports = mongoose.model('posts', postSchema);

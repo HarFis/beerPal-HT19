@@ -1,8 +1,6 @@
 <template>
   <div>
-    <vue-headful
-            title="Add beer - BeerPal"
-        />
+    <vue-headful title="Add beer - BeerPal" />
     <h2>Add new beer</h2>
     <b-container>
       <b-row class="justify-content-md-center">
@@ -21,7 +19,11 @@
 
               <p>
                 <label for="alcohol">Alcohol/Vol (in %):</label>
-                <b-form-input id="alcohol" v-model.number="alcohol" placeholder="e.g. 2.3 (don't use ' , '-sign!)"></b-form-input>
+                <b-form-input
+                  id="alcohol"
+                  v-model.number="alcohol"
+                  placeholder="e.g. 2.3 (don't use ' , '-sign!)"
+                ></b-form-input>
               </p>Brewery:
               <b-form-select
                 v-model="selectedBrewery"
@@ -36,8 +38,7 @@
                   :key="brewery._id"
                 >{{ brewery.name }}</option>
               </b-form-select>
-              <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>
-&nbsp;
+              <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>&nbsp;
               <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
           </b-card>
@@ -65,43 +66,38 @@ export default {
   mounted() {
     this.getBreweries();
   },
-  /*computed: {
-      validation() {
-        return /^[0-9]?[0-9]?[.]?[0-9]*$/.test(this.alcohol);
-      }},*/
+
   methods: {
-    /* validation(a)
-    {
-      var vali = /^[0-9.,]*$/.test(a);
-      console.log(vali);
-      return vali;
-    }, */
     onSubmit() {
       var that = this;
-      var val=true;
-      if(!(this.alcohol===null))
-      {
-      val = /^[0-9.]*$/.test(this.alcohol);}
-      if(val){
-      var beer = {
-        name: this.name,
-        type: this.type,
-        alcohol: this.alcohol,
-        brewery: this.brewery
-      };
-      Api.post("/beers", beer)
-        .then(function() {
-          that.name = null;
-          that.type = null;
-          that.alcohol = null;
-          that.brewery = null;
-          alert("Created!");
-          setTimeout(function(){that.$router.push({ path: "/beers" });}, 100);
-        })
-        .catch(error => {
-          console.log(error);
-        })}
-        else {alert("Please use only numbers and \".\" for alcohol/vol!")};
+      var val = true;
+      if (!(this.alcohol === null)) {
+        val = /^[0-9.]*$/.test(this.alcohol);
+      }
+      if (val) {
+        var beer = {
+          name: this.name,
+          type: this.type,
+          alcohol: this.alcohol,
+          brewery: this.brewery
+        };
+        Api.post("/beers", beer)
+          .then(function() {
+            that.name = null;
+            that.type = null;
+            that.alcohol = null;
+            that.brewery = null;
+            alert("Created!");
+            setTimeout(function() {
+              that.$router.push({ path: "/beers" });
+            }, 100);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        alert('Please use only numbers and "." for alcohol/vol!');
+      }
     },
     getBreweries() {
       Api.get("breweries")

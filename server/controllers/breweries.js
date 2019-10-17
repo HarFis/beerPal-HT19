@@ -107,7 +107,7 @@ router.delete('/:brewery_id/beers/:beer_id', function(req, res, next){
 
 // Delete all beers
 router.delete('/', function(req, res, next) {
-    Brewery.find().remove().exec(function(err, breweries) {
+    Brewery.find().deleteMany().exec(function(err, breweries) {
         if (err) { return next(err); }
         res.json(breweries);
     });

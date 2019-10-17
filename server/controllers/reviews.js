@@ -3,13 +3,21 @@ var router = express.Router();
 var Review = require('../models/review');
 var mongoose = require('mongoose');
 var Beer = require('../models/beer');
+var Post = require('../models/post');
+
 
 //Function for setting the average score to a beer when creating a new review
-function setAverageScore(review, id, req, res){
+function setAverageScore( id, req, res, next){
     Review.find({beer : id}).exec(function (err, reviews){
         if (err) { return next(err); }
         if (!reviews.length) {
-            return res.status(404).json({'message': 'Beer reviews not found'});
+            Beer.findById({ _id: id }, function (err, beer) {
+                if (err) { return next(err); }
+                beer.averageRating = null;
+                beer.save();
+                
+            });
+            return //res.status(404).json({'message': 'Beer reviews not found'});
         }
         var totalScores = 0;
         for(var i = 0; i < reviews.length; i++){
@@ -24,7 +32,7 @@ function setAverageScore(review, id, req, res){
             beer.save();
             
         });
-        res.status(201).json(review);
+        //res.status(201).json({message: "Average score updated"});
         
     });
  }
@@ -51,7 +59,8 @@ router.post('/', function (req, res, next){
         });
         review.save(function(err){
             if (err) { return next(err); }
-            setAverageScore(review, beer_id, req, res);
+            setAverageScore(beer_id, req, res, next);
+            res.status(201).json(review);
         });
     });
 });
@@ -162,20 +171,43 @@ router.delete('/:id', function (req, res, next) {
     if( !mongoose.Types.ObjectId.isValid(id) ){
         return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
       }
+    Post.findOneAndDelete({review: id}, function(err){
+        if (err) { return next(err); } 
+    });
+
     Review.findOneAndDelete({ _id: id }, function (err, review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({ 'message': 'Review not found' });
         }
-        res.json(review);
+        var beerId = review.beer;
+        setAverageScore(beerId, req, res, next);    
+        res.status(200).json({message: "Review deleted"});
+        
+        
     });
+    
 });
 
 // Delete all reviews
 router.delete('/', function (req, res, next) {
-    Review.collection.remove(function (err, review) {
+    Review.find().deleteMany().exec(function(err, reviews) {
         if (err) { return next(err); }
-        res.json(review);
+    });
+    Post.find().deleteMany().exec(function(err) {
+        if (err) { return next(err); }
+    });
+    Beer.find(function(err, beers){
+        if (err) { return next(err); 
+        } 
+        console.log(beers)
+        for(var i = 0; i < beers.length; i ++){
+            console.log(beers[i].averageRating)
+            beers[i].averageRating = null;
+            beers[i].save();
+            console.log(beers[i].averageRating)
+        }
+        res.json(beers);
     });
 });
 
