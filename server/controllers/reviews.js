@@ -120,7 +120,10 @@ router.patch('/:id', function (req, res, next) {
         review.save(function(err, review) {
             review
             .populate('beer')
-            .execPopulate()});
+            .execPopulate()
+            var beerId = review.beer;
+            setAverageScore(beerId, req, res, next);  
+        });
         res.json({review});
     });
 });
@@ -160,6 +163,8 @@ router.put('/:id', function (req, res, next) {
         review.created = req.body.created;
         review.save(function (err) {
             if (err) { return next(err); }
+            var beerId = review.beer;
+            setAverageScore(beerId, req, res, next);  
             res.status(200).json(review);
         });
     });
