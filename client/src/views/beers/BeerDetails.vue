@@ -3,18 +3,18 @@
     <b-card-group deck>
       <b-card>
         <div class="beer">
-          <img alt="beer" src="../../assets/beer.png">
-          <br>
+          <img alt="beer" src="../../assets/beer.png" />
+          <br />
           <h2 id="headline">{{ beer.name }}</h2>
-          
-            <p>Type: {{ beer.type }}</p>
-            <p>Alcohol/Vol: {{ beer.alcohol }}</p>
-            <p>
-              Average rating:
-              <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
-              <span id="warning" v-else>No ratings yet!</span>
-            </p>
-          
+
+          <p>Type: {{ beer.type }}</p>
+          <p>Alcohol/Vol: {{ beer.alcohol }}</p>
+          <p>
+            Average rating:
+            <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
+            <span id="warning" v-else>No ratings yet!</span>
+          </p>
+
           <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
         </div>
       </b-card>
@@ -44,12 +44,10 @@
 <script>
 import { Api } from "@/Api";
 import ReviewItem from "@/components/ReviewItem";
-import router from "@/router";
 
 export default {
   name: "BeerDetails",
   props: ["beerID"],
-
   data() {
     return {
       beer: "",
@@ -121,7 +119,7 @@ a {
 }
 .beer {
   color: darkslategray;
-   border-radius: 20px;
+  border-radius: 20px;
   margin: 10px;
 }
 

@@ -60,7 +60,7 @@ export default {
         alert('User Created');
         //this.$router.push({path: '/users'})
         var that = this;
-        setTimeout( function(){that.$router.push({ path: "/users" })}, 100)
+        setTimeout( function(){that.$router.push({ path: "/users" })}, 150)
       }).catch(error => {
         alert(error.response.data.message);
         console.log(error);
