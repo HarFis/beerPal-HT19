@@ -61,7 +61,7 @@ router.get('/:userId/posts/:postId', function (req, res, next) {
 });
 
 // Return a list of all followed users
-// Noot used anywhere
+// Not used anywhere
 router.get('/:id/users', function (req, res, next) {
     var id = req.params.id;
     User.findById(id, function (err, user) {

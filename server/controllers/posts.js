@@ -6,7 +6,7 @@ var Location = require('../models/location');
 var Review = require('../models/review');
 
 // Return a list of all posts
-// Not used anywhere in frontend
+// Not used anywhere
 router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
     var count = req.query.count;
@@ -25,6 +25,7 @@ router.get('/', function (req, res, next, ) {
 });
 
 // Return a list of all posts, sorted with pagination
+// Used in Home-screen beowser
 router.get('/', function (req, res, next, ) {
     var count = req.query.count
     var pageNo = req.query.pageNo
