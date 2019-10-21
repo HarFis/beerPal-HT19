@@ -6,10 +6,11 @@ var Location = require('../models/location');
 var Review = require('../models/review');
 
 // Return a list of all posts
+// Not used anywhere in frontend
 router.get('/', function (req, res, next, ) {
     var sort = req.query.sort;
     var count = req.query.count;
-    if (sort|| count) { next(); return; }
+    if (sort || count) { next(); return; }
     Post.find({})
         .populate({
             path: 'review',
@@ -51,6 +52,7 @@ router.get('/', function (req, res, next, ) {
 });
 
 // Return a list of all posts, sorted
+// Never used 
 router.get('/', function (req, res, next, ) {
     var count = req.query.count
     if (count) { next(); return; }
@@ -70,6 +72,7 @@ router.get('/', function (req, res, next, ) {
 });
 
 //Return the number of posts
+//Used by client-side to make custom pagination work
 router.get('/', function (req, res, next) {
     Post.countDocuments({}, function (err, count) {
         res.json(count);
@@ -80,11 +83,11 @@ router.get('/', function (req, res, next) {
 // Return the post with the given ID
 router.get('/:id', function (req, res, next) {
     var id = req.params.id;
-    Post.findOne({_id: id})
-    .populate({
-        path: 'review',
-        populate: { path: 'beer', populate: { path: 'brewery' } }
-    })
+    Post.findOne({ _id: id })
+        .populate({
+            path: 'review',
+            populate: { path: 'beer', populate: { path: 'brewery' } }
+        })
         .populate('location')
         .populate('postOwner', 'username')
         .exec(function (err, post) {
@@ -98,6 +101,7 @@ router.get('/:id', function (req, res, next) {
 
 
 // Create a new post
+// Makes sure the postOwner exists. Then saves the post. 
 router.post('/', (req, res, next) => {
     var post = new Post({
         review: req.body.review,
@@ -121,6 +125,7 @@ router.post('/', (req, res, next) => {
 
 
 // Replaces the post with the given ID
+// Never Used
 router.put('/:id', function (req, res, next) {
     var id = req.params.id;
     if (!req.body.postOwner) {
@@ -137,7 +142,8 @@ router.put('/:id', function (req, res, next) {
         });
 });
 
-//Updates the post with the given ID
+// Updates the post with the given ID
+// Never Used
 router.patch('/:id', function (req, res, next) {
     var id = req.params.id;
     Post.findByIdAndUpdate(id, req.body, function (err) {
@@ -147,6 +153,7 @@ router.patch('/:id', function (req, res, next) {
 });
 
 // Dete all posts
+// Never Used
 router.delete('/', function (req, res, next) {
     Post.deleteMany({}, function (err) {
         if (err) { return next(err) }
@@ -155,6 +162,7 @@ router.delete('/', function (req, res, next) {
 });
 
 // Delete the post with the given ID
+// Never Used
 router.delete('/:id', function (req, res, next) {
     var id = req.params.id;
     Post.findOneAndDelete({ _id: id }, function (err, user) {
