@@ -95,7 +95,6 @@
 import moment from "moment";
 
 export default {
-  invalid: false,
   name: "review-item",
   props: ["review"],
   data() {

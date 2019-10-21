@@ -131,7 +131,7 @@ router.post('/:id/reviews', function (req, res, next){
 ---DELETE-----
 ------------*/
 
-// Delete all beers
+// Delete all beers -> deletes all posts & posts
 router.delete('/', function(req, res, next) {
     Beer.find().deleteMany().exec(function(err, beers) {
         if (err) { return next(err); }
@@ -149,11 +149,11 @@ router.delete('/', function(req, res, next) {
 });
 
 
-// Delete the beer with the given ID
+// Delete the beer with the given ID & deletes related review(s) and post(s)
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
-        return res.status(404).json({message: "Beer not found"}); // They didn't send an object ID
+        return res.status(404).json({message: "Beer not found"}); 
     }
     Beer.findOneAndDelete({_id: id}, function(err, beer) {
         if (err) { return next(err); }
