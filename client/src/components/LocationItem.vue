@@ -6,7 +6,7 @@
           <b-row>
             <b-col md="5">
               <p class="text-left">
-                <img id="map" alt="Location" src="../assets/map.png" />
+                <img alt="Location" src="../assets/map.png" />
                 {{ location.name }}
               </p>
             </b-col>
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-#map {
+img {
   width: 33px;
   margin-right: 10px;
 }

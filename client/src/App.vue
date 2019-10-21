@@ -46,6 +46,8 @@ export default {
   }
 };
 </script>
+
+<!-- All CSS styles -->
 <style>
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap");
