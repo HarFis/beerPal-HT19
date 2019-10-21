@@ -102,6 +102,11 @@ export default {
         .catch(error => {
           console.log(error);
         });
+        var that = this;
+        setTimeout(function(){
+        that.getReviews();
+        that.getBeer();
+      }, 300)
     },
     editReview(id, newReview) {
       Api.patch(`/reviews/${id}`, newReview)
