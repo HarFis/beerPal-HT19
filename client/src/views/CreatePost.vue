@@ -297,7 +297,7 @@ export default {
               //this.$router.push({ path: "/" }),
               setTimeout(function() {
                 that.$router.push({ path: "/" });
-              }, 100)
+              }, 150)
             )
             .catch(error => {
               console.log(error);
