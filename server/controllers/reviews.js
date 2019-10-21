@@ -178,19 +178,15 @@ router.delete('/:id', function (req, res, next) {
         if (err) { return next(err); }
     });
 
-    Review.findById({ _id: id }, function (err, review) {
+    Review.findOneAndDelete({ _id: id }, function (err, review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({ 'message': 'Review not found' });
         }
         var beerId = review.beer;
-        console.log(beerId)
-        review.delete();
-        review.save(function (err) {
-            if (err) { return next(err); }
-            setAverageScore(beerId, req, res, next);
-            res.status(200).json(review);
-        });
+        setAverageScore(beerId, req, res, next);    
+        res.status(200).json({message: "Review deleted"});
+
     });
 });
 
