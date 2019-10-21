@@ -90,7 +90,7 @@ export default {
             alert("Created!");
             setTimeout(function() {
               that.$router.push({ path: "/beers" });
-            }, 100);
+            }, 150);
           })
           .catch(error => {
             console.log(error);

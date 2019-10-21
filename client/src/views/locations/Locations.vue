@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-headful title="Locations - BeerPal" />
-    <div class="locations">
+    <div class="list">
       <h1>Locations</h1>
 
       <span v-if="!serverOK">
@@ -107,14 +107,5 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.createButton {
-  margin-bottom: 1em;
-}
-.locations {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2em;
-}
 </style>

@@ -3,18 +3,18 @@
     <b-card-group deck>
       <b-card>
         <div class="beer">
-          <img alt="beer" src="../../assets/beer.png">
-          <br>
+          <img alt="beer" src="../../assets/beer.png" />
+          <br />
           <h2 id="headline">{{ beer.name }}</h2>
-          
-            <p>Type: {{ beer.type }}</p>
-            <p>Alcohol/Vol: {{ beer.alcohol }}</p>
-            <p>
-              Average rating:
-              <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
-              <span id="warning" v-else>No ratings yet!</span>
-            </p>
-          
+
+          <p>Type: {{ beer.type }}</p>
+          <p>Alcohol/Vol: {{ beer.alcohol }}</p>
+          <p>
+            Average rating:
+            <span v-if="beer.averageRating">{{ beer.averageRating }} points</span>
+            <span id="warning" v-else>No ratings yet!</span>
+          </p>
+
           <b-button variant="danger" @click="deleteBeer(beerID)">Delete this beer</b-button>
         </div>
       </b-card>
@@ -45,12 +45,10 @@
 <script>
 import { Api } from "@/Api";
 import ReviewItem from "@/components/ReviewItem";
-import router from "@/router";
 
 export default {
   name: "BeerDetails",
   props: ["beerID"],
-
   data() {
     return {
       beer: "",
@@ -129,25 +127,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
-.createButton {
-  margin-bottom: 1em;
-}
-.beer {
-  color: darkslategray;
-   border-radius: 20px;
-  margin: 10px;
-}
-
-#headline {
-  color: rgb(28, 52, 71);
-  font-weight: 900;
-}
-
-#warning {
-  color: crimson;
-  font-weight: bold;
-}
 </style>

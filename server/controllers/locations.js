@@ -3,6 +3,9 @@ var router = express.Router();
 var Location = require('../models/location');
 var mongoose = require('mongoose');
 
+/*------------
+-----POST-----
+------------*/
 
 // Create a new location
 router.post('/', function(req, res, next) {
@@ -16,6 +19,10 @@ router.post('/', function(req, res, next) {
     });
 });
 
+/*------------
+-----GET------
+------------*/
+
 // Return a list of all locations
 router.get('/', function(req, res, next) {
     Location.find(function(err, locations) {
@@ -25,6 +32,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Return the location with the given ID
+// not used in Frontend/Android
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -38,6 +46,10 @@ router.get('/:id', function(req, res, next) {
         res.status(200).json(location);
     });
 });
+
+/*------------
+-----PATCH----
+------------*/
 
 // PATCH Update (partially) a location with the given ID
 router.patch('/:id', function (req,res,next){
@@ -58,6 +70,7 @@ router.patch('/:id', function (req,res,next){
 });
 
 // Bulk (PATCH) update all info to same
+// not used in Frontend/Android
 router.patch('/', function (req, res, next) {
     var id = req.params.id;
     Location.find(function (err, locations) {
@@ -73,7 +86,12 @@ router.patch('/', function (req, res, next) {
     });
 });
 
+/*------------
+-----PUT------
+------------*/
+
 // PUT Update (completely) a location with the given ID 
+// not used in Frontend/Android
 router.put('/:id', function (req,res,next){
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -93,6 +111,10 @@ router.put('/:id', function (req,res,next){
     });
     });
 });
+
+/*------------
+---DELETE-----
+------------*/
 
 // Delete the location with the given ID
 router.delete('/:id', function(req, res, next) {

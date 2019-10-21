@@ -46,6 +46,8 @@ export default {
   }
 };
 </script>
+
+<!-- All CSS styles -->
 <style>
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap");
@@ -118,8 +120,31 @@ body {
   text-shadow: 0 1px rgba(255, 255, 255, 0);
 }
 
+.buttonClass {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 #warning {
   color: crimson;
   font-weight: bold;
+}
+
+.createButton {
+  margin-bottom: 1em;
+}
+.beer {
+  color: darkslategray;
+}
+
+#headline {
+  color: rgb(28, 52, 71);
+  font-weight: 900;
+}
+
+.list {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2em;
 }
 </style>

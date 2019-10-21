@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-headful title="Users - BeerPal" />
-    <div class="users">
+    <div class="list">
       <h1>Users</h1>
       <h3 v-if="!serverOK">
         <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
@@ -71,13 +71,5 @@ export default {
 </script>
 
 <style scoped>
-.color {
-  color: #42b983;
-}
 
-.users {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2em;
-}
 </style>

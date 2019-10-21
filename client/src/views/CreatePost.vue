@@ -17,42 +17,36 @@
         >
           <p>You need to be logged in to post</p>
           <b-form @submit.stop.prevent="onSubmitModal" @cancel="onCancelModal">
-            <b-form-group id="input-username" label="Username:" label-for="username">
-              <b-form-input
-                id="username-input"
-                v-model="form.username"
-                required
-                placeholder="Username..."
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group id="input-username" label="Username:" label-for="username">
+                <b-form-input
+                  id="username-input"
+                  v-model="form.username"
+                  required
+                  placeholder="Username..."
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group
-              id="input-password"
-              label="Password:"
-              label-for="password"
-              force-show="false"
-              invalid-feedback="Wrong password."
-              :state="valid"
-            >
-              <b-form-input
-                type="password"
-                id="password-input"
-                v-model="form.password"
-                required
-                placeholder="Password..."
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group
+                id="input-password"
+                label="Password:"
+                label-for="password"
+                force-show="false"
+                invalid-feedback="Wrong password."
+                :state="valid"
+              >
+                <b-form-input
+                  type="password"
+                  id="password-input"
+                  v-model="form.password"
+                  required
+                  placeholder="Password..."
+                ></b-form-input>
+              </b-form-group>
 
-            <b-container>
-              <b-row>
-                <b-col>
-                  <b-button type="submit" value="Submit" variant="secondary">Submit</b-button>
-                </b-col>
-                <b-col>
-                  <b-button type="button" @click="onCancelModal">Cancel</b-button>
-                </b-col>
-              </b-row>
-            </b-container>
+              <b-form-group>
+                <b-button type="submit" class="buttonClass" value="Submit">Submit</b-button>&nbsp;
+                <b-button type="button" variant="danger" @click="onCancelModal">Cancel</b-button>
+              </b-form-group>
           </b-form>
         </b-modal>
       </div>
@@ -303,7 +297,7 @@ export default {
               //this.$router.push({ path: "/" }),
               setTimeout(function() {
                 that.$router.push({ path: "/" });
-              }, 100)
+              }, 150)
             )
             .catch(error => {
               console.log(error);

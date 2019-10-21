@@ -63,7 +63,7 @@ export default {
 
       alert("Created!");
       var that = this;
-      setTimeout( function(){that.$router.push({ path: "/breweries" })}, 100)
+      setTimeout( function(){that.$router.push({ path: "/breweries" })}, 150)
     }
   }
 };

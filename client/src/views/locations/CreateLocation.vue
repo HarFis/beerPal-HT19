@@ -1,39 +1,34 @@
 <template>
   <div>
-    <vue-headful
-            title="Add location - BeerPal"
-        />
-  <h2>Add new location</h2>
-  <b-container >
-    <b-row class="justify-content-md-center">
-      <b-col md="6">
-  <b-card>
-  <b-form class="location-form text-left" @submit.prevent="onSubmit">
-    <p>
-      <label for="name">Location's name:</label>
-      <b-form-input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
-    </p>
+    <vue-headful title="Add location - BeerPal" />
+    <h2>Add new location</h2>
+    <b-container>
+      <b-row class="justify-content-md-center">
+        <b-col md="6">
+          <b-card>
+            <b-form class="location-form text-left" @submit.prevent="onSubmit">
+              <p>
+                <label for="name">Location's name:</label>
+                <b-form-input id="name" v-model="name" placeholder="e.g. Hofbräuhaus" required />
+              </p>
 
-    
-      <label for="typeOfLocation">Type of Location:</label>
-      <b-form-select id="typeOfLocation" v-model="typeOfLocation" required>
-        <option :value=null>Choose...</option>
-        <option>Restaurant</option>
-        <option>Bar</option>
-        <option>Pub</option>
-        <option>Club</option>
-        <option>private</option>
-      </b-form-select>
-    
-      <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>
-&nbsp;
-      <b-button type="reset" variant="danger">Reset</b-button>
+              <label for="typeOfLocation">Type of Location:</label>
+              <b-form-select id="typeOfLocation" v-model="typeOfLocation" required>
+                <option :value="null">Choose...</option>
+                <option>Restaurant</option>
+                <option>Bar</option>
+                <option>Pub</option>
+                <option>Club</option>
+                <option>private</option>
+              </b-form-select>
 
-  </b-form>
-  </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+              <b-button class="buttonClass" type="submit" value="Submit">Submit</b-button>&nbsp;
+              <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -63,8 +58,9 @@ export default {
         this.typeOfLocation = null;
         //this.$router.push({ path: "/locations" });
         var that = this;
-        setTimeout( function(){that.$router.push({ path: "/locations" })}, 100)
-
+        setTimeout(function() {
+          that.$router.push({ path: "/locations" });
+        }, 150);
       } else {
         if (!this.name) this.errors.push("Name required.");
         if (!this.typeOfLocation)
