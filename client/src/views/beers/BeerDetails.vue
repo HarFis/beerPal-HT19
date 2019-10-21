@@ -32,6 +32,7 @@
                 :key="review._id"
                 :review="review"
                 @delete-review="deleteReview"
+                @edit-review="editReview"
               ></review-item>
             </b-list-group>
           </b-container>
@@ -101,6 +102,21 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    editReview(id, newReview) {
+      Api.patch(`/reviews/${id}`, newReview)
+        .then(response => {
+          console.log(response.data);
+          this.getReviews();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      var that = this;
+      setTimeout(function(){
+        that.getReviews();
+        that.getBeer();
+      }, 300)
     }
   },
   components: {
