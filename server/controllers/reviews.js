@@ -162,35 +162,11 @@ router.patch('/', function (req, res, next) {
     });
 });
 
+
+
 /*------------
------PUT------
+---DELETE-----
 ------------*/
-
-// Update (completely) a review with the given ID 
-// not used in Frontend/Android
-router.put('/:id', function (req, res, next) {
-    var id = req.params.id;
-    if( !mongoose.Types.ObjectId.isValid(id) ){
-        return res.status(404).json({message: "Review not found"}); // They didn't send an object ID
-      }
-    Review.findById({ _id: id }, function (err, review) {
-        if (err) { return next(err); }
-        if (review === null) {
-            return res.status(404).json({ 'message': 'Review not found' });
-        }
-        review.score = req.body.score;
-        review.textReview = req.body.textReview;
-        review.beer = req.body.beerID;
-        review.created = req.body.created;
-        review.save(function (err) {
-            if (err) { return next(err); }
-            var beerId = review.beer;
-            setAverageScore(beerId, req, res, next);  
-            res.status(200).json(review);
-        });
-    });
-});
-
 // Delete the review with the given ID & the related post & update avg. score
 router.delete('/:id', function (req, res, next) {
     var id = req.params.id;
@@ -201,23 +177,21 @@ router.delete('/:id', function (req, res, next) {
         if (err) { return next(err); } 
     });
 
-    Review.findOneAndDelete({ _id: id }, function (err, review) {
+    Review.findById({ _id: id }, function (err, review) {
         if (err) { return next(err); }
         if (review === null) {
             return res.status(404).json({ 'message': 'Review not found' });
         }
         var beerId = review.beer;
-        setAverageScore(beerId, req, res, next);    
-        res.status(200).json({message: "Review deleted"});
-        
-        
+        console.log(beerId)
+        setAverageScore(beerId, req, res, next);
+        review.delete();
+        review.save();   
+        res.status(200).json(review);
+
     });
     
 });
-
-/*------------
----DELETE-----
-------------*/
 
 // Delete all reviews & removes all posts & sets avg. rating to 0 for all beers (since no reviews exist)
 router.delete('/', function (req, res, next) {
@@ -230,7 +204,6 @@ router.delete('/', function (req, res, next) {
     Beer.find(function(err, beers){
         if (err) { return next(err); 
         } 
-        console.log(beers)
         for(var i = 0; i < beers.length; i ++){
             console.log(beers[i].averageRating)
             beers[i].averageRating = null;

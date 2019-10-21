@@ -9,44 +9,6 @@
 			"name": "Locations",
 			"item": [
 				{
-					"name": "GET /api/locations",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ad4bdf8f-dbb9-474a-b2db-8a67ee6e4ef8",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host}}/api/locations",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"locations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "POST /api/locations",
 					"event": [
 						{
@@ -82,13 +44,51 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"Ölstugan Tullen\",\n\t\"typeOfLocation\": \"Pub\"\n}",
+							"raw": "{\n\t\"name\":\"Ölstugan Majorna\",\n\t\"typeOfLocation\": \"Bar\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
+						"url": {
+							"raw": "{{host}}/api/locations",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/locations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad4bdf8f-dbb9-474a-b2db-8a67ee6e4ef8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/api/locations",
 							"host": [
@@ -128,7 +128,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}?",
+							"raw": "{{host}}/api/locations/{{location_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -189,7 +189,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}?",
+							"raw": "{{host}}/api/locations/{{location_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -250,7 +250,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}?",
+							"raw": "{{host}}/api/locations/{{location_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -296,7 +296,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/api/locations/{{location_id}}?",
+							"raw": "{{host}}/api/locations/{{location_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -315,6 +315,52 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET /api/locations all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12aa5826-211c-4130-b6ee-7d9629673ee3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/locations/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"locations",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -322,65 +368,6 @@
 		{
 			"name": "Reviews",
 			"item": [
-				{
-					"name": "POST /api/beers 404",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "1e40da28-1a21-4904-9daf-a415714327c2",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"    ",
-									"});",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"beer_id\", jsonData._id);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"name\": \"Norrlands Gul\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.2\"\n\t\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/beers/",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"beers",
-								""
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "POST /api/beers",
 					"event": [
@@ -419,7 +406,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"Norrlands Gul\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.2\"\n\t\n}",
+							"raw": "{\"name\": \"Norrlands Guld\" ,\n    \"type\": \"Lager\",\n    \"alcohol\": \"5.9\"\n\t\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -497,7 +484,7 @@
 					"response": []
 				},
 				{
-					"name": "POST /api/beers/:id/reviews",
+					"name": "POST /api/beers/:id/reviews (relation)",
 					"event": [
 						{
 							"listen": "test",
@@ -593,7 +580,7 @@
 					"response": []
 				},
 				{
-					"name": "DELETE /api/reviews/",
+					"name": "DELETE /api/reviews/ all",
 					"event": [
 						{
 							"listen": "test",
@@ -690,6 +677,86 @@
 					"response": []
 				},
 				{
+					"name": "GET /api/beers/ID reviews (relation)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1247fc7-4d32-46b0-b441-b0e76ca617f5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/beers/{{beer_id}}/reviews/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"beers",
+								"{{beer_id}}",
+								"reviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/reviews/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a1247fc7-4d32-46b0-b441-b0e76ca617f5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/reviews/{{review_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"{{review_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PATCH /api/reviews/ID",
 					"event": [
 						{
@@ -723,60 +790,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"score\":\"3\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/reviews/{{review_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"reviews",
-								"{{review_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT /api/reviews/ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "e2a799b4-ec7c-4e2a-8118-800040b0f85b",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"score\":\"2\",\n\t\"textReview\":\"OK beer\",\n\t\"beer\": \"{{beerID}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1042,13 +1055,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/api/beers",
+							"raw": "{{host}}/api/beers/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"beers"
+								"beers",
+								""
 							]
 						}
 					},
@@ -1357,55 +1371,6 @@
 							]
 						},
 						"description": "Update beer with given key to Smålands"
-					},
-					"response": []
-				},
-				{
-					"name": "PATCH /api/beers/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "50bb90e7-af8c-49e9-93bd-2f983a6854ae",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"type\" : \"IPA\"\n}"
-						},
-						"url": {
-							"raw": "{{host}}/api/beers/{{beer_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"beers",
-								"{{beer_id}}"
-							]
-						},
-						"description": "Set brewery to key 5d7cc6986d15c52684656eac"
 					},
 					"response": []
 				},
@@ -1905,852 +1870,960 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Jonatan",
+			"name": "Users",
 			"item": [
 				{
-					"name": "Users",
-					"item": [
+					"name": "POST/api/users",
+					"event": [
 						{
-							"name": "POST/api/users",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);",
-											"pm.environment.set(\"userId\", jsonData._id);",
-											"",
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
+							"listen": "test",
+							"script": {
+								"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"userId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"username\" : \"asdasdbasld\",\n\t\"mail\" : \"duptest@hogwartz.uk\",\n\t\"password\" : \"eee\"\n\t\n}"
-								},
-								"url": {
-									"raw": "{{host}}/api/users",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								},
-								"description": "Create User JonatanVaara"
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "525d83cc-3fcc-4a6f-9ced-7e8d972abae4",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								},
-								"description": "Gets all users"
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "9c79412f-0a7b-4f1f-bf14-3dfa393c7e92",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users/:id/posts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2d1af2f7-baa7-4c4e-b685-4e3fae7f08c6",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}/posts",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}",
-										"posts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users/:id/users",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "f9337005-f660-48aa-a46d-0d17ff1da15e",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}/users",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}",
-										"users"
-									]
-								},
-								"description": "Get all the users the user is following"
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users/followers/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "24139bf2-bdcd-4e61-aa99-9722f539d7b1",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users/followers/{{userId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"followers",
-										"{{userId}}"
-									]
-								},
-								"description": "Gets all the users following the user :id"
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/users?pageNo=1&size=5",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "7aad4ddd-49c7-4bb7-b164-2a13e7054eea",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users?pageNo=1&size=5",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users"
-									],
-									"query": [
-										{
-											"key": "pageNo",
-											"value": "1"
-										},
-										{
-											"key": "size",
-											"value": "5"
-										}
-									]
-								},
-								"description": "For Pagination"
-							},
-							"response": []
-						},
-						{
-							"name": "PATCH/api/users/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "994a904e-5390-4ec3-b942-6e263e3e206a",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"username\" : \"Megala Dong\",\n\t\"mail\" : \"anotheremail@mail.com\",\n\t\"following\" : \"{{userId}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "PUT /api/users/:id",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "c6dace74-e008-47b4-a4d7-b9c95e20b311",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "71f00e62-426e-47f1-a79e-6b30d2f9467c",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"username\" : \"Megala Dong\"\n}"
-								},
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}"
-									]
-								},
-								"description": "Replaces user"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE/api/users/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "ad8c915f-258d-46bc-97f4-25b1efd9d3d0",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "POST/api/users Copy",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);",
-											"pm.environment.set(\"userId\", jsonData._id);",
-											"",
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"username\" : \"asdasdbasld\",\n\t\"mail\" : \"duptest@hogwartz.uk\",\n\t\"password\" : \"eee\"\n\t\n}"
-								},
-								"url": {
-									"raw": "{{host}}/api/users",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users"
-									]
-								},
-								"description": "Create User so that test can run"
-							},
-							"response": []
+								"type": "text/javascript"
+							}
 						}
 					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"newusername\",\n\t\"mail\" : \"jonatan.vaara94@gmail.com\",\n\t\"password\" : \"eee\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create User JonatanVaara"
+					},
+					"response": []
 				},
 				{
-					"name": "Posts",
-					"item": [
+					"name": "GET/api/users",
+					"event": [
 						{
-							"name": "POST/api/posts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1bc3bf2b-f400-47ca-8013-5099205abec3",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);",
-											"pm.environment.set(\"postId\", jsonData._id);",
-											"",
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
+							"listen": "test",
+							"script": {
+								"id": "525d83cc-3fcc-4a6f-9ced-7e8d972abae4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"title\" : \"Noice \",\n\t\"postOwner\" : \"{{userId}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/api/posts",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"posts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/user/:userId/posts/:postId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c4fc02c1-5ff2-47bf-81f6-cf6ce8c0fd7a",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/api/users/{{userId}}/posts/{{postId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"users",
-										"{{userId}}",
-										"posts",
-										"{{postId}}"
-									]
-								},
-								"description": "Get's a post beloning to a specific user"
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/posts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "12a6d62f-81e2-4328-802d-45b8fd8fb338",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/posts",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"posts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET/api/posts/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "0a160d62-8d2c-490b-acfe-466bc8f70530",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/posts/{{postId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"posts",
-										"{{postId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "PATCH/api/posts/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "0dc25601-9d7a-43b5-a47b-679f75cb5a65",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"title\" : \"HARTMUT HIHI\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/api/posts/{{postId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"posts",
-										"{{postId}}"
-									]
-								},
-								"description": "Updates post with given ID"
-							},
-							"response": []
-						},
-						{
-							"name": "DELETE/api/posts/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2a6dd5ca-fdda-4f03-a568-9f009dba9442",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}/api/posts/{{postId}}",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"api",
-										"posts",
-										"{{postId}}"
-									]
-								},
-								"description": "Deletes post of specific ID"
-							},
-							"response": []
+								"type": "text/javascript"
+							}
 						}
 					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Gets all users"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c79412f-0a7b-4f1f-bf14-3dfa393c7e92",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d1af2f7-baa7-4c4e-b685-4e3fae7f08c6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/:id/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9337005-f660-48aa-a46d-0d17ff1da15e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"users"
+							]
+						},
+						"description": "Get all the users the user is following"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users/followers/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24139bf2-bdcd-4e61-aa99-9722f539d7b1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/followers/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"followers",
+								"{{userId}}"
+							]
+						},
+						"description": "Gets all the users following the user :id"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/users?pageNo=1&size=5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7aad4ddd-49c7-4bb7-b164-2a13e7054eea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users?pageNo=1&size=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNo",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						},
+						"description": "For Pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "994a904e-5390-4ec3-b942-6e263e3e206a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"Megala Dong\",\n\t\"mail\" : \"anotheremail@mail.com\",\n\t\"following\" : \"{{userId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /api/users/:id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c6dace74-e008-47b4-a4d7-b9c95e20b311",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "71f00e62-426e-47f1-a79e-6b30d2f9467c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"Megala Dong\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Replaces user"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad8c915f-258d-46bc-97f4-25b1efd9d3d0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/api/users Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b066a17-ea29-4a88-be78-3fcc751d8aae",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"userId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"asdasdbasld\",\n\t\"mail\" : \"duptest@hogwartz.uk\",\n\t\"password\" : \"eee\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create User so that test can run"
+					},
+					"response": []
+				},
+				{
+					"name": "Get/api/users/name/:username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/users/name/Jonatan",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"name",
+								"Jonatan"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "POST/api/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bc3bf2b-f400-47ca-8013-5099205abec3",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"postId\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\" : \"Noice \",\n\t\"postOwner\" : \"{{userId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/user/:userId/posts/:postId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4fc02c1-5ff2-47bf-81f6-cf6ce8c0fd7a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{userId}}/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Get's a post beloning to a specific user"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts?sort=1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12a6d62f-81e2-4328-802d-45b8fd8fb338",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts?sort=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a160d62-8d2c-490b-acfe-466bc8f70530",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dc25601-9d7a-43b5-a47b-679f75cb5a65",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\" : \"HARTMUT HIHI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Updates post with given ID"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/api/posts/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a6dd5ca-fdda-4f03-a568-9f009dba9442",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "Deletes post of specific ID"
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/api/posts/{{postId}}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\" : \"putteliputt \",\n\t\"postOwner\" : \"5da96bd42f32e300046ac3c2\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/posts/{{postId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{postId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/api/posts/",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								""
+							]
+						},
+						"description": "Deletes all posts"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/api/posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
