@@ -74,13 +74,4 @@ export default {
 </script>
 
 <style scoped>
-.color {
-  color: #42b983;
-}
-
-.users {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2em;
-}
 </style>

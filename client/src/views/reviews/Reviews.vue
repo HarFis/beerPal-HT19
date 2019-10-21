@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-headful title="Reviews - BeerPal" />
-    <div class="reviews">
+    <div class="list">
       <h1>Reviews</h1>
       <h3 v-if="!serverOK">
         <img style="max-width: 40px;" :src="require(`@/assets/warning.png`)" alt="warning" /> No connection to server. Please retry or contact administrator!
@@ -98,17 +98,5 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
-.createButton {
-  margin-bottom: 1em;
-}
-.reviews {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 2em;
-}
 </style>

@@ -89,23 +89,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
-.createButton {
-  margin-bottom: 1em;
-}
-.beer {
-  color: darkslategray;
-}
 
-#headline {
-  color: rgb(28, 52, 71);
-  font-weight: 900;
-}
 
-#warning {
-  color: crimson;
-  font-weight: bold;
-}
 </style>
