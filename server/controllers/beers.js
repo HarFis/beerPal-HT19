@@ -10,6 +10,7 @@ var Post = require('../models/post')
 -----GET------
 ------------*/
 //Return a list of all Beers
+//Used in frontend
 router.get('/', function(req, res, next) {
     var type = req.query.type;
     var sort = req.query.sort;
@@ -23,6 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 //Return a list of all Beers with a given type
+//NOT used in frontend
 router.get('/', function(req, res, next) {
     var type = req.query.type;
     var sort = req.query.sort;
@@ -40,6 +42,7 @@ router.get('/', function(req, res, next) {
 });
 
 //Return a list of all Beers sorted by alcohol
+//NOT used in frontend
 router.get('/', function(req, res, next) {
     var sort = req.query.sort;
     if(sort.charAt(0) == '-'){
@@ -60,6 +63,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Return the beer with the given ID
+// Used in frontend
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -76,6 +80,8 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+//Return all reviews for a given beer
+// Used in frontend(in BeerDetails)
 router.get('/:id/reviews', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -97,6 +103,7 @@ router.get('/:id/reviews', function(req, res, next) {
 ------------*/
 
 // Create a new beer
+// Used in frontend
 router.post('/', function(req, res, next) {
     var beer = new Beer(req.body);
     beer.save(function(err) {
@@ -105,33 +112,12 @@ router.post('/', function(req, res, next) {
     });
 });
 
-/*// Create a review with a given BEER ID
-router.post('/:id/reviews', function (req, res, next){
-    var id = req.params.id;
-    if( !mongoose.Types.ObjectId.isValid(id) ){
-        return res.status(404).json({message: "Beer not found in DB"}); // They didn't send an object ID
-      }
-    Beer.findById(id, function (err, beer){
-        if (err) { return next(err); }
-
-        var review = new Review({
-            beer: id,
-            score: req.body.score,
-            textReview: req.body.textReview,
-        });
-        review.save(function(err){
-            if (err) { return next(err); }
-        });
-    });
-});*/
-
-
-
 /*------------
 ---DELETE-----
 ------------*/
 
-// Delete all beers -> deletes all posts & posts
+// Delete all beers & posts & reviews
+// Used in frontend
 router.delete('/', function(req, res, next) {
     Beer.find().deleteMany().exec(function(err, beers) {
         if (err) { return next(err); }
@@ -149,7 +135,8 @@ router.delete('/', function(req, res, next) {
 });
 
 
-// Delete the beer with the given ID & deletes related review(s) and post(s)
+// Delete the beer with the given ID & related review and post
+// Used in frontend
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -184,6 +171,7 @@ router.delete('/:id', function(req, res, next) {
 ------------*/
 
 // Bulk update all beers with the given idea
+// NOT used in frontend
 router.put('/', function(req, res, next) {
     Beer.find(function(err, beers) {
         if (err) { return next(err); }
@@ -203,6 +191,7 @@ router.put('/', function(req, res, next) {
 });
 
 // Update the beer with the given id
+// NOT used in frontend, but used in Android
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -228,6 +217,7 @@ router.put('/:id', function(req, res, next) {
 ------------*/
 
 // Bulk partially update all beers
+// NOT used in frontend
 router.patch('/', function(req, res, next) {
     Beer.find(function(err, beers) {
         if (err) { return next(err); }
@@ -247,6 +237,7 @@ router.patch('/', function(req, res, next) {
 });
 
 // Partially update the beer with the given ID
+// NOT used in frontend, but used in Android
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -268,7 +259,7 @@ router.patch('/:id', function(req, res, next) {
 });
 
 //Create a new review through beer
-// DO NOT USE, just for Milestone 1, does not update average score!!
+//NOT used in frontend
 router.post('/:id/reviews', function (req, res, next){
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -276,7 +267,6 @@ router.post('/:id/reviews', function (req, res, next){
       }
     Beer.findById(id, function (err, beer){
         if (err) { return next(err); }
-        console.log("after error");
         if (!beer) {
             return res.status(404).json({
                 message: "Beer not found in DB"
@@ -287,7 +277,6 @@ router.post('/:id/reviews', function (req, res, next){
             score: req.body.score,
             textReview: req.body.textReview
         });
-        console.log(review);
         review.save(function(err) {
             if (err) { return next(err); }
             res.status(201).json(review);

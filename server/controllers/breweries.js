@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
 -----GET------
 ------------*/
 
-//Return a list of all Breweries
+// Return a list of all Breweries
+// Used in frontend
 router.get('/', function(req, res, next) {
     Brewery.find(function(err, breweries) {
         if (err) { return next(err); }
@@ -17,6 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Return the Brewery with the given ID
+// Used in frontend
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -31,7 +33,8 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
-//Return all beers for a brewery
+// Return all beers for a brewery
+// Used in frontend(in BreweryInfo)
 router.get('/:id/beers', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -51,6 +54,7 @@ router.get('/:id/beers', function(req, res, next) {
 ------------*/
 
 // Create a new Brewery
+// Used in frontend
 router.post('/', function(req, res, next) {
     var brewery = new Brewery(req.body);
     brewery.save(function(err) {
@@ -64,6 +68,7 @@ router.post('/', function(req, res, next) {
 ------------*/
 
 // Delete the Brewery with the given ID
+// Used in frontend
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -79,6 +84,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 //Delete given beer for given brewery, and check if beer exsist in brewery
+// NOT used in frontend
 router.delete('/:brewery_id/beers/:beer_id', function(req, res, next){
     var beerId = req.params.beer_id;
     var breweryId = req.params.brewery_id;
@@ -105,7 +111,8 @@ router.delete('/:brewery_id/beers/:beer_id', function(req, res, next){
     });
 });
 
-// Delete all beers
+// Delete all breweries
+// Used in frontend
 router.delete('/', function(req, res, next) {
     Brewery.find().deleteMany().exec(function(err, breweries) {
         if (err) { return next(err); }
@@ -118,6 +125,7 @@ router.delete('/', function(req, res, next) {
 ------------*/
 
 // Update the Brewery with the given idea
+// Used in frontend
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -142,6 +150,7 @@ router.put('/:id', function(req, res, next) {
 ------------*/
 
 // Partially update the brewery with the given ID
+// NOT used in frontend
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     if( !mongoose.Types.ObjectId.isValid(id) ){
