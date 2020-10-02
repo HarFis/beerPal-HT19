@@ -1,3 +1,16 @@
+# BEERPAL
+*a social platform for beer lovers.*
+
+
+Web app group project (Frontend and Backend) for DIT341 (autumn 2019) at Gothenburg University. 
+Course template can be downloaded [here](https://github.com/dit341/group-00-web). Originally created on gitlab and deployed on heroku.
+
+## Authors
+* **Alexander Strand** - *Project owner* - [strand93](https://github.com/strand93)
+* **Hartmut Fischer** - *Project owner* - [HarFis](https://github.com/HarFis)
+* **Jonatan Vaara** - *Project owner* - [JonatanVaara](https://github.com/JonatanVaara)
+
+
 # Backend and Frontend Template
 
 Latest version: https://git.ita.chalmers.se/courses/dit341/group-00-web (public Github [mirror](https://github.com/dit341/group-00-web))
@@ -50,3 +63,4 @@ npm run serve
 ## Visual Studio Code (VSCode)
 
 Open the `server` and `client` in separate VSCode workspaces or open the combined [backend-frontend.code-workspace](./backend-frontend.code-workspace). Otherwise, workspace-specific settings don't work properly.
+
