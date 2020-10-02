@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020 hajke-gu
+Copyright (c) 2020 beerPal crew
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
